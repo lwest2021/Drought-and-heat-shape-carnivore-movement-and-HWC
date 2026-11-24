@@ -33,3 +33,10 @@ Some spatial figures require downloading geographic boundaries or satellite imag
 The full carnivore GPS location dataset (all_locations) and individual settlement visitation records (results_settlement_visits) are not included in this public repository due to the sensitivity of wildlife location data. Both datasets are retained separately.
 
 Consequently, some analyses and figures requiring individual GPS coordinates or settlement entry records cannot be reproduced from the publicly available files alone. The remaining processed datasets and code are provided to support transparency and reproducibility of the analyses.
+
+## Citation and archived version
+
+The data and code associated with this manuscript are permanently archived on Zenodo:
+
+West et al. (2026). Drought and heat shape carnivore movement and human–wildlife conflict: Manuscript data and code, v1.0.0. Zenodo. https://doi.org/10.5281/zenodo.24490305
+
