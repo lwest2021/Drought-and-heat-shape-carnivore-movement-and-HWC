@@ -1,0 +1,617 @@
+id,YearMon,species,pack,sex,id_simple,visit_count,settlement_name,radius_binned,sixmonth_spi,season,avg_temperature_max,Livestock_Present,Land_Use,Land_Use_Simple,Artificial_Water_Sources,Type_Artificial_Water,Waterhole_Y_N,Natural_Water_Sources,hot_day_count,hot_day_prop
+Qamar1,2011-07,Cheetah,NA,M,Qamar,2,HQ,2500,0.5276988751777492,Dry,21.515764236450202,N,tourism,tourism,N,NA,N,N,0,0
+Qamar1,2011-07,Cheetah,NA,M,Qamar,2,Kazikini,1250,0.5276988751777492,Dry,25.127649307250948,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Qamar1,2011-08,Cheetah,NA,M,Qamar,1,Dog_Camp,250,1.1411230717825689,Dry,29.1141147613525,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Qamar1,2011-08,Cheetah,NA,M,Qamar,4,HQ,2500,1.1411230717825689,Dry,27.723546981811523,N,tourism,tourism,N,NA,N,N,0,0
+Lea1,2011-08,Cheetah,NA,F,Lea,1,Moremi_South_Gate,1250,1.1411230717825689,Dry,28.3338413238525,N,tourism,tourism,Y,tanks,N,N,0,0
+Priya1,2011-08,Cheetah,NA,F,Priya,6,Moremi_South_Gate,1250,1.1411230717825689,Dry,25.9716714223226,N,tourism,tourism,Y,tanks,N,N,0,0
+Qamar1,2011-09,Cheetah,NA,M,Qamar,1,Dog_Camp,250,0.7275072020091192,Dry,32.2332992553711,N,tourism,tourism,Y,tanks_waterhole,Y,N,1,0.03333333333333333
+Priya1,2011-09,Cheetah,NA,F,Priya,5,HQ,2500,0.7275072020091192,Dry,31.60778160095218,N,tourism,tourism,N,NA,N,N,1,0.03333333333333333
+Qamar1,2011-09,Cheetah,NA,M,Qamar,1,HQ,2500,0.7275072020091192,Dry,32.759391784668,N,tourism,tourism,N,NA,N,N,1,0.03333333333333333
+Qamar1,2011-09,Cheetah,NA,M,Qamar,1,Kazikini,1250,0.7275072020091192,Dry,32.885612487793,N,tourism,tourism,Y,tanks_waterhole,Y,N,1,0.03333333333333333
+Qamar1,2011-10,Cheetah,NA,M,Qamar,1,Gomoti_Camp,250,1.0893620562270812,Dry,32.4427719116211,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419353
+Qamar1,2011-10,Cheetah,NA,M,Qamar,3,HQ,2500,1.0893620562270812,Dry,36.27000681559243,N,tourism,tourism,N,NA,N,N,15,0.4838709677419353
+Lea1,2011-10,Cheetah,NA,F,Lea,2,Moremi_South_Gate,1250,1.0893620562270812,Dry,32.5876626968384,N,tourism,tourism,Y,tanks,N,N,15,0.4838709677419353
+Qamar1,2011-11,Cheetah,NA,M,Qamar,1,HQ,2500,0.5797702827976164,Dry,38.466667175293,N,tourism,tourism,N,NA,N,N,10,0.33333333333333337
+Lea1,2011-11,Cheetah,NA,F,Lea,1,Moremi_South_Gate,1250,0.5797702827976164,Dry,36.7042922973633,N,tourism,tourism,Y,tanks,N,N,10,0.33333333333333337
+Qamar1,2011-11,Cheetah,NA,M,Qamar,1,Moremi_South_Gate,1250,0.5797702827976164,Dry,34.0573501586914,N,tourism,tourism,Y,tanks,N,N,10,0.33333333333333337
+Yolo1,2011-12,African Wild Dog,MTW,M,Yolo,2,Gomoti_Camp,250,1.3011500616641478,Wet,31.6417179107666,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Yolo1,2011-12,African Wild Dog,MTW,M,Yolo,2,HQ,2500,1.3011500616641478,Wet,31.175989151000998,N,tourism,tourism,N,NA,N,N,0,0
+Bobedi,2011-12,African Wild Dog,HWK,F,Bobedi,2,Kazikini,1250,1.3011500616641478,Wet,26.33826637268065,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Yolo1,2011-12,African Wild Dog,MTW,M,Yolo,1,Kazikini,1250,1.3011500616641478,Wet,26.843729019165,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Yolo1,2011-12,African Wild Dog,MTW,M,Yolo,8,Moremi_South_Gate,1250,1.3011500616641478,Wet,28.636337280273438,N,tourism,tourism,Y,tanks,N,N,0,0
+Bobedi,2011-12,African Wild Dog,HWK,F,Bobedi,1,Xhomxwa,2500,1.3011500616641478,Wet,27.7445774078369,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,0,0
+Bobedi,2012-01,African Wild Dog,HWK,F,Bobedi,3,Kazikini,1250,0.5214939426345117,Wet,32.5203685760498,N,tourism,tourism,Y,tanks_waterhole,Y,N,2,0.0645161290322581
+Yolo1,2012-02,African Wild Dog,MTW,M,Yolo,1,Dog_Camp,250,0.4033523196212313,Wet,29.8875980377197,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Yolo1,2012-02,African Wild Dog,MTW,M,Yolo,3,Gomoti_Camp,250,0.4033523196212313,Wet,26.802377700805668,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Yolo1,2012-02,African Wild Dog,MTW,M,Yolo,6,HQ,2500,0.4033523196212313,Wet,28.822956720987982,N,tourism,tourism,N,NA,N,N,0,0
+Bobedi,2012-02,African Wild Dog,HWK,F,Bobedi,1,Kazikini,1250,0.4033523196212313,Wet,28.9673557281494,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Yolo1,2012-02,African Wild Dog,MTW,M,Yolo,4,Moremi_South_Gate,1250,0.4033523196212313,Wet,28.331991195678725,N,tourism,tourism,Y,tanks,N,N,0,0
+Bobedi,2012-02,African Wild Dog,HWK,F,Bobedi,1,Pelotshweu,1250,0.4033523196212313,Wet,27.9058475494385,Y,pastoral,pastoral,Y,wells,N,Y,0,0
+Yolo1,2012-02,African Wild Dog,MTW,M,Yolo,1,Santawani_lodge,250,0.4033523196212313,Wet,28.469690322876,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Bobedi,2012-02,African Wild Dog,HWK,F,Bobedi,1,Xadora_Nanogaonne,2500,0.4033523196212313,Wet,27.9058475494385,Y,agricultural_pastoral,pastoral,N,NA,N,Y,0,0
+Bobedi,2012-02,African Wild Dog,HWK,F,Bobedi,1,Xhomxwa,2500,0.4033523196212313,Wet,22.2821598052979,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,0,0
+Bobedi,2012-03,African Wild Dog,HWK,F,Bobedi,3,Kazikini,1250,0.18631023016394505,Wet,28.971358617146834,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Bobedi,2012-03,African Wild Dog,HWK,F,Bobedi,1,Sankuyo,1250,0.18631023016394505,Wet,27.6906833648682,N,agricultural,pastoral,Y,tanks_wells,N,N,0,0
+Bobedi,2012-03,African Wild Dog,HWK,F,Bobedi,1,Shokomoka,1250,0.18631023016394505,Wet,28.36203956604,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,0,0
+Goose1,2012-04,Leopard,NA,M,Goose,1,Dog_Camp,250,0.0145252459501274,Wet,27.644250869751,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-04,Leopard,NA,M,Chalak,9,HQ,2500,0.0145252459501274,Wet,29.66087277730308,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_1,2012-04,Lion,STW,F,SaF03,1,HQ,2500,0.0145252459501274,Wet,28.4200534820557,N,tourism,tourism,N,NA,N,N,0,0
+Yolo1,2012-04,African Wild Dog,MTW,M,Yolo,7,HQ,2500,0.0145252459501274,Wet,30.093260356358115,N,tourism,tourism,N,NA,N,N,0,0
+Bobedi,2012-04,African Wild Dog,HWK,F,Bobedi,1,Kazikini,1250,0.0145252459501274,Wet,31.4197025299072,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Goose1,2012-04,Leopard,NA,M,Goose,2,Moremi_South_Gate,1250,0.0145252459501274,Wet,30.1598987579346,N,tourism,tourism,Y,tanks,N,N,0,0
+Jesus,2012-04,African Wild Dog,SRH,M,Jesus,1,Moremi_South_Gate,1250,0.0145252459501274,Wet,27.644250869751,N,tourism,tourism,Y,tanks,N,N,0,0
+Bobedi,2012-04,African Wild Dog,HWK,F,Bobedi,1,Pelotshweu,1250,0.0145252459501274,Wet,30.8262119293213,Y,pastoral,pastoral,Y,wells,N,Y,0,0
+Bobedi,2012-04,African Wild Dog,HWK,F,Bobedi,5,Sankuyo,1250,0.0145252459501274,Wet,30.8757419586182,N,agricultural,pastoral,Y,tanks_wells,N,N,0,0
+Chalak,2012-04,Leopard,NA,M,Chalak,1,Santawani_lodge,250,0.0145252459501274,Wet,28.185525894165,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Bobedi,2012-04,African Wild Dog,HWK,F,Bobedi,1,Tuskers_Camp,250,0.0145252459501274,Wet,30.8244571685791,N,tourism,tourism,Y,tanks_waterhole,Y,Y,0,0
+Chalak,2012-05,Leopard,NA,M,Chalak,1,Dog_Camp,250,0.01639810526037037,Wet,27.0291996002197,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-05,Leopard,NA,M,Chalak,11,HQ,2500,0.01639810526037037,Wet,29.20038101889871,N,tourism,tourism,N,NA,N,N,0,0
+Krystal,2012-05,Lion,STW,F,Krystal,13,HQ,2500,0.01639810526037037,Wet,27.69798058729906,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_1,2012-05,Lion,STW,F,SaF03,2,HQ,2500,0.01639810526037037,Wet,25.9677219390869,N,tourism,tourism,N,NA,N,N,0,0
+Goose1,2012-05,Leopard,NA,M,Goose,12,Moremi_South_Gate,1250,0.01639810526037037,Wet,29.05279986063639,N,tourism,tourism,Y,tanks,N,N,0,0
+Chalak,2012-05,Leopard,NA,M,Chalak,1,Santawani_lodge,250,0.01639810526037037,Wet,32.5881423950195,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_1,2012-05,Lion,STW,F,SaF03,1,Santawani_lodge,250,0.01639810526037037,Wet,25.5509433746338,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-06,Leopard,NA,M,Chalak,1,Dog_Camp,250,-0.5265085907184299,Dry,25.2089939117432,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Ferrari,2012-06,Cheetah,NA,F,Ferrari,1,Dog_Camp,250,-0.5265085907184299,Dry,21.483362197876,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-06,Leopard,NA,M,Chalak,7,HQ,2500,-0.5265085907184299,Dry,24.54885510035926,N,tourism,tourism,N,NA,N,N,0,0
+Krystal,2012-06,Lion,STW,F,Krystal,18,HQ,2500,-0.5265085907184299,Dry,23.49336094326444,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2012-06,Cheetah,NA,M,Qamar,7,HQ,2500,-0.5265085907184299,Dry,24.15085792541503,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_1,2012-06,Lion,STW,F,SaF03,7,HQ,2500,-0.5265085907184299,Dry,25.115603583199658,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2012-06,Cheetah,NA,M,Qamar,2,Kazikini,1250,-0.5265085907184299,Dry,25.89550971984865,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Goose1,2012-06,Leopard,NA,M,Goose,8,Moremi_South_Gate,1250,-0.5265085907184299,Dry,23.561605453491225,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF03_1,2012-06,Lion,STW,F,SaF03,2,Rra_Dinare,250,-0.5265085907184299,Dry,22.909830093383803,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_1,2012-06,Lion,STW,F,SaF03,1,Santawani_lodge,250,-0.5265085907184299,Dry,23.2701053619385,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-07,Leopard,NA,M,Chalak,2,Dog_Camp,250,-0.2482626364839451,Dry,20.35853004455565,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_1,2012-07,Lion,STW,F,SaF03,1,Gomoti_Camp,250,-0.2482626364839451,Dry,19.8958683013916,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-07,Leopard,NA,M,Chalak,8,HQ,2500,-0.2482626364839451,Dry,25.262311935424812,N,tourism,tourism,N,NA,N,N,0,0
+Krystal,2012-07,Lion,STW,F,Krystal,20,HQ,2500,-0.2482626364839451,Dry,25.45015907287598,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2012-07,Cheetah,NA,M,Qamar,3,HQ,2500,-0.2482626364839451,Dry,24.997629165649435,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_1,2012-07,Lion,STW,F,SaF03,7,HQ,2500,-0.2482626364839451,Dry,24.19780921936036,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2012-07,Cheetah,NA,M,Qamar,2,Kazikini,1250,-0.2482626364839451,Dry,25.84086799621585,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_1,2012-07,Lion,STW,F,SaF03,1,Mma_Dinare,250,-0.2482626364839451,Dry,27.2219181060791,N,tourism,tourism,Y,tanks,N,Y,0,0
+Chloe1,2012-07,Lion,CHL,F,Chloe,1,Moremi_South_Gate,1250,-0.2482626364839451,Dry,25.091028213501,N,tourism,tourism,Y,tanks,N,N,0,0
+Goose1,2012-07,Leopard,NA,M,Goose,10,Moremi_South_Gate,1250,-0.2482626364839451,Dry,23.81548957824707,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF03_1,2012-07,Lion,STW,F,SaF03,3,Rra_Dinare,250,-0.2482626364839451,Dry,26.217086156209334,N,tourism,tourism,Y,tanks,N,Y,0,0
+Chalak,2012-07,Leopard,NA,M,Chalak,1,Santawani_lodge,250,-0.2482626364839451,Dry,22.5166416168213,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Krystal,2012-07,Lion,STW,F,Krystal,1,Santawani_lodge,250,-0.2482626364839451,Dry,22.6174259185791,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_1,2012-07,Lion,STW,F,SaF03,1,Santawani_lodge,250,-0.2482626364839451,Dry,22.7571048736572,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-08,Leopard,NA,M,Chalak,4,Dog_Camp,250,-0.5142640685798251,Dry,26.075807571411126,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Goose1,2012-08,Leopard,NA,M,Goose,1,Dog_Camp,250,-0.5142640685798251,Dry,29.5642795562744,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Krystal,2012-08,Lion,STW,F,Krystal,1,Dog_Camp,250,-0.5142640685798251,Dry,28.2507877349854,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Goose1,2012-08,Leopard,NA,M,Goose,3,Gomoti_Camp,250,-0.5142640685798251,Dry,27.169076919555668,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Qamar2,2012-08,Cheetah,NA,M,Qamar,1,Gomoti_Camp,250,-0.5142640685798251,Dry,16.6004428863525,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_1,2012-08,Lion,STW,F,SaF03,1,Gomoti_Camp,250,-0.5142640685798251,Dry,30.8552494049072,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-08,Leopard,NA,M,Chalak,6,HQ,2500,-0.5142640685798251,Dry,27.756557782491015,N,tourism,tourism,N,NA,N,N,0,0
+Krystal,2012-08,Lion,STW,F,Krystal,14,HQ,2500,-0.5142640685798251,Dry,27.859922681535984,N,tourism,tourism,N,NA,N,N,0,0
+Lea2,2012-08,Cheetah,NA,F,Lea,3,HQ,2500,-0.5142640685798251,Dry,30.77056248982747,N,tourism,tourism,N,NA,N,N,0,0
+MJ,2012-08,African Wild Dog,KBE,M,MJ,7,HQ,2500,-0.5142640685798251,Dry,31.624243327549515,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2012-08,Cheetah,NA,M,Qamar,2,HQ,2500,-0.5142640685798251,Dry,33.2196044921875,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_1,2012-08,Lion,STW,F,SaF03,7,HQ,2500,-0.5142640685798251,Dry,27.168265751429942,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2012-08,Cheetah,NA,M,Qamar,1,Kazikini,1250,-0.5142640685798251,Dry,29.5760288238525,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_1,2012-08,Lion,STW,F,SaF03,1,Mawana_Vet_Gate,2500,-0.5142640685798251,Dry,27.3973789215088,Y,tourism,tourism,Y,tanks,N,N,0,0
+Krystal,2012-08,Lion,STW,F,Krystal,1,Mma_Dinare,250,-0.5142640685798251,Dry,27.3391971588135,N,tourism,tourism,Y,tanks,N,Y,0,0
+MJ,2012-08,African Wild Dog,KBE,M,MJ,1,Mma_Dinare,250,-0.5142640685798251,Dry,31.3410129547119,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_1,2012-08,Lion,STW,F,SaF03,2,Mma_Dinare,250,-0.5142640685798251,Dry,27.483476638793952,N,tourism,tourism,Y,tanks,N,Y,0,0
+Goose1,2012-08,Leopard,NA,M,Goose,10,Moremi_South_Gate,1250,-0.5142640685798251,Dry,27.773244094848632,N,tourism,tourism,Y,tanks,N,N,0,0
+Kubu,2012-08,African Wild Dog,MKW,F,Kubu,1,Moremi_South_Gate,1250,-0.5142640685798251,Dry,27.0328311920166,N,tourism,tourism,Y,tanks,N,N,0,0
+Doohan,2012-08,Lion,CO1,M,Doohan,1,Rra_Dinare,250,-0.5142640685798251,Dry,21.6963748931885,N,tourism,tourism,Y,tanks,N,Y,0,0
+Krystal,2012-08,Lion,STW,F,Krystal,1,Rra_Dinare,250,-0.5142640685798251,Dry,27.3391971588135,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_1,2012-08,Lion,STW,F,SaF03,2,Rra_Dinare,250,-0.5142640685798251,Dry,28.31511878967285,N,tourism,tourism,Y,tanks,N,Y,0,0
+Chalak,2012-08,Leopard,NA,M,Chalak,2,Santawani_lodge,250,-0.5142640685798251,Dry,28.67564582824705,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chalak,2012-09,Leopard,NA,M,Chalak,8,Dog_Camp,250,-1.98430259623489,Dry,33.76565408706665,N,tourism,tourism,Y,tanks_waterhole,Y,N,1,0.03333333333333333
+SaF03_1,2012-09,Lion,STW,F,SaF03,1,Dog_Camp,250,-1.98430259623489,Dry,35.0073471069336,N,tourism,tourism,Y,tanks_waterhole,Y,N,1,0.03333333333333333
+Yolo2,2012-09,African Wild Dog,MTW,M,Yolo,1,Dog_Camp,250,-1.98430259623489,Dry,35.4551773071289,N,tourism,tourism,Y,tanks_waterhole,Y,N,1,0.03333333333333333
+Chalak,2012-09,Leopard,NA,M,Chalak,6,HQ,2500,-1.98430259623489,Dry,31.62396589914958,N,tourism,tourism,N,NA,N,N,1,0.03333333333333333
+Krystal,2012-09,Lion,STW,F,Krystal,19,HQ,2500,-1.98430259623489,Dry,31.497282028198242,N,tourism,tourism,N,NA,N,N,1,0.03333333333333333
+Lea2,2012-09,Cheetah,NA,F,Lea,13,HQ,2500,-1.98430259623489,Dry,31.26591653090257,N,tourism,tourism,N,NA,N,N,1,0.03333333333333333
+MJ,2012-09,African Wild Dog,KBE,M,MJ,3,HQ,2500,-1.98430259623489,Dry,31.7214132944743,N,tourism,tourism,N,NA,N,N,1,0.03333333333333333
+SaF03_1,2012-09,Lion,STW,F,SaF03,11,HQ,2500,-1.98430259623489,Dry,31.326370586048466,N,tourism,tourism,N,NA,N,N,1,0.03333333333333333
+SaF03_1,2012-09,Lion,STW,F,SaF03,1,Mma_Dinare,250,-1.98430259623489,Dry,32.742057800293,N,tourism,tourism,Y,tanks,N,Y,1,0.03333333333333333
+Chloe1,2012-09,Lion,CHL,F,Chloe,2,Moremi_South_Gate,1250,-1.98430259623489,Dry,34.186515808105455,N,tourism,tourism,Y,tanks,N,N,1,0.03333333333333333
+Goose1,2012-09,Leopard,NA,M,Goose,2,Moremi_South_Gate,1250,-1.98430259623489,Dry,33.3969345092773,N,tourism,tourism,Y,tanks,N,N,1,0.03333333333333333
+MJ,2012-09,African Wild Dog,KBE,M,MJ,4,Rra_Dinare,250,-1.98430259623489,Dry,29.985719203948975,N,tourism,tourism,Y,tanks,N,Y,1,0.03333333333333333
+SaF03_1,2012-09,Lion,STW,F,SaF03,3,Rra_Dinare,250,-1.98430259623489,Dry,30.999942779541033,N,tourism,tourism,Y,tanks,N,Y,1,0.03333333333333333
+Chalak,2012-09,Leopard,NA,M,Chalak,3,Santawani_lodge,250,-1.98430259623489,Dry,33.74686495463053,N,tourism,tourism,Y,tanks_waterhole,Y,N,1,0.03333333333333333
+Krystal,2012-09,Lion,STW,F,Krystal,1,Santawani_lodge,250,-1.98430259623489,Dry,33.3969345092773,N,tourism,tourism,Y,tanks_waterhole,Y,N,1,0.03333333333333333
+SaF03_1,2012-09,Lion,STW,F,SaF03,3,Santawani_lodge,250,-1.98430259623489,Dry,29.611230214436866,N,tourism,tourism,Y,tanks_waterhole,Y,N,1,0.03333333333333333
+Bongwe1,2012-09,African Wild Dog,HWK,M,Bongwe,2,Xadora_Nanogaonne,2500,-1.98430259623489,Dry,33.361946105957,Y,agricultural_pastoral,pastoral,N,NA,N,Y,1,0.03333333333333333
+Bongwe1,2012-09,African Wild Dog,HWK,M,Bongwe,2,Xhomxwa,2500,-1.98430259623489,Dry,31.2114419937134,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,1,0.03333333333333333
+Krystal,2012-10,Lion,STW,F,Krystal,3,Dog_Camp,250,0.02917171033222948,Dry,35.33197784423827,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.4516129032258064
+Yolo2,2012-10,African Wild Dog,MTW,M,Yolo,1,Dog_Camp,250,0.02917171033222948,Dry,34.6597213745117,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.4516129032258064
+Chalak,2012-10,Leopard,NA,M,Chalak,1,HQ,2500,0.02917171033222948,Dry,34.3224716186523,N,tourism,tourism,N,NA,N,N,14,0.4516129032258064
+Krystal,2012-10,Lion,STW,F,Krystal,12,HQ,2500,0.02917171033222948,Dry,35.360810597737625,N,tourism,tourism,N,NA,N,N,14,0.4516129032258064
+Qamar2,2012-10,Cheetah,NA,M,Qamar,3,HQ,2500,0.02917171033222948,Dry,34.8161595662435,N,tourism,tourism,N,NA,N,N,14,0.4516129032258064
+Yolo2,2012-10,African Wild Dog,MTW,M,Yolo,4,HQ,2500,0.02917171033222948,Dry,35.75285339355467,N,tourism,tourism,N,NA,N,N,14,0.4516129032258064
+Bongwe1,2012-10,African Wild Dog,HWK,M,Bongwe,1,Kazikini,1250,0.02917171033222948,Dry,35.7092056274414,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.4516129032258064
+Krystal,2012-10,Lion,STW,F,Krystal,2,Rra_Dinare,250,0.02917171033222948,Dry,33.8704299926758,N,tourism,tourism,Y,tanks,N,Y,14,0.4516129032258064
+Yolo2,2012-10,African Wild Dog,MTW,M,Yolo,1,Rra_Dinare,250,0.02917171033222948,Dry,37.8701705932617,N,tourism,tourism,Y,tanks,N,Y,14,0.4516129032258064
+Chalak,2012-10,Leopard,NA,M,Chalak,1,Santawani_lodge,250,0.02917171033222948,Dry,34.5888442993164,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.4516129032258064
+Yolo2,2012-10,African Wild Dog,MTW,M,Yolo,1,Santawani_lodge,250,0.02917171033222948,Dry,36.0297012329102,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.4516129032258064
+Krystal,2012-11,Lion,STW,F,Krystal,1,HQ,2500,-0.6713384439639937,Dry,34.8898849487305,N,tourism,tourism,N,NA,N,N,9,0.3
+Qamar2,2012-11,Cheetah,NA,M,Qamar,3,HQ,2500,-0.6713384439639937,Dry,32.4542427062988,N,tourism,tourism,N,NA,N,N,9,0.3
+Chloe1,2012-11,Lion,CHL,F,Chloe,2,Moremi_South_Gate,1250,-0.6713384439639937,Dry,36.480094909668,N,tourism,tourism,Y,tanks,N,N,9,0.3
+Chloe1,2012-12,Lion,CHL,F,Chloe,1,Moremi_South_Gate,1250,-0.7025573447826312,Wet,31.3107852935791,N,tourism,tourism,Y,tanks,N,N,0,0
+Qamar2,2013-01,Cheetah,NA,M,Qamar,4,HQ,2500,0.2016638886292873,Wet,27.945932388305675,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2013-01,Cheetah,NA,M,Qamar,1,Kazikini,1250,0.2016638886292873,Wet,30.2222843170166,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chloe1,2013-01,Lion,CHL,F,Chloe,1,Moremi_South_Gate,1250,0.2016638886292873,Wet,30.5389347076416,N,tourism,tourism,Y,tanks,N,N,0,0
+Krystal,2013-02,Lion,STW,F,Krystal,1,HQ,2500,-0.26982603186232296,Wet,33.5010147094727,N,tourism,tourism,N,NA,N,N,0,0
+Chloe1,2013-02,Lion,CHL,F,Chloe,2,Moremi_South_Gate,1250,-0.26982603186232296,Wet,29.49924659729,N,tourism,tourism,Y,tanks,N,N,0,0
+Qamar2,2013-02,Cheetah,NA,M,Qamar,1,Sankuyo,1250,-0.26982603186232296,Wet,32.3805770874023,N,agricultural,pastoral,Y,tanks_wells,N,N,0,0
+Krystal,2013-02,Lion,STW,F,Krystal,1,Santawani_lodge,250,-0.26982603186232296,Wet,34.756233215332,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chloe1,2013-02,Lion,CHL,F,Chloe,1,Xakanaka_Gate,250,-0.26982603186232296,Wet,30.8544864654541,N,tourism,tourism,Y,tanks,N,N,0,0
+Krystal,2013-03,Lion,STW,F,Krystal,2,HQ,2500,-0.6053120829787113,Wet,32.744148254394545,N,tourism,tourism,N,NA,N,N,2,0.06451612903225809
+Qamar2,2013-03,Cheetah,NA,M,Qamar,5,HQ,2500,-0.6053120829787113,Wet,33.30314826965334,N,tourism,tourism,N,NA,N,N,2,0.06451612903225809
+Stumpy,2013-03,Lion,FM7,F,Stumpy,1,HQ,2500,-0.6053120829787113,Wet,32.4615249633789,N,tourism,tourism,N,NA,N,N,2,0.06451612903225809
+Qamar2,2013-03,Cheetah,NA,M,Qamar,3,Kazikini,1250,-0.6053120829787113,Wet,32.399233500162765,N,tourism,tourism,Y,tanks_waterhole,Y,N,2,0.06451612903225809
+Chloe1,2013-03,Lion,CHL,F,Chloe,1,Moremi_South_Gate,1250,-0.6053120829787113,Wet,36.194953918457,N,tourism,tourism,Y,tanks,N,N,2,0.06451612903225809
+Krystal,2013-03,Lion,STW,F,Krystal,1,Santawani_lodge,250,-0.6053120829787113,Wet,33.0804824829102,N,tourism,tourism,Y,tanks_waterhole,Y,N,2,0.06451612903225809
+Qamar2,2013-04,Cheetah,NA,M,Qamar,3,HQ,2500,-0.6878405401550652,Wet,29.594878514607768,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2013-04,Cheetah,NA,M,Qamar,1,Kazikini,1250,-0.6878405401550652,Wet,31.443567276001,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chloe1,2013-04,Lion,CHL,F,Chloe,2,Moremi_South_Gate,1250,-0.6878405401550652,Wet,28.8126850128174,N,tourism,tourism,Y,tanks,N,N,0,0
+Stumpy,2013-04,Lion,FM7,F,Stumpy,1,Santawani_lodge,250,-0.6878405401550652,Wet,31.85862159729,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chloe1,2013-04,Lion,CHL,F,Chloe,3,Xakanaka_Gate,250,-0.6878405401550652,Wet,33.077543258667,N,tourism,tourism,Y,tanks,N,N,0,0
+Qamar2,2013-05,Cheetah,NA,M,Qamar,4,HQ,2500,-0.5415585253516204,Wet,26.9612102508545,N,tourism,tourism,N,NA,N,N,0,0
+Chloe1,2013-05,Lion,CHL,F,Chloe,2,Moremi_South_Gate,1250,-0.5415585253516204,Wet,27.4711322784424,N,tourism,tourism,Y,tanks,N,N,0,0
+Qamar2,2013-06,Cheetah,NA,M,Qamar,5,HQ,2500,-0.33934655639245104,Dry,26.25315895080568,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2013-06,Cheetah,NA,M,Qamar,1,Kazikini,1250,-0.33934655639245104,Dry,26.2829990386963,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Qamar2,2013-07,Cheetah,NA,M,Qamar,6,HQ,2500,-1.8442741735627768,Dry,24.946784337361652,N,tourism,tourism,N,NA,N,N,0,0
+Qamar2,2013-07,Cheetah,NA,M,Qamar,1,Kazikini,1250,-1.8442741735627768,Dry,24.9247531890869,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Augustus,2013-08,African Wild Dog,BON,M,Augustus,2,Kazikini,1250,-1.638291036152755,Dry,30.3061923980713,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Chloe1,2013-08,Lion,CHL,F,Chloe,2,Moremi_South_Gate,1250,-1.638291036152755,Dry,27.23331642150875,N,tourism,tourism,Y,tanks,N,N,0,0
+Augustus,2013-08,African Wild Dog,BON,M,Augustus,1,Xhomxwa,2500,-1.638291036152755,Dry,22.8011569976807,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,0,0
+Chloe1,2013-09,Lion,CHL,F,Chloe,3,Moremi_South_Gate,1250,-1.98430259623489,Dry,25.1067447662354,N,tourism,tourism,Y,tanks,N,N,11,0.36666666666666664
+Adiga1,2013-12,African Wild Dog,MMB,M,Adiga,9,Moremi_South_Gate,1250,0.7419861271465235,Wet,28.416706509060322,N,tourism,tourism,Y,tanks,N,N,1,0.03225806451612905
+Seronera,2013-12,African Wild Dog,APK,F,Seronera,2,Moremi_South_Gate,1250,0.7419861271465235,Wet,26.5086460113525,N,tourism,tourism,Y,tanks,N,N,1,0.03225806451612905
+Bali3,2014-01,African Wild Dog,HAT,F,Bali,1,Dog_Camp,250,1.0447375550076652,Wet,26.8311252593994,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-01,African Wild Dog,APK,F,Seronera,1,Dog_Camp,250,1.0447375550076652,Wet,32.3959274291992,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-01,African Wild Dog,APK,F,Seronera,2,Gomoti_Camp,250,1.0447375550076652,Wet,30.22390174865725,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Bali3,2014-01,African Wild Dog,HAT,F,Bali,1,HQ,2500,1.0447375550076652,Wet,32.0808334350586,N,tourism,tourism,N,NA,N,N,0,0
+Seronera,2014-01,African Wild Dog,APK,F,Seronera,1,HQ,2500,1.0447375550076652,Wet,31.3558139801025,N,tourism,tourism,N,NA,N,N,0,0
+Seronera,2014-01,African Wild Dog,APK,F,Seronera,9,Moremi_South_Gate,1250,1.0447375550076652,Wet,26.779031753540036,N,tourism,tourism,Y,tanks,N,N,0,0
+Bali3,2014-01,African Wild Dog,HAT,F,Bali,1,Rra_Dinare,250,1.0447375550076652,Wet,32.0808334350586,N,tourism,tourism,Y,tanks,N,Y,0,0
+Seronera,2014-01,African Wild Dog,APK,F,Seronera,1,Santawani_lodge,250,1.0447375550076652,Wet,31.6434421539307,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-02,African Wild Dog,APK,F,Seronera,2,Gomoti_Camp,250,0.8049540397916317,Wet,26.841646194458,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-02,African Wild Dog,APK,F,Seronera,1,HQ,2500,0.8049540397916317,Wet,27.7535648345947,N,tourism,tourism,N,NA,N,N,0,0
+Seronera,2014-02,African Wild Dog,APK,F,Seronera,5,Moremi_South_Gate,1250,0.8049540397916317,Wet,27.81505165100098,N,tourism,tourism,Y,tanks,N,N,0,0
+Bali3,2014-02,African Wild Dog,HAT,F,Bali,1,Rra_Dinare,250,0.8049540397916317,Wet,27.5725650787354,N,tourism,tourism,Y,tanks,N,Y,0,0
+Seronera,2014-02,African Wild Dog,APK,F,Seronera,1,Santawani_lodge,250,0.8049540397916317,Wet,27.0277347564697,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Stumpy,2014-02,Lion,FM7,F,Stumpy,1,Santawani_lodge,250,0.8049540397916317,Wet,28.6021823883057,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-03,African Wild Dog,APK,F,Seronera,2,Dog_Camp,250,0.9892723565987148,Wet,27.98919868469235,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-03,African Wild Dog,APK,F,Seronera,4,HQ,2500,0.9892723565987148,Wet,28.517648696899425,N,tourism,tourism,N,NA,N,N,0,0
+Aztec,2014-03,African Wild Dog,ZLU,M,Aztec,3,Moremi_South_Gate,1250,0.9892723565987148,Wet,25.8910363515218,N,tourism,tourism,Y,tanks,N,N,0,0
+Seronera,2014-03,African Wild Dog,APK,F,Seronera,1,Moremi_South_Gate,1250,0.9892723565987148,Wet,27.1460666656494,N,tourism,tourism,Y,tanks,N,N,0,0
+Stumpy,2014-03,Lion,FM7,F,Stumpy,1,Moremi_South_Gate,1250,0.9892723565987148,Wet,27.2909336090088,N,tourism,tourism,Y,tanks,N,N,0,0
+Seronera,2014-03,African Wild Dog,APK,F,Seronera,2,Santawani_lodge,250,0.9892723565987148,Wet,28.0903568267822,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Stumpy,2014-03,Lion,FM7,F,Stumpy,1,Santawani_lodge,250,0.9892723565987148,Wet,28.4993228912354,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-04,African Wild Dog,APK,F,Seronera,2,Dog_Camp,250,0.9820027254830844,Wet,26.8236484527588,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-04,African Wild Dog,APK,F,Seronera,3,Gomoti_Camp,250,0.9820027254830844,Wet,27.935480117797866,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-04,African Wild Dog,APK,F,Seronera,5,HQ,2500,0.9820027254830844,Wet,25.23392677307128,N,tourism,tourism,N,NA,N,N,0,0
+Stumpy,2014-04,Lion,FM7,F,Stumpy,3,HQ,2500,0.9820027254830844,Wet,27.154896418253568,N,tourism,tourism,N,NA,N,N,0,0
+Aztec,2014-04,African Wild Dog,ZLU,M,Aztec,1,Kazikini,1250,0.9820027254830844,Wet,24.1724643707275,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Seronera,2014-04,African Wild Dog,APK,F,Seronera,2,Santawani_lodge,250,0.9820027254830844,Wet,26.90349769592285,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Stumpy,2014-05,Lion,FM7,F,Stumpy,1,Rra_Dinare,250,0.9303219765238429,Wet,26.7475986480713,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_3,2014-06,Lion,STW,F,SaF03,1,Dog_Camp,250,0.7896963036332509,Dry,25.6758213043213,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2014-06,Lion,STW,F,SaF03,1,HQ,2500,0.7896963036332509,Dry,25.0427494049072,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2014-07,Lion,STW,F,SaF03,4,Dog_Camp,250,0.5158806570136273,Dry,23.49146461486818,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2014-07,Lion,STW,F,SaF03,15,HQ,2500,0.5158806570136273,Dry,24.622462336222334,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2014-07,Lion,STW,F,SaF03,1,Mawana_Vet_Gate,2500,0.5158806570136273,Dry,26.1030216217041,Y,tourism,tourism,Y,tanks,N,N,0,0
+SaF03_3,2014-07,Lion,STW,F,SaF03,3,Santawani_lodge,250,0.5158806570136273,Dry,22.43840980529787,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2014-08,Lion,STW,F,SaF03,13,HQ,2500,0.7667101056824384,Dry,28.887756347656268,N,tourism,tourism,N,NA,N,N,0,0
+Tangiers,2014-08,African Wild Dog,DBO,F,Tangiers,2,Khwai,1250,0.7667101056824384,Dry,28.3692789077759,N,tourism,tourism,Y,tanks_waterhole,Y,Y,0,0
+Lupe,2014-08,African Wild Dog,KHW,M,Lupe,1,Machaba_Camp,1250,0.7667101056824384,Dry,28.6431217193604,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_3,2014-08,Lion,STW,F,SaF03,2,Rra_Dinare,250,0.7667101056824384,Dry,27.1155414581299,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_3,2014-08,Lion,STW,F,SaF03,1,Santawani_lodge,250,0.7667101056824384,Dry,28.6881351470947,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Tangiers,2014-09,African Wild Dog,DBO,F,Tangiers,1,Camp_Moremi,250,-0.0977103896427787,Dry,36.4378433227539,N,tourism,tourism,Y,tanks,N,Y,4,0.13333333333333336
+SaF03_3,2014-09,Lion,STW,F,SaF03,1,Gomoti_Camp,250,-0.0977103896427787,Dry,31.762170791626,N,tourism,tourism,Y,tanks_waterhole,Y,N,4,0.13333333333333336
+Xerxes1,2014-09,African Wild Dog,APK,M,Xerxes,16,Gomoti_Camp,250,-0.0977103896427787,Dry,34.0890724658966,N,tourism,tourism,Y,tanks_waterhole,Y,N,4,0.13333333333333336
+SaF03_3,2014-09,Lion,STW,F,SaF03,6,HQ,2500,-0.0977103896427787,Dry,30.621084531148284,N,tourism,tourism,N,NA,N,N,4,0.13333333333333336
+Xerxes1,2014-09,African Wild Dog,APK,M,Xerxes,5,HQ,2500,-0.0977103896427787,Dry,30.22277488708496,N,tourism,tourism,N,NA,N,N,4,0.13333333333333336
+Tangiers,2014-09,African Wild Dog,DBO,F,Tangiers,3,Khwai,1250,-0.0977103896427787,Dry,27.2760155995687,N,tourism,tourism,Y,tanks_waterhole,Y,Y,4,0.13333333333333336
+Adiga2,2014-09,African Wild Dog,MMB,M,Adiga,3,Moremi_South_Gate,1250,-0.0977103896427787,Dry,35.6528244018555,N,tourism,tourism,Y,tanks,N,N,4,0.13333333333333336
+Aztec,2014-09,African Wild Dog,ZLU,M,Aztec,1,Moremi_South_Gate,1250,-0.0977103896427787,Dry,36.4378433227539,N,tourism,tourism,Y,tanks,N,N,4,0.13333333333333336
+SaF03_3,2014-09,Lion,STW,F,SaF03,2,Rra_Dinare,250,-0.0977103896427787,Dry,26.3570194244385,N,tourism,tourism,Y,tanks,N,Y,4,0.13333333333333336
+Xerxes1,2014-09,African Wild Dog,APK,M,Xerxes,2,Santawani_lodge,250,-0.0977103896427787,Dry,30.5365915298462,N,tourism,tourism,Y,tanks_waterhole,Y,N,4,0.13333333333333336
+Tangiers,2014-09,African Wild Dog,DBO,F,Tangiers,1,Xakanaka_Camp,250,-0.0977103896427787,Dry,36.4378433227539,N,tourism,tourism,Y,tanks,N,Y,4,0.13333333333333336
+Tangiers,2014-09,African Wild Dog,DBO,F,Tangiers,2,Xakanaka_Gate,250,-0.0977103896427787,Dry,36.4378433227539,N,tourism,tourism,Y,tanks,N,N,4,0.13333333333333336
+SaF03_3,2014-10,Lion,STW,F,SaF03,1,Dog_Camp,250,-1.4503837787863114,Dry,32.9361953735352,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Xerxes1,2014-10,African Wild Dog,APK,M,Xerxes,1,Dog_Camp,250,-1.4503837787863114,Dry,37.3917922973633,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Xerxes1,2014-10,African Wild Dog,APK,M,Xerxes,25,Gomoti_Camp,250,-1.4503837787863114,Dry,36.20257720947265,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+SaF03_3,2014-10,Lion,STW,F,SaF03,3,HQ,2500,-1.4503837787863114,Dry,33.143583297729464,N,tourism,tourism,N,NA,N,N,15,0.4838709677419355
+Xerxes1,2014-10,African Wild Dog,APK,M,Xerxes,2,HQ,2500,-1.4503837787863114,Dry,37.31927490234375,N,tourism,tourism,N,NA,N,N,15,0.4838709677419355
+Xerxes1,2014-10,African Wild Dog,APK,M,Xerxes,1,Kazikini,1250,-1.4503837787863114,Dry,34.492546081543,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Tangiers,2014-10,African Wild Dog,DBO,F,Tangiers,4,Khwai,1250,-1.4503837787863114,Dry,33.6250195503235,N,tourism,tourism,Y,tanks_waterhole,Y,Y,15,0.4838709677419355
+Tangiers,2014-10,African Wild Dog,DBO,F,Tangiers,5,Machaba_Camp,1250,-1.4503837787863114,Dry,37.44522552490234,N,tourism,tourism,Y,tanks,N,Y,15,0.4838709677419355
+SaF03_3,2014-10,Lion,STW,F,SaF03,3,Mawana_Vet_Gate,2500,-1.4503837787863114,Dry,35.05894215901694,Y,tourism,tourism,Y,tanks,N,N,15,0.4838709677419355
+SaF03_3,2014-10,Lion,STW,F,SaF03,3,Mma_Dinare,250,-1.4503837787863114,Dry,36.948875427246065,N,tourism,tourism,Y,tanks,N,Y,15,0.4838709677419355
+Adiga2,2014-10,African Wild Dog,MMB,M,Adiga,1,Moremi_South_Gate,1250,-1.4503837787863114,Dry,31.3846988677979,N,tourism,tourism,Y,tanks,N,N,15,0.4838709677419355
+Xerxes1,2014-10,African Wild Dog,APK,M,Xerxes,2,Moremi_South_Gate,1250,-1.4503837787863114,Dry,33.4490509033203,N,tourism,tourism,Y,tanks,N,N,15,0.4838709677419355
+SaF03_3,2014-10,Lion,STW,F,SaF03,1,Rra_Dinare,250,-1.4503837787863114,Dry,36.7898483276367,N,tourism,tourism,Y,tanks,N,Y,15,0.4838709677419355
+Xerxes1,2014-10,African Wild Dog,APK,M,Xerxes,1,Santawani_lodge,250,-1.4503837787863114,Dry,37.0988388061523,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Tangiers,2014-10,African Wild Dog,DBO,F,Tangiers,2,Xakanaka_Gate,250,-1.4503837787863114,Dry,34.5129776000977,N,tourism,tourism,Y,tanks,N,N,15,0.4838709677419355
+SaF03_3,2014-11,Lion,STW,F,SaF03,1,Gomoti_Camp,250,-0.9428462033749168,Dry,37.442985534668,N,tourism,tourism,Y,tanks_waterhole,Y,N,5,0.16666666666666669
+Xerxes1,2014-11,African Wild Dog,APK,M,Xerxes,7,Gomoti_Camp,250,-0.9428462033749168,Dry,33.90206391470772,N,tourism,tourism,Y,tanks_waterhole,Y,N,5,0.16666666666666669
+SaF03_3,2014-11,Lion,STW,F,SaF03,6,HQ,2500,-0.9428462033749168,Dry,33.25356833140053,N,tourism,tourism,N,NA,N,N,5,0.16666666666666669
+Xerxes1,2014-11,African Wild Dog,APK,M,Xerxes,4,HQ,2500,-0.9428462033749168,Dry,32.8709535598755,N,tourism,tourism,N,NA,N,N,5,0.16666666666666669
+Xerxes1,2014-11,African Wild Dog,APK,M,Xerxes,1,Kazikini,1250,-0.9428462033749168,Dry,31.8280429840088,N,tourism,tourism,Y,tanks_waterhole,Y,N,5,0.16666666666666669
+Tangiers,2014-11,African Wild Dog,DBO,F,Tangiers,4,Khwai,1250,-0.9428462033749168,Dry,33.15455293655395,N,tourism,tourism,Y,tanks_waterhole,Y,Y,5,0.16666666666666669
+Xerxes1,2014-11,African Wild Dog,APK,M,Xerxes,4,Moremi_South_Gate,1250,-0.9428462033749168,Dry,32.93151569366455,N,tourism,tourism,Y,tanks,N,N,5,0.16666666666666669
+SaF03_3,2014-11,Lion,STW,F,SaF03,1,Santawani_lodge,250,-0.9428462033749168,Dry,35.7792739868164,N,tourism,tourism,Y,tanks_waterhole,Y,N,5,0.16666666666666669
+Tangiers,2014-11,African Wild Dog,DBO,F,Tangiers,2,Xakanaka_Gate,250,-0.9428462033749168,Dry,34.75846099853515,N,tourism,tourism,Y,tanks,N,N,5,0.16666666666666669
+Lupe,2014-12,African Wild Dog,KHW,M,Lupe,1,Dog_Camp,250,0.2355736805737763,Wet,29.1083316802979,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2014-12,Lion,STW,F,SaF03,1,Gomoti_Camp,250,0.2355736805737763,Wet,31.486536026001,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2014-12,African Wild Dog,APK,M,Xerxes,4,Gomoti_Camp,250,0.2355736805737763,Wet,32.23777103424072,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Lupe,2014-12,African Wild Dog,KHW,M,Lupe,15,HQ,2500,0.2355736805737763,Wet,29.358095423380554,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2014-12,Lion,STW,F,SaF03,5,HQ,2500,0.2355736805737763,Wet,29.34086303710938,N,tourism,tourism,N,NA,N,N,0,0
+Xerxes1,2014-12,African Wild Dog,APK,M,Xerxes,6,HQ,2500,0.2355736805737763,Wet,29.22415828704835,N,tourism,tourism,N,NA,N,N,0,0
+Xerxes1,2014-12,African Wild Dog,APK,M,Xerxes,5,Kazikini,1250,0.2355736805737763,Wet,29.2738651275635,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Tangiers,2014-12,African Wild Dog,DBO,F,Tangiers,1,Khwai,1250,0.2355736805737763,Wet,24.2409000396729,N,tourism,tourism,Y,tanks_waterhole,Y,Y,0,0
+Lupe,2014-12,African Wild Dog,KHW,M,Lupe,1,Mawana_Vet_Gate,2500,0.2355736805737763,Wet,31.486536026001,Y,tourism,tourism,Y,tanks,N,N,0,0
+Lupe,2014-12,African Wild Dog,KHW,M,Lupe,6,Mma_Dinare,250,0.2355736805737763,Wet,31.72080326080325,N,tourism,tourism,Y,tanks,N,Y,0,0
+Adiga2,2014-12,African Wild Dog,MMB,M,Adiga,2,Moremi_South_Gate,1250,0.2355736805737763,Wet,30.58947944641115,N,tourism,tourism,Y,tanks,N,N,0,0
+Xerxes1,2014-12,African Wild Dog,APK,M,Xerxes,1,Moremi_South_Gate,1250,0.2355736805737763,Wet,29.9338321685791,N,tourism,tourism,Y,tanks,N,N,0,0
+Lupe,2014-12,African Wild Dog,KHW,M,Lupe,4,Rra_Dinare,250,0.2355736805737763,Wet,30.6943635940552,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF08_3,2014-12,Lion,FM7,F,SaF08,1,Rra_Dinare,250,0.2355736805737763,Wet,27.3104190826416,N,tourism,tourism,Y,tanks,N,Y,0,0
+Lupe,2014-12,African Wild Dog,KHW,M,Lupe,1,Santawani_lodge,250,0.2355736805737763,Wet,27.3355045318604,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2014-12,Lion,STW,F,SaF03,1,Santawani_lodge,250,0.2355736805737763,Wet,25.4921970367432,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2014-12,African Wild Dog,APK,M,Xerxes,2,Santawani_lodge,250,0.2355736805737763,Wet,29.41736793518065,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Tangiers,2014-12,African Wild Dog,DBO,F,Tangiers,4,Xakanaka_Gate,250,0.2355736805737763,Wet,30.14330101013185,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF03_3,2015-01,Lion,STW,F,SaF03,1,Dog_Camp,250,-0.562225472084683,Wet,31.7476139068604,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2015-01,African Wild Dog,APK,M,Xerxes,2,Dog_Camp,250,-0.562225472084683,Wet,31.29340553283695,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2015-01,Lion,STW,F,SaF03,1,Gomoti_Camp,250,-0.562225472084683,Wet,31.9280338287354,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2015-01,African Wild Dog,APK,M,Xerxes,1,Gomoti_Camp,250,-0.562225472084683,Wet,33.9331436157227,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Lupe,2015-01,African Wild Dog,KHW,M,Lupe,3,HQ,2500,-0.562225472084683,Wet,32.6035588582357,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2015-01,Lion,STW,F,SaF03,1,HQ,2500,-0.562225472084683,Wet,25.3215274810791,N,tourism,tourism,N,NA,N,N,0,0
+Xerxes1,2015-01,African Wild Dog,APK,M,Xerxes,5,HQ,2500,-0.562225472084683,Wet,29.345916748046882,N,tourism,tourism,N,NA,N,N,0,0
+Xerxes1,2015-01,African Wild Dog,APK,M,Xerxes,1,Kazikini,1250,-0.562225472084683,Wet,31.7476139068604,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Pula1,2015-01,African Wild Dog,FAV,M,Pula,1,Machaba_Camp,1250,-0.562225472084683,Wet,34.6249008178711,N,tourism,tourism,Y,tanks,N,Y,0,0
+Chloe2,2015-01,Lion,CHL,F,Chloe,2,Moremi_South_Gate,1250,-0.562225472084683,Wet,32.97041416168215,N,tourism,tourism,Y,tanks,N,N,0,0
+Envy,2015-01,Lion,XNI,F,Envy,2,Moremi_South_Gate,1250,-0.562225472084683,Wet,31.3393955230713,N,tourism,tourism,Y,tanks,N,N,0,0
+Lupe,2015-01,African Wild Dog,KHW,M,Lupe,4,Rra_Dinare,250,-0.562225472084683,Wet,30.543038368225126,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF08_3,2015-01,Lion,FM7,F,SaF08,1,Rra_Dinare,250,-0.562225472084683,Wet,25.2175235748291,N,tourism,tourism,Y,tanks,N,Y,0,0
+Xerxes1,2015-01,African Wild Dog,APK,M,Xerxes,1,Santawani_lodge,250,-0.562225472084683,Wet,31.9280338287354,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Tangiers,2015-01,African Wild Dog,DBO,F,Tangiers,1,Xakanaka_Camp,250,-0.562225472084683,Wet,31.7476139068604,N,tourism,tourism,Y,tanks,N,Y,0,0
+Xerxes1,2015-02,African Wild Dog,APK,M,Xerxes,2,Dog_Camp,250,-0.9406540845496844,Wet,33.953660011291504,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.28571428571428575
+Xerxes1,2015-02,African Wild Dog,APK,M,Xerxes,1,Gomoti_Camp,250,-0.9406540845496844,Wet,35.7656326293945,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.28571428571428575
+Xerxes1,2015-02,African Wild Dog,APK,M,Xerxes,3,HQ,2500,-0.9406540845496844,Wet,34.74891980489093,N,tourism,tourism,N,NA,N,N,8,0.28571428571428575
+Tangiers,2015-02,African Wild Dog,DBO,F,Tangiers,2,Khwai,1250,-0.9406540845496844,Wet,29.29913520812985,N,tourism,tourism,Y,tanks_waterhole,Y,Y,8,0.28571428571428575
+Pula1,2015-02,African Wild Dog,FAV,M,Pula,1,Machaba_Camp,1250,-0.9406540845496844,Wet,29.93918800354,N,tourism,tourism,Y,tanks,N,Y,8,0.28571428571428575
+Tangiers,2015-02,African Wild Dog,DBO,F,Tangiers,1,Machaba_Camp,1250,-0.9406540845496844,Wet,29.023416519165,N,tourism,tourism,Y,tanks,N,Y,8,0.28571428571428575
+SaF08_3,2015-02,Lion,FM7,F,SaF08,1,Mma_Dinare,250,-0.9406540845496844,Wet,34.0680618286133,N,tourism,tourism,Y,tanks,N,Y,8,0.28571428571428575
+Adiga2,2015-02,African Wild Dog,MMB,M,Adiga,2,Moremi_South_Gate,1250,-0.9406540845496844,Wet,35.23847198486325,N,tourism,tourism,Y,tanks,N,N,8,0.28571428571428575
+Bali1,2015-02,African Wild Dog,HAT,F,Bali,1,Moremi_South_Gate,1250,-0.9406540845496844,Wet,33.2326278686523,N,tourism,tourism,Y,tanks,N,N,8,0.28571428571428575
+Chloe2,2015-02,Lion,CHL,F,Chloe,1,Moremi_South_Gate,1250,-0.9406540845496844,Wet,34.3422317504883,N,tourism,tourism,Y,tanks,N,N,8,0.28571428571428575
+Envy,2015-02,Lion,XNI,F,Envy,3,Moremi_South_Gate,1250,-0.9406540845496844,Wet,35.20285288492837,N,tourism,tourism,Y,tanks,N,N,8,0.28571428571428575
+Bali1,2015-02,African Wild Dog,HAT,F,Bali,1,Rra_Dinare,250,-0.9406540845496844,Wet,36.5981979370117,N,tourism,tourism,Y,tanks,N,Y,8,0.28571428571428575
+SaF08_3,2015-02,Lion,FM7,F,SaF08,1,Rra_Dinare,250,-0.9406540845496844,Wet,34.0680618286133,N,tourism,tourism,Y,tanks,N,Y,8,0.28571428571428575
+Xerxes1,2015-03,African Wild Dog,APK,M,Xerxes,2,Dog_Camp,250,-0.6167721068591131,Wet,34.42488861083985,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Bali1,2015-03,African Wild Dog,HAT,F,Bali,1,Gomoti_Camp,250,-0.6167721068591131,Wet,30.6041049957275,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2015-03,African Wild Dog,APK,M,Xerxes,11,Gomoti_Camp,250,-0.6167721068591131,Wet,33.101207039572984,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Bali1,2015-03,African Wild Dog,HAT,F,Bali,2,HQ,2500,-0.6167721068591131,Wet,33.0241174697876,N,tourism,tourism,N,NA,N,N,0,0
+Xerxes1,2015-03,African Wild Dog,APK,M,Xerxes,2,HQ,2500,-0.6167721068591131,Wet,29.498376846313448,N,tourism,tourism,N,NA,N,N,0,0
+Tangiers,2015-03,African Wild Dog,DBO,F,Tangiers,1,Khwai,1250,-0.6167721068591131,Wet,35.4888076782227,N,tourism,tourism,Y,tanks_waterhole,Y,Y,0,0
+Bali1,2015-03,African Wild Dog,HAT,F,Bali,4,Moremi_South_Gate,1250,-0.6167721068591131,Wet,31.28336429595945,N,tourism,tourism,Y,tanks,N,N,0,0
+Bali1,2015-03,African Wild Dog,HAT,F,Bali,1,Santawani_lodge,250,-0.6167721068591131,Wet,28.4373264312744,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2015-03,African Wild Dog,APK,M,Xerxes,4,Santawani_lodge,250,-0.6167721068591131,Wet,30.812996864318826,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Bali1,2015-04,African Wild Dog,HAT,F,Bali,1,Dog_Camp,250,-0.3928533416279026,Wet,26.8475894927979,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2015-04,African Wild Dog,APK,M,Xerxes,1,Dog_Camp,250,-0.3928533416279026,Wet,28.4429569244385,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2015-04,African Wild Dog,APK,M,Xerxes,3,Gomoti_Camp,250,-0.3928533416279026,Wet,26.480758031209334,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Bali1,2015-04,African Wild Dog,HAT,F,Bali,4,HQ,2500,-0.3928533416279026,Wet,27.315095901489276,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2015-04,Lion,STW,F,SaF03,3,HQ,2500,-0.3928533416279026,Wet,28.781778335571268,N,tourism,tourism,N,NA,N,N,0,0
+Xerxes1,2015-04,African Wild Dog,APK,M,Xerxes,3,HQ,2500,-0.3928533416279026,Wet,25.867827733357768,N,tourism,tourism,N,NA,N,N,0,0
+Tangiers,2015-04,African Wild Dog,DBO,F,Tangiers,5,Khwai,1250,-0.3928533416279026,Wet,26.13972511291502,N,tourism,tourism,Y,tanks_waterhole,Y,Y,0,0
+Bali1,2015-04,African Wild Dog,HAT,F,Bali,5,Moremi_South_Gate,1250,-0.3928533416279026,Wet,26.4290714263916,N,tourism,tourism,Y,tanks,N,N,0,0
+Bali1,2015-04,African Wild Dog,HAT,F,Bali,2,Santawani_lodge,250,-0.3928533416279026,Wet,27.1722049713135,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2015-04,Lion,STW,F,SaF03,1,Santawani_lodge,250,-0.3928533416279026,Wet,26.7487125396729,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes1,2015-04,African Wild Dog,APK,M,Xerxes,2,Santawani_lodge,250,-0.3928533416279026,Wet,24.1691837310791,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Tangiers,2015-04,African Wild Dog,DBO,F,Tangiers,2,Xakanaka_Gate,250,-0.3928533416279026,Wet,28.018938064575202,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF03_3,2015-05,Lion,STW,F,SaF03,6,HQ,2500,-0.2334219503058817,Wet,27.992634455362968,N,tourism,tourism,N,NA,N,N,0,0
+Hector,2015-06,Lion,CO2,M,Hector,1,Gomoti_Camp,250,-0.5165486378848352,Dry,26.1666965484619,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2015-06,Lion,STW,F,SaF03,1,Gomoti_Camp,250,-0.5165486378848352,Dry,24.2683811187744,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Hector,2015-06,Lion,CO2,M,Hector,3,HQ,2500,-0.5165486378848352,Dry,25.259602228800468,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2015-06,Lion,STW,F,SaF03,3,HQ,2500,-0.5165486378848352,Dry,24.063994725545268,N,tourism,tourism,N,NA,N,N,0,0
+Hector,2015-06,Lion,CO2,M,Hector,1,Santawani_lodge,250,-0.5165486378848352,Dry,22.4658451080322,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Hector,2015-07,Lion,CO2,M,Hector,1,Gomoti_Camp,250,0.01287144697648943,Dry,19.2943820953369,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2015-07,Lion,STW,F,SaF03,7,HQ,2500,0.01287144697648943,Dry,27.670812061854758,N,tourism,tourism,N,NA,N,N,0,0
+Hector,2015-07,Lion,CO2,M,Hector,1,Rra_Dinare,250,0.01287144697648943,Dry,24.7691440582275,N,tourism,tourism,Y,tanks,N,Y,0,0
+Hector,2015-07,Lion,CO2,M,Hector,1,Santawani_lodge,250,0.01287144697648943,Dry,28.4259586334229,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes2,2015-08,African Wild Dog,APK,M,Xerxes,3,Gomoti_Camp,250,0.7520769663989278,Dry,32.3146495819092,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Hector,2015-08,Lion,CO2,M,Hector,2,HQ,2500,0.7520769663989278,Dry,31.0717477798462,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2015-08,Lion,STW,F,SaF03,5,HQ,2500,0.7520769663989278,Dry,28.5402099609375,N,tourism,tourism,N,NA,N,N,0,0
+Hector,2015-08,Lion,CO2,M,Hector,1,Rra_Dinare,250,0.7520769663989278,Dry,32.7880172729492,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_3,2015-08,Lion,STW,F,SaF03,1,Santawani_lodge,250,0.7520769663989278,Dry,33.317756652832,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2015-09,Lion,CO3,M,Buzz,2,Dog_Camp,250,0.9731110914043718,Dry,36.912513732910156,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Charles,2015-09,Leopard,NA,M,Charles,4,Dog_Camp,250,0.9731110914043718,Dry,34.42099761962892,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+SaF03_3,2015-09,Lion,STW,F,SaF03,1,Dog_Camp,250,0.9731110914043718,Dry,36.7711868286133,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Bongwe2,2015-09,African Wild Dog,HNT,M,Bongwe,4,Gabamotsha,2500,0.9731110914043718,Dry,35.441432952880874,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,9,0.3
+Goose3,2015-09,Leopard,NA,M,Goose,4,Gomoti_Camp,250,0.9731110914043718,Dry,34.899848937988274,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Xerxes2,2015-09,African Wild Dog,APK,M,Xerxes,17,Gomoti_Camp,250,0.9731110914043718,Dry,34.17571662454045,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Bali1,2015-09,African Wild Dog,HAT,F,Bali,8,HQ,2500,0.9731110914043718,Dry,33.53255319595338,N,tourism,tourism,N,NA,N,N,9,0.3
+Bongwe2,2015-09,African Wild Dog,HNT,M,Bongwe,3,HQ,2500,0.9731110914043718,Dry,30.952386220296233,N,tourism,tourism,N,NA,N,N,9,0.3
+Buzz,2015-09,Lion,CO3,M,Buzz,9,HQ,2500,0.9731110914043718,Dry,35.21874597337512,N,tourism,tourism,N,NA,N,N,9,0.3
+Charles,2015-09,Leopard,NA,M,Charles,8,HQ,2500,0.9731110914043718,Dry,35.5212345123291,N,tourism,tourism,N,NA,N,N,9,0.3
+Hector,2015-09,Lion,CO2,M,Hector,2,HQ,2500,0.9731110914043718,Dry,29.720300674438498,N,tourism,tourism,N,NA,N,N,9,0.3
+SaF03_3,2015-09,Lion,STW,F,SaF03,7,HQ,2500,0.9731110914043718,Dry,34.888814926147454,N,tourism,tourism,N,NA,N,N,9,0.3
+Bongwe2,2015-09,African Wild Dog,HNT,M,Bongwe,4,Kazikini,1250,0.9731110914043718,Dry,36.3178520202637,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Buzz,2015-09,Lion,CO3,M,Buzz,1,Kazikini,1250,0.9731110914043718,Dry,31.3695163726807,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Bongwe2,2015-09,African Wild Dog,HNT,M,Bongwe,2,Matsaudi,1250,0.9731110914043718,Dry,34.55682373046875,Y,agricultural_pastoral,pastoral,Y,tanks_wells,N,Y,9,0.3
+Bali1,2015-09,African Wild Dog,HAT,F,Bali,6,Moremi_South_Gate,1250,0.9731110914043718,Dry,30.132498741149917,N,tourism,tourism,Y,tanks,N,N,9,0.3
+Goose3,2015-09,Leopard,NA,M,Goose,13,Moremi_South_Gate,1250,0.9731110914043718,Dry,34.13125595679651,N,tourism,tourism,Y,tanks,N,N,9,0.3
+Charles,2015-09,Leopard,NA,M,Charles,2,Rra_Dinare,250,0.9731110914043718,Dry,34.434226989746094,N,tourism,tourism,Y,tanks,N,Y,9,0.3
+Hector,2015-09,Lion,CO2,M,Hector,1,Rra_Dinare,250,0.9731110914043718,Dry,29.2456455230713,N,tourism,tourism,Y,tanks,N,Y,9,0.3
+SaF03_3,2015-09,Lion,STW,F,SaF03,3,Rra_Dinare,250,0.9731110914043718,Dry,36.374005635579465,N,tourism,tourism,Y,tanks,N,Y,9,0.3
+SaF08_3,2015-09,Lion,FM7,F,SaF08,1,Rra_Dinare,250,0.9731110914043718,Dry,31.9851474761963,N,tourism,tourism,Y,tanks,N,Y,9,0.3
+Zulu,2015-09,African Wild Dog,ZLU,M,Zulu,1,Sankuyo,1250,0.9731110914043718,Dry,34.5445785522461,N,agricultural,pastoral,Y,tanks_wells,N,N,9,0.3
+Bali1,2015-09,African Wild Dog,HAT,F,Bali,1,Santawani_lodge,250,0.9731110914043718,Dry,37.053840637207,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Bongwe2,2015-09,African Wild Dog,HNT,M,Bongwe,1,Santawani_lodge,250,0.9731110914043718,Dry,33.4165573120117,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Buzz,2015-09,Lion,CO3,M,Buzz,2,Santawani_lodge,250,0.9731110914043718,Dry,35.23519897460935,N,tourism,tourism,Y,tanks_waterhole,Y,N,9,0.3
+Bongwe2,2015-09,African Wild Dog,HNT,M,Bongwe,2,Shokomoka,1250,0.9731110914043718,Dry,34.9647903442383,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,9,0.3
+Bongwe2,2015-09,African Wild Dog,HNT,M,Bongwe,1,Shorobe,1250,0.9731110914043718,Dry,36.200309753418,Y,agricultural_pastoral,pastoral,Y,tanks_wells,N,Y,9,0.3
+Bongwe2,2015-10,African Wild Dog,HNT,M,Bongwe,1,Dog_Camp,250,-0.3407813189034609,Dry,37.3257217407227,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Buzz,2015-10,Lion,CO3,M,Buzz,2,Dog_Camp,250,-0.3407813189034609,Dry,37.5206756591797,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Charles,2015-10,Leopard,NA,M,Charles,3,Dog_Camp,250,-0.3407813189034609,Dry,36.9568150838216,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+SaF03_3,2015-10,Lion,STW,F,SaF03,2,Dog_Camp,250,-0.3407813189034609,Dry,36.9998397827148,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Bongwe2,2015-10,African Wild Dog,HNT,M,Bongwe,1,Gomoti_Camp,250,-0.3407813189034609,Dry,37.3257217407227,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Goose3,2015-10,Leopard,NA,M,Goose,4,Gomoti_Camp,250,-0.3407813189034609,Dry,36.9293746948242,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Xerxes2,2015-10,African Wild Dog,APK,M,Xerxes,30,Gomoti_Camp,250,-0.3407813189034609,Dry,37.09245452880859,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Bongwe2,2015-10,African Wild Dog,HNT,M,Bongwe,1,HQ,2500,-0.3407813189034609,Dry,37.1428298950195,N,tourism,tourism,N,NA,N,N,27,0.8709677419354838
+Buzz,2015-10,Lion,CO3,M,Buzz,14,HQ,2500,-0.3407813189034609,Dry,36.63871547154016,N,tourism,tourism,N,NA,N,N,27,0.8709677419354838
+Charles,2015-10,Leopard,NA,M,Charles,11,HQ,2500,-0.3407813189034609,Dry,36.992451754483305,N,tourism,tourism,N,NA,N,N,27,0.8709677419354838
+SaF03_3,2015-10,Lion,STW,F,SaF03,7,HQ,2500,-0.3407813189034609,Dry,36.2976346697126,N,tourism,tourism,N,NA,N,N,27,0.8709677419354838
+Bongwe2,2015-10,African Wild Dog,HNT,M,Bongwe,2,Kazikini,1250,-0.3407813189034609,Dry,34.8207550048828,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Bongwe2,2015-10,African Wild Dog,HNT,M,Bongwe,5,Matsaudi,1250,-0.3407813189034609,Dry,36.97382049560548,Y,agricultural_pastoral,pastoral,Y,tanks_wells,N,Y,27,0.8709677419354838
+Buzz,2015-10,Lion,CO3,M,Buzz,1,Mawana_Vet_Gate,2500,-0.3407813189034609,Dry,37.2192459106445,Y,tourism,tourism,Y,tanks,N,N,27,0.8709677419354838
+Charles,2015-10,Leopard,NA,M,Charles,2,Mawana_Vet_Gate,2500,-0.3407813189034609,Dry,33.4852828979492,Y,tourism,tourism,Y,tanks,N,N,27,0.8709677419354838
+Buzz,2015-10,Lion,CO3,M,Buzz,1,Mma_Dinare,250,-0.3407813189034609,Dry,37.2192459106445,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+Charles,2015-10,Leopard,NA,M,Charles,2,Mma_Dinare,250,-0.3407813189034609,Dry,37.49552917480465,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+Goose3,2015-10,Leopard,NA,M,Goose,12,Moremi_South_Gate,1250,-0.3407813189034609,Dry,36.84778340657551,N,tourism,tourism,Y,tanks,N,N,27,0.8709677419354838
+Zulu,2015-10,African Wild Dog,ZLU,M,Zulu,3,Moremi_South_Gate,1250,-0.3407813189034609,Dry,37.14611053466793,N,tourism,tourism,Y,tanks,N,N,27,0.8709677419354838
+Buzz,2015-10,Lion,CO3,M,Buzz,1,Rra_Dinare,250,-0.3407813189034609,Dry,37.2192459106445,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+Charles,2015-10,Leopard,NA,M,Charles,3,Rra_Dinare,250,-0.3407813189034609,Dry,36.80786895751953,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+Hector,2015-10,Lion,CO2,M,Hector,2,Rra_Dinare,250,-0.3407813189034609,Dry,37.25531768798825,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+SaF03_3,2015-10,Lion,STW,F,SaF03,2,Rra_Dinare,250,-0.3407813189034609,Dry,36.8001480102539,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+Buzz,2015-10,Lion,CO3,M,Buzz,3,Santawani_lodge,250,-0.3407813189034609,Dry,37.44794464111327,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Bongwe2,2015-10,African Wild Dog,HNT,M,Bongwe,6,Shokomoka,1250,-0.3407813189034609,Dry,36.96043395996093,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,27,0.8709677419354838
+Bongwe2,2015-10,African Wild Dog,HNT,M,Bongwe,2,Shorobe,1250,-0.3407813189034609,Dry,36.00595855712895,Y,agricultural_pastoral,pastoral,Y,tanks_wells,N,Y,27,0.8709677419354838
+Buzz,2015-11,Lion,CO3,M,Buzz,1,Dog_Camp,250,-1.1127143970549258,Dry,39.7811813354492,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+Bongwe2,2015-11,African Wild Dog,HNT,M,Bongwe,2,Gabamotsha,2500,-1.1127143970549258,Dry,35.5447235107422,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,17,0.5666666666666667
+Bali1,2015-11,African Wild Dog,HAT,F,Bali,2,Gomoti_Camp,250,-1.1127143970549258,Dry,33.3705987930298,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+Buzz,2015-11,Lion,CO3,M,Buzz,1,Gomoti_Camp,250,-1.1127143970549258,Dry,28.7477512359619,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+Goose3,2015-11,Leopard,NA,M,Goose,5,Gomoti_Camp,250,-1.1127143970549258,Dry,35.22434577941896,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+SaF03_3,2015-11,Lion,STW,F,SaF03,1,Gomoti_Camp,250,-1.1127143970549258,Dry,29.4072360992432,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+Xerxes2,2015-11,African Wild Dog,APK,M,Xerxes,14,Gomoti_Camp,250,-1.1127143970549258,Dry,38.626754760742195,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+Bongwe2,2015-11,African Wild Dog,HNT,M,Bongwe,1,Gomoti_Plains,250,-1.1127143970549258,Dry,39.8262252807617,N,tourism,tourism,Y,tanks,N,Y,17,0.5666666666666667
+Bali1,2015-11,African Wild Dog,HAT,F,Bali,5,HQ,2500,-1.1127143970549258,Dry,34.86618843078616,N,tourism,tourism,N,NA,N,N,17,0.5666666666666667
+Buzz,2015-11,Lion,CO3,M,Buzz,14,HQ,2500,-1.1127143970549258,Dry,36.03751713888987,N,tourism,tourism,N,NA,N,N,17,0.5666666666666667
+Charles,2015-11,Leopard,NA,M,Charles,11,HQ,2500,-1.1127143970549258,Dry,36.26582700555976,N,tourism,tourism,N,NA,N,N,17,0.5666666666666667
+Qamar3,2015-11,Cheetah,NA,M,Qamar,2,HQ,2500,-1.1127143970549258,Dry,33.740165710449205,N,tourism,tourism,N,NA,N,N,17,0.5666666666666667
+SaF03_3,2015-11,Lion,STW,F,SaF03,4,HQ,2500,-1.1127143970549258,Dry,35.27155685424805,N,tourism,tourism,N,NA,N,N,17,0.5666666666666667
+Bongwe2,2015-11,African Wild Dog,HNT,M,Bongwe,1,Kazikini,1250,-1.1127143970549258,Dry,35.7284164428711,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+Bongwe2,2015-11,African Wild Dog,HNT,M,Bongwe,1,Matsaudi,1250,-1.1127143970549258,Dry,34.7686233520508,Y,agricultural_pastoral,pastoral,Y,tanks_wells,N,Y,17,0.5666666666666667
+Bongwe2,2015-11,African Wild Dog,HNT,M,Bongwe,1,Mawana_Vet_Gate,2500,-1.1127143970549258,Dry,39.6871719360352,Y,tourism,tourism,Y,tanks,N,N,17,0.5666666666666667
+Charles,2015-11,Leopard,NA,M,Charles,2,Mawana_Vet_Gate,2500,-1.1127143970549258,Dry,35.50087070465085,Y,tourism,tourism,Y,tanks,N,N,17,0.5666666666666667
+Buzz,2015-11,Lion,CO3,M,Buzz,1,Mma_Dinare,250,-1.1127143970549258,Dry,37.4388961791992,N,tourism,tourism,Y,tanks,N,Y,17,0.5666666666666667
+Charles,2015-11,Leopard,NA,M,Charles,1,Mma_Dinare,250,-1.1127143970549258,Dry,39.1789779663086,N,tourism,tourism,Y,tanks,N,Y,17,0.5666666666666667
+Bali1,2015-11,African Wild Dog,HAT,F,Bali,3,Moremi_South_Gate,1250,-1.1127143970549258,Dry,34.31532033284507,N,tourism,tourism,Y,tanks,N,N,17,0.5666666666666667
+Goose3,2015-11,Leopard,NA,M,Goose,6,Moremi_South_Gate,1250,-1.1127143970549258,Dry,37.498987833658866,N,tourism,tourism,Y,tanks,N,N,17,0.5666666666666667
+Zulu,2015-11,African Wild Dog,ZLU,M,Zulu,3,Moremi_South_Gate,1250,-1.1127143970549258,Dry,35.537274678548165,N,tourism,tourism,Y,tanks,N,N,17,0.5666666666666667
+Bongwe2,2015-11,African Wild Dog,HNT,M,Bongwe,2,Nxanxana,1250,-1.1127143970549258,Dry,30.7859439849854,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,17,0.5666666666666667
+Buzz,2015-11,Lion,CO3,M,Buzz,3,Rra_Dinare,250,-1.1127143970549258,Dry,38.25032806396484,N,tourism,tourism,Y,tanks,N,Y,17,0.5666666666666667
+Buzz,2015-11,Lion,CO3,M,Buzz,1,Santawani_lodge,250,-1.1127143970549258,Dry,39.7811813354492,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+SaF03_3,2015-11,Lion,STW,F,SaF03,1,Santawani_lodge,250,-1.1127143970549258,Dry,37.3339614868164,N,tourism,tourism,Y,tanks_waterhole,Y,N,17,0.5666666666666667
+Bongwe2,2015-11,African Wild Dog,HNT,M,Bongwe,2,Shokomoka,1250,-1.1127143970549258,Dry,36.6369857788086,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,17,0.5666666666666667
+Bongwe2,2015-11,African Wild Dog,HNT,M,Bongwe,1,Shorobe,1250,-1.1127143970549258,Dry,38.9119491577148,Y,agricultural_pastoral,pastoral,Y,tanks_wells,N,Y,17,0.5666666666666667
+SaF03_3,2015-12,Lion,STW,F,SaF03,1,Dog_Camp,250,-0.8481318779959525,Wet,33.9146499633789,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Buzz,2015-12,Lion,CO3,M,Buzz,1,Gomoti_Camp,250,-0.8481318779959525,Wet,36.5754623413086,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Goose3,2015-12,Leopard,NA,M,Goose,3,Gomoti_Camp,250,-0.8481318779959525,Wet,36.501665751139335,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+SaF03_3,2015-12,Lion,STW,F,SaF03,2,Gomoti_Camp,250,-0.8481318779959525,Wet,31.1420383453369,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Bongwe2,2015-12,African Wild Dog,HNT,M,Bongwe,2,HQ,2500,-0.8481318779959525,Wet,34.12862396240235,N,tourism,tourism,N,NA,N,N,15,0.4838709677419355
+Buzz,2015-12,Lion,CO3,M,Buzz,4,HQ,2500,-0.8481318779959525,Wet,35.699314117431655,N,tourism,tourism,N,NA,N,N,15,0.4838709677419355
+Charles,2015-12,Leopard,NA,M,Charles,14,HQ,2500,-0.8481318779959525,Wet,34.3664207458496,N,tourism,tourism,N,NA,N,N,15,0.4838709677419355
+Qamar3,2015-12,Cheetah,NA,M,Qamar,1,HQ,2500,-0.8481318779959525,Wet,37.2411422729492,N,tourism,tourism,N,NA,N,N,15,0.4838709677419355
+Xerxes2,2015-12,African Wild Dog,APK,M,Xerxes,3,HQ,2500,-0.8481318779959525,Wet,33.592135111490904,N,tourism,tourism,N,NA,N,N,15,0.4838709677419355
+Bongwe2,2015-12,African Wild Dog,HNT,M,Bongwe,8,Kazikini,1250,-0.8481318779959525,Wet,34.68680024147032,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Bongwe2,2015-12,African Wild Dog,HNT,M,Bongwe,1,Mawana_Vet_Gate,2500,-0.8481318779959525,Wet,31.1420383453369,Y,tourism,tourism,Y,tanks,N,N,15,0.4838709677419355
+Goose3,2015-12,Leopard,NA,M,Goose,6,Moremi_South_Gate,1250,-0.8481318779959525,Wet,34.35982036590577,N,tourism,tourism,Y,tanks,N,N,15,0.4838709677419355
+Buzz,2015-12,Lion,CO3,M,Buzz,3,Santawani_lodge,250,-0.8481318779959525,Wet,34.7362798055013,N,tourism,tourism,Y,tanks_waterhole,Y,N,15,0.4838709677419355
+Bongwe2,2015-12,African Wild Dog,HNT,M,Bongwe,6,Shokomoka,1250,-0.8481318779959525,Wet,34.753649711608915,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,15,0.4838709677419355
+Xerxes2,2016-01,African Wild Dog,APK,M,Xerxes,3,Dog_Camp,250,-0.709075005570127,Wet,34.83878898620603,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.2580645161290324
+Bongwe2,2016-01,African Wild Dog,HNT,M,Bongwe,1,Gabamotsha,2500,-0.709075005570127,Wet,28.8945560455322,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,8,0.2580645161290324
+Buzz,2016-01,Lion,CO3,M,Buzz,2,Gomoti_Camp,250,-0.709075005570127,Wet,30.9325799942017,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.2580645161290324
+Goose3,2016-01,Leopard,NA,M,Goose,5,Gomoti_Camp,250,-0.709075005570127,Wet,34.80991134643554,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.2580645161290324
+Xerxes2,2016-01,African Wild Dog,APK,M,Xerxes,8,Gomoti_Camp,250,-0.709075005570127,Wet,39.09029388427734,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.2580645161290324
+Bali1,2016-01,African Wild Dog,HAT,F,Bali,2,HQ,2500,-0.709075005570127,Wet,31.9851016998291,N,tourism,tourism,N,NA,N,N,8,0.2580645161290324
+Buzz,2016-01,Lion,CO3,M,Buzz,2,HQ,2500,-0.709075005570127,Wet,33.0996017456055,N,tourism,tourism,N,NA,N,N,8,0.2580645161290324
+Charles,2016-01,Leopard,NA,M,Charles,13,HQ,2500,-0.709075005570127,Wet,32.7363202021672,N,tourism,tourism,N,NA,N,N,8,0.2580645161290324
+Qamar3,2016-01,Cheetah,NA,M,Qamar,1,HQ,2500,-0.709075005570127,Wet,30.7150363922119,N,tourism,tourism,N,NA,N,N,8,0.2580645161290324
+SaF03_3,2016-01,Lion,STW,F,SaF03,1,HQ,2500,-0.709075005570127,Wet,33.4978408813477,N,tourism,tourism,N,NA,N,N,8,0.2580645161290324
+Xerxes2,2016-01,African Wild Dog,APK,M,Xerxes,2,HQ,2500,-0.709075005570127,Wet,30.7150363922119,N,tourism,tourism,N,NA,N,N,8,0.2580645161290324
+Bongwe2,2016-01,African Wild Dog,HNT,M,Bongwe,4,Kazikini,1250,-0.709075005570127,Wet,30.354863166809075,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.2580645161290324
+Bongwe2,2016-01,African Wild Dog,HNT,M,Bongwe,1,Mawana_Vet_Gate,2500,-0.709075005570127,Wet,41.6132888793945,Y,tourism,tourism,Y,tanks,N,N,8,0.2580645161290324
+Goose3,2016-01,Leopard,NA,M,Goose,3,Moremi_South_Gate,1250,-0.709075005570127,Wet,32.060077667236335,N,tourism,tourism,Y,tanks,N,N,8,0.2580645161290324
+Xerxes2,2016-01,African Wild Dog,APK,M,Xerxes,4,Moremi_South_Gate,1250,-0.709075005570127,Wet,31.89687061309815,N,tourism,tourism,Y,tanks,N,N,8,0.2580645161290324
+Bongwe2,2016-01,African Wild Dog,HNT,M,Bongwe,1,Nxanxana,1250,-0.709075005570127,Wet,41.6132888793945,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,8,0.2580645161290324
+Bali1,2016-01,African Wild Dog,HAT,F,Bali,1,Rra_Dinare,250,-0.709075005570127,Wet,29.7181491851807,N,tourism,tourism,Y,tanks,N,Y,8,0.2580645161290324
+Buzz,2016-01,Lion,CO3,M,Buzz,1,Santawani_lodge,250,-0.709075005570127,Wet,32.7534561157227,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.2580645161290324
+SaF03_3,2016-01,Lion,STW,F,SaF03,1,Santawani_lodge,250,-0.709075005570127,Wet,33.4106216430664,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.2580645161290324
+Xerxes2,2016-01,African Wild Dog,APK,M,Xerxes,3,Santawani_lodge,250,-0.709075005570127,Wet,31.6661516825358,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.2580645161290324
+Bongwe2,2016-01,African Wild Dog,HNT,M,Bongwe,6,Shokomoka,1250,-0.709075005570127,Wet,30.576478322347,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,8,0.2580645161290324
+Buzz,2016-02,Lion,CO3,M,Buzz,1,Dog_Camp,250,-0.8177424874902112,Wet,33.6065139770508,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.10344827586206896
+Buzz,2016-02,Lion,CO3,M,Buzz,1,Gomoti_Camp,250,-0.8177424874902112,Wet,33.6065139770508,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.10344827586206896
+Goose3,2016-02,Leopard,NA,M,Goose,5,Gomoti_Camp,250,-0.8177424874902112,Wet,31.93810997009276,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.10344827586206896
+SaF03_3,2016-02,Lion,STW,F,SaF03,5,Gomoti_Camp,250,-0.8177424874902112,Wet,33.72023773193362,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.10344827586206896
+Buzz,2016-02,Lion,CO3,M,Buzz,2,HQ,2500,-0.8177424874902112,Wet,33.7993850708008,N,tourism,tourism,N,NA,N,N,3,0.10344827586206896
+Charles,2016-02,Leopard,NA,M,Charles,8,HQ,2500,-0.8177424874902112,Wet,33.27539324760435,N,tourism,tourism,N,NA,N,N,3,0.10344827586206896
+SaF03_3,2016-02,Lion,STW,F,SaF03,1,HQ,2500,-0.8177424874902112,Wet,27.5343265533447,N,tourism,tourism,N,NA,N,N,3,0.10344827586206896
+Xerxes2,2016-02,African Wild Dog,APK,M,Xerxes,3,HQ,2500,-0.8177424874902112,Wet,33.552365620931,N,tourism,tourism,N,NA,N,N,3,0.10344827586206896
+Xerxes2,2016-02,African Wild Dog,APK,M,Xerxes,1,Kazikini,1250,-0.8177424874902112,Wet,35.3622055053711,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.10344827586206896
+Buzz,2016-02,Lion,CO3,M,Buzz,1,Moremi_South_Gate,1250,-0.8177424874902112,Wet,27.5343265533447,N,tourism,tourism,Y,tanks,N,N,3,0.10344827586206896
+Goose3,2016-02,Leopard,NA,M,Goose,6,Moremi_South_Gate,1250,-0.8177424874902112,Wet,33.71506786346435,N,tourism,tourism,Y,tanks,N,N,3,0.10344827586206896
+Hector,2016-02,Lion,CO2,M,Hector,1,Moremi_South_Gate,1250,-0.8177424874902112,Wet,23.2510623931885,N,tourism,tourism,Y,tanks,N,N,3,0.10344827586206896
+Xerxes2,2016-02,African Wild Dog,APK,M,Xerxes,5,Moremi_South_Gate,1250,-0.8177424874902112,Wet,34.41086883544922,N,tourism,tourism,Y,tanks,N,N,3,0.10344827586206896
+SaF08_3,2016-02,Lion,FM7,F,SaF08,1,Rra_Dinare,250,-0.8177424874902112,Wet,27.5343265533447,N,tourism,tourism,Y,tanks,N,Y,3,0.10344827586206896
+Bongwe2,2016-02,African Wild Dog,HNT,M,Bongwe,1,Shokomoka,1250,-0.8177424874902112,Wet,32.5944595336914,Y,agricultural_pastoral,pastoral,Y,wells,N,Y,3,0.10344827586206896
+Buzz,2016-03,Lion,CO3,M,Buzz,2,Dog_Camp,250,-0.08689075735801634,Wet,29.56350898742675,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2016-03,Lion,STW,F,SaF03,1,Dog_Camp,250,-0.08689075735801634,Wet,28.862024307251,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes2,2016-03,African Wild Dog,APK,M,Xerxes,1,Dog_Camp,250,-0.08689075735801634,Wet,27.1179904937744,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-03,Lion,CO3,M,Buzz,1,Gomoti_Camp,250,-0.08689075735801634,Wet,30.2513980865479,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Xerxes2,2016-03,African Wild Dog,APK,M,Xerxes,2,Gomoti_Camp,250,-0.08689075735801634,Wet,27.75461006164555,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-03,Lion,CO3,M,Buzz,1,HQ,2500,-0.08689075735801634,Wet,29.1582431793213,N,tourism,tourism,N,NA,N,N,0,0
+Charles,2016-03,Leopard,NA,M,Charles,6,HQ,2500,-0.08689075735801634,Wet,29.06995550791425,N,tourism,tourism,N,NA,N,N,0,0
+Fiji,2016-03,African Wild Dog,HAT,M,Fiji,3,HQ,2500,-0.08689075735801634,Wet,29.1288293202718,N,tourism,tourism,N,NA,N,N,0,0
+Qamar3,2016-03,Cheetah,NA,M,Qamar,1,HQ,2500,-0.08689075735801634,Wet,27.0485782623291,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2016-03,Lion,STW,F,SaF03,2,HQ,2500,-0.08689075735801634,Wet,29.01013374328615,N,tourism,tourism,N,NA,N,N,0,0
+Xerxes2,2016-03,African Wild Dog,APK,M,Xerxes,1,HQ,2500,-0.08689075735801634,Wet,27.1179904937744,N,tourism,tourism,N,NA,N,N,0,0
+Buzz,2016-03,Lion,CO3,M,Buzz,1,Kazikini,1250,-0.08689075735801634,Wet,30.22678565979,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Goose3,2016-03,Leopard,NA,M,Goose,4,Moremi_South_Gate,1250,-0.08689075735801634,Wet,28.211377620697025,N,tourism,tourism,Y,tanks,N,N,0,0
+Xerxes2,2016-03,African Wild Dog,APK,M,Xerxes,5,Moremi_South_Gate,1250,-0.08689075735801634,Wet,29.07645301818848,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF08_3,2016-03,Lion,FM7,F,SaF08,1,Rra_Dinare,250,-0.08689075735801634,Wet,29.7826480865479,N,tourism,tourism,Y,tanks,N,Y,0,0
+Buzz,2016-03,Lion,CO3,M,Buzz,1,Santawani_lodge,250,-0.08689075735801634,Wet,27.5614261627197,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-04,Lion,CO3,M,Buzz,1,Dog_Camp,250,0.06540439684637256,Wet,26.2451267242432,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-04,Lion,CO3,M,Buzz,2,Gomoti_Camp,250,0.06540439684637256,Wet,30.9592294692993,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-04,Lion,CO3,M,Buzz,6,HQ,2500,0.06540439684637256,Wet,29.344676971435568,N,tourism,tourism,N,NA,N,N,0,0
+Charles,2016-04,Leopard,NA,M,Charles,7,HQ,2500,0.06540439684637256,Wet,28.9838673727853,N,tourism,tourism,N,NA,N,N,0,0
+Fiji,2016-04,African Wild Dog,HAT,M,Fiji,7,HQ,2500,0.06540439684637256,Wet,27.409579140799398,N,tourism,tourism,N,NA,N,N,0,0
+Qamar3,2016-04,Cheetah,NA,M,Qamar,5,HQ,2500,0.06540439684637256,Wet,29.70921287536622,N,tourism,tourism,N,NA,N,N,0,0
+Buzz,2016-04,Lion,CO3,M,Buzz,1,Moremi_South_Gate,1250,0.06540439684637256,Wet,31.5397434234619,N,tourism,tourism,Y,tanks,N,N,0,0
+Buzz,2016-04,Lion,CO3,M,Buzz,1,Santawani_lodge,250,0.06540439684637256,Wet,33.1918869018555,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-05,Lion,CO3,M,Buzz,3,Dog_Camp,250,0.2617339597262434,Wet,29.084502538045268,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-05,Lion,CO3,M,Buzz,1,Gomoti_Camp,250,0.2617339597262434,Wet,28.8205509185791,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-05,Lion,CO3,M,Buzz,1,HQ,2500,0.2617339597262434,Wet,24.3669681549072,N,tourism,tourism,N,NA,N,N,0,0
+Buzz,2016-05,Lion,CO3,M,Buzz,2,Moremi_South_Gate,1250,0.2617339597262434,Wet,29.31457710266115,N,tourism,tourism,Y,tanks,N,N,0,0
+Buzz,2016-05,Lion,CO3,M,Buzz,2,Santawani_lodge,250,0.2617339597262434,Wet,26.37742042541505,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-06,Lion,CO3,M,Buzz,9,Dog_Camp,250,0.4266375241996951,Dry,26.786335627237968,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-06,Lion,CO3,M,Buzz,2,HQ,2500,0.4266375241996951,Dry,25.6954212188721,N,tourism,tourism,N,NA,N,N,0,0
+Buzz,2016-06,Lion,CO3,M,Buzz,1,Moremi_South_Gate,1250,0.4266375241996951,Dry,27.8048191070557,N,tourism,tourism,Y,tanks,N,N,0,0
+Buzz,2016-06,Lion,CO3,M,Buzz,3,Santawani_lodge,250,0.4266375241996951,Dry,26.9490858713786,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-07,Lion,CO3,M,Buzz,5,Dog_Camp,250,0.7084805552485306,Dry,24.11102943420412,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-07,Lion,CO3,M,Buzz,8,HQ,2500,0.7084805552485306,Dry,26.128091573715214,N,tourism,tourism,N,NA,N,N,0,0
+Buzz,2016-07,Lion,CO3,M,Buzz,3,Moremi_South_Gate,1250,0.7084805552485306,Dry,24.0322411855062,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF08_3,2016-07,Lion,FM7,F,SaF08,1,Rra_Dinare,250,0.7084805552485306,Dry,23.5677738189697,N,tourism,tourism,Y,tanks,N,Y,0,0
+Buzz,2016-07,Lion,CO3,M,Buzz,3,Santawani_lodge,250,0.7084805552485306,Dry,24.968123753865534,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-08,Lion,CO3,M,Buzz,2,Dog_Camp,250,1.2990267068873007,Dry,28.01893043518065,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2016-08,Lion,STW,F,SaF03,2,Dog_Camp,250,1.2990267068873007,Dry,31.08432865142825,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2016-08,Lion,CO3,M,Buzz,8,HQ,2500,1.2990267068873007,Dry,29.548494100570675,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2016-08,Lion,STW,F,SaF03,17,HQ,2500,1.2990267068873007,Dry,28.904643002678366,N,tourism,tourism,N,NA,N,N,0,0
+Buzz,2016-08,Lion,CO3,M,Buzz,4,Santawani_lodge,250,1.2990267068873007,Dry,30.077547073364276,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2016-08,Lion,STW,F,SaF03,4,Santawani_lodge,250,1.2990267068873007,Dry,29.394399642944325,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2016-09,Lion,STW,F,SaF03,3,Dog_Camp,250,0.8549699604246266,Dry,34.179227828979464,N,tourism,tourism,Y,tanks_waterhole,Y,N,12,0.4
+Fiji,2016-09,African Wild Dog,HAT,M,Fiji,14,HQ,2500,0.8549699604246266,Dry,33.09625952584401,N,tourism,tourism,N,NA,N,N,12,0.4
+SaF03_3,2016-09,Lion,STW,F,SaF03,1,HQ,2500,0.8549699604246266,Dry,34.787971496582,N,tourism,tourism,N,NA,N,N,12,0.4
+SaF03_3,2016-09,Lion,STW,F,SaF03,7,Santawani_lodge,250,0.8549699604246266,Dry,33.815605708530946,N,tourism,tourism,Y,tanks_waterhole,Y,N,12,0.4
+Buzz,2016-10,Lion,CO3,M,Buzz,2,Dog_Camp,250,-1.4503837787863114,Dry,38.816162109375,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+SaF03_3,2016-10,Lion,STW,F,SaF03,1,Dog_Camp,250,-1.4503837787863114,Dry,38.543586730957,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+SaF03_3,2016-10,Lion,STW,F,SaF03,4,Gomoti_Camp,250,-1.4503837787863114,Dry,38.69686889648435,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Buzz,2016-10,Lion,CO3,M,Buzz,7,HQ,2500,-1.4503837787863114,Dry,37.350279671805254,N,tourism,tourism,N,NA,N,N,27,0.8709677419354838
+Fiji,2016-10,African Wild Dog,HAT,M,Fiji,1,HQ,2500,-1.4503837787863114,Dry,35.4453506469727,N,tourism,tourism,N,NA,N,N,27,0.8709677419354838
+SaF03_3,2016-10,Lion,STW,F,SaF03,5,HQ,2500,-1.4503837787863114,Dry,36.8335403442383,N,tourism,tourism,N,NA,N,N,27,0.8709677419354838
+Buzz,2016-10,Lion,CO3,M,Buzz,1,Mma_Dinare,250,-1.4503837787863114,Dry,38.9839248657227,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+Fiji,2016-10,African Wild Dog,HAT,M,Fiji,1,Rra_Dinare,250,-1.4503837787863114,Dry,35.4453506469727,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+SaF03_3,2016-10,Lion,STW,F,SaF03,1,Rra_Dinare,250,-1.4503837787863114,Dry,38.9371566772461,N,tourism,tourism,Y,tanks,N,Y,27,0.8709677419354838
+Buzz,2016-10,Lion,CO3,M,Buzz,2,Santawani_lodge,250,-1.4503837787863114,Dry,38.1996994018555,N,tourism,tourism,Y,tanks_waterhole,Y,N,27,0.8709677419354838
+Buzz,2016-11,Lion,CO3,M,Buzz,3,Dog_Camp,250,-0.7107804014399165,Dry,34.27530161539713,N,tourism,tourism,Y,tanks_waterhole,Y,N,10,0.3333333333333333
+Buzz,2016-11,Lion,CO3,M,Buzz,5,HQ,2500,-0.7107804014399165,Dry,35.00292243957518,N,tourism,tourism,N,NA,N,N,10,0.3333333333333333
+SaF03_3,2016-11,Lion,STW,F,SaF03,4,HQ,2500,-0.7107804014399165,Dry,34.406341552734396,N,tourism,tourism,N,NA,N,N,10,0.3333333333333333
+Buzz,2016-11,Lion,CO3,M,Buzz,3,Santawani_lodge,250,-0.7107804014399165,Dry,37.009829203287765,N,tourism,tourism,Y,tanks_waterhole,Y,N,10,0.3333333333333333
+SaF03_3,2016-11,Lion,STW,F,SaF03,1,Santawani_lodge,250,-0.7107804014399165,Dry,35.8666305541992,N,tourism,tourism,Y,tanks_waterhole,Y,N,10,0.3333333333333333
+Buzz,2016-12,Lion,CO3,M,Buzz,2,Dog_Camp,250,-0.21984420892142817,Wet,31.8448276519775,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09677419354838714
+SaF03_3,2016-12,Lion,STW,F,SaF03,5,Dog_Camp,250,-0.21984420892142817,Wet,27.74553260803222,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09677419354838714
+SaF03_3,2016-12,Lion,STW,F,SaF03,2,Gomoti_Camp,250,-0.21984420892142817,Wet,29.30826759338375,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09677419354838714
+Thaba,2016-12,Leopard,NA,M,Thaba,6,Gomoti_Camp,250,-0.21984420892142817,Wet,33.10753695170084,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09677419354838714
+Buzz,2016-12,Lion,CO3,M,Buzz,5,HQ,2500,-0.21984420892142817,Wet,35.953852844238284,N,tourism,tourism,N,NA,N,N,3,0.09677419354838714
+SaF03_3,2016-12,Lion,STW,F,SaF03,3,HQ,2500,-0.21984420892142817,Wet,33.095691045125335,N,tourism,tourism,N,NA,N,N,3,0.09677419354838714
+Buzz,2016-12,Lion,CO3,M,Buzz,1,Moremi_South_Gate,1250,-0.21984420892142817,Wet,27.6376285552979,N,tourism,tourism,Y,tanks,N,N,3,0.09677419354838714
+SaF03_3,2016-12,Lion,STW,F,SaF03,3,Santawani_lodge,250,-0.21984420892142817,Wet,34.19619051615397,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09677419354838714
+Buzz,2017-01,Lion,CO3,M,Buzz,1,Dog_Camp,250,0.41675731352213663,Wet,27.0825443267822,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2017-01,Lion,CO3,M,Buzz,2,Gomoti_Camp,250,0.41675731352213663,Wet,26.0495548248291,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-01,Lion,STW,F,SaF03,6,Gomoti_Camp,250,0.41675731352213663,Wet,25.606884638468415,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Thaba,2017-01,Leopard,NA,M,Thaba,2,Gomoti_Camp,250,0.41675731352213663,Wet,27.37742805480955,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2017-01,Lion,CO3,M,Buzz,4,Moremi_South_Gate,1250,0.41675731352213663,Wet,26.1745319366455,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF03_3,2017-01,Lion,STW,F,SaF03,1,Santawani_lodge,250,0.41675731352213663,Wet,26.7596988677979,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2017-02,Lion,CO3,M,Buzz,1,Dog_Camp,250,1.1597543257121394,Wet,28.2567234039307,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-02,Lion,STW,F,SaF03,2,Dog_Camp,250,1.1597543257121394,Wet,29.5685443878174,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2017-02,Lion,CO3,M,Buzz,4,Gomoti_Camp,250,1.1597543257121394,Wet,28.818700790405277,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-02,Lion,STW,F,SaF03,2,Gomoti_Camp,250,1.1597543257121394,Wet,27.70372200012205,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Thaba,2017-02,Leopard,NA,M,Thaba,4,Gomoti_Camp,250,1.1597543257121394,Wet,26.79862785339355,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-02,Lion,STW,F,SaF03,1,HQ,2500,1.1597543257121394,Wet,28.588586807251,N,tourism,tourism,N,NA,N,N,0,0
+Buzz,2017-02,Lion,CO3,M,Buzz,5,Moremi_South_Gate,1250,1.1597543257121394,Wet,27.85330848693846,N,tourism,tourism,Y,tanks,N,N,0,0
+Buzz,2017-02,Lion,CO3,M,Buzz,1,Santawani_lodge,250,1.1597543257121394,Wet,28.7234439849854,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-02,Lion,STW,F,SaF03,1,Santawani_lodge,250,1.1597543257121394,Wet,26.7300815582275,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-03,Lion,STW,F,SaF03,2,Dog_Camp,250,1.0943685213206569,Wet,27.17102241516115,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-03,Lion,STW,F,SaF03,4,Gomoti_Camp,250,1.0943685213206569,Wet,27.110673904418952,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Thaba,2017-03,Leopard,NA,M,Thaba,4,Gomoti_Camp,250,1.0943685213206569,Wet,26.8678035736084,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF08_3,2017-03,Lion,FM7,F,SaF08,2,HQ,2500,1.0943685213206569,Wet,28.402307510375948,N,tourism,tourism,N,NA,N,N,0,0
+SaF08_3,2017-03,Lion,FM7,F,SaF08,1,Rra_Dinare,250,1.0943685213206569,Wet,27.3735599517822,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_3,2017-03,Lion,STW,F,SaF03,1,Santawani_lodge,250,1.0943685213206569,Wet,27.3025302886963,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2017-04,Lion,CO3,M,Buzz,2,Dog_Camp,250,1.1685278432590114,Wet,28.41497230529785,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-04,Lion,STW,F,SaF03,1,Dog_Camp,250,1.1685278432590114,Wet,29.1447238922119,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Buzz,2017-04,Lion,CO3,M,Buzz,1,Gomoti_Camp,250,1.1685278432590114,Wet,29.7987155914307,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Thaba,2017-04,Leopard,NA,M,Thaba,1,Gomoti_Camp,250,1.1685278432590114,Wet,27.5910892486572,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-04,Lion,STW,F,SaF03,1,HQ,2500,1.1685278432590114,Wet,29.4888248443604,N,tourism,tourism,N,NA,N,N,0,0
+SaF08_3,2017-04,Lion,FM7,F,SaF08,4,HQ,2500,1.1685278432590114,Wet,25.76928901672365,N,tourism,tourism,N,NA,N,N,0,0
+Buzz,2017-04,Lion,CO3,M,Buzz,2,Moremi_South_Gate,1250,1.1685278432590114,Wet,28.3033390045166,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF08_3,2017-04,Lion,FM7,F,SaF08,1,Rra_Dinare,250,1.1685278432590114,Wet,28.2483768463135,N,tourism,tourism,Y,tanks,N,Y,0,0
+Buzz,2017-04,Lion,CO3,M,Buzz,1,Santawani_lodge,250,1.1685278432590114,Wet,29.2505130767822,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-04,Lion,STW,F,SaF03,1,Santawani_lodge,250,1.1685278432590114,Wet,23.0443210601807,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-05,Lion,STW,F,SaF03,3,Dog_Camp,250,1.3096419611981227,Wet,25.09174029032387,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-05,Lion,STW,F,SaF03,1,Gomoti_Camp,250,1.3096419611981227,Wet,25.99973487854,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Thaba,2017-05,Leopard,NA,M,Thaba,8,Gomoti_Camp,250,1.3096419611981227,Wet,25.416183471679677,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-05,Lion,STW,F,SaF03,5,HQ,2500,1.3096419611981227,Wet,24.882104873657223,N,tourism,tourism,N,NA,N,N,0,0
+Goose2,2017-05,Leopard,NA,M,Goose,9,Moremi_South_Gate,1250,1.3096419611981227,Wet,26.010846667819546,N,tourism,tourism,Y,tanks,N,N,0,0
+SaF08_3,2017-05,Lion,FM7,F,SaF08,2,Rra_Dinare,250,1.3096419611981227,Wet,24.899866104126,N,tourism,tourism,Y,tanks,N,Y,0,0
+SaF03_3,2017-06,Lion,STW,F,SaF03,3,Dog_Camp,250,1.291395459033879,Dry,24.854323705037434,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-06,Lion,STW,F,SaF03,1,Gomoti_Camp,250,1.291395459033879,Dry,24.3082523345947,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Thaba,2017-06,Leopard,NA,M,Thaba,3,Gomoti_Camp,250,1.291395459033879,Dry,24.379124323527034,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Goose2,2017-06,Leopard,NA,M,Goose,9,Moremi_South_Gate,1250,1.291395459033879,Dry,25.377333958943677,N,tourism,tourism,Y,tanks,N,N,0,0
+Pavarotti,2017-07,Leopard,NA,M,Pavarotti,1,Dog_Camp,250,1.296468390591831,Dry,24.195291519165,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Rolo,2017-07,Leopard,NA,M,Rolo,3,Dog_Camp,250,1.296468390591831,Dry,25.025985081990566,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-07,Lion,STW,F,SaF03,3,Gomoti_Camp,250,1.296468390591831,Dry,24.449411392211932,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Pavarotti,2017-07,Leopard,NA,M,Pavarotti,9,HQ,2500,1.296468390591831,Dry,24.7095890045166,N,tourism,tourism,N,NA,N,N,0,0
+Rolo,2017-07,Leopard,NA,M,Rolo,3,HQ,2500,1.296468390591831,Dry,24.6911767323812,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2017-07,Lion,STW,F,SaF03,1,HQ,2500,1.296468390591831,Dry,22.0420627593994,N,tourism,tourism,N,NA,N,N,0,0
+SaF08_3,2017-07,Lion,FM7,F,SaF08,1,HQ,2500,1.296468390591831,Dry,26.5380954742432,N,tourism,tourism,N,NA,N,N,0,0
+Goose2,2017-07,Leopard,NA,M,Goose,7,Moremi_South_Gate,1250,1.296468390591831,Dry,24.751295634678442,N,tourism,tourism,Y,tanks,N,N,0,0
+Pavarotti,2017-07,Leopard,NA,M,Pavarotti,2,Santawani_lodge,250,1.296468390591831,Dry,26.08313941955565,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Rolo,2017-07,Leopard,NA,M,Rolo,1,Santawani_lodge,250,1.296468390591831,Dry,25.3060550689697,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+RraMowa,2017-07,Leopard,NA,M,RraMowa,3,Santawani_lodge,250,1.296468390591831,Dry,25.065195083618168,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-07,Lion,STW,F,SaF03,1,Santawani_lodge,250,1.296468390591831,Dry,24.0734195709229,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Pavarotti,2017-08,Leopard,NA,M,Pavarotti,6,Dog_Camp,250,0.4546676841635667,Dry,28.74102433522542,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-08,Lion,STW,F,SaF03,3,Dog_Camp,250,0.4546676841635667,Dry,29.103957494099934,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-08,Lion,STW,F,SaF03,1,Gomoti_Camp,250,0.4546676841635667,Dry,31.3358402252197,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Pavarotti,2017-08,Leopard,NA,M,Pavarotti,13,HQ,2500,0.4546676841635667,Dry,28.879889855018018,N,tourism,tourism,N,NA,N,N,0,0
+Rolo,2017-08,Leopard,NA,M,Rolo,2,HQ,2500,0.4546676841635667,Dry,27.83196449279785,N,tourism,tourism,N,NA,N,N,0,0
+RraMowa,2017-08,Leopard,NA,M,RraMowa,1,HQ,2500,0.4546676841635667,Dry,22.2541904449463,N,tourism,tourism,N,NA,N,N,0,0
+SaF03_3,2017-08,Lion,STW,F,SaF03,6,HQ,2500,0.4546676841635667,Dry,28.425706545511883,N,tourism,tourism,N,NA,N,N,0,0
+Pavarotti,2017-08,Leopard,NA,M,Pavarotti,3,Santawani_lodge,250,0.4546676841635667,Dry,28.5617618560791,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Rolo,2017-08,Leopard,NA,M,Rolo,5,Santawani_lodge,250,0.4546676841635667,Dry,29.7843967437744,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+RraMowa,2017-08,Leopard,NA,M,RraMowa,4,Santawani_lodge,250,0.4546676841635667,Dry,27.378774642944325,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+SaF03_3,2017-08,Lion,STW,F,SaF03,3,Santawani_lodge,250,0.4546676841635667,Dry,29.706755956014,N,tourism,tourism,Y,tanks_waterhole,Y,N,0,0
+Pavarotti,2017-09,Leopard,NA,M,Pavarotti,3,Dog_Camp,250,0.6258249718703301,Dry,33.41127840677897,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.26666666666666666
+Rolo,2017-09,Leopard,NA,M,Rolo,1,Dog_Camp,250,0.6258249718703301,Dry,33.1367416381836,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.26666666666666666
+SaF03_3,2017-09,Lion,STW,F,SaF03,5,Dog_Camp,250,0.6258249718703301,Dry,33.53075141906738,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.26666666666666666
+Pavarotti,2017-09,Leopard,NA,M,Pavarotti,6,HQ,2500,0.6258249718703301,Dry,33.932762463887535,N,tourism,tourism,N,NA,N,N,8,0.26666666666666666
+Rolo,2017-09,Leopard,NA,M,Rolo,3,HQ,2500,0.6258249718703301,Dry,34.39459991455077,N,tourism,tourism,N,NA,N,N,8,0.26666666666666666
+SaF03_3,2017-09,Lion,STW,F,SaF03,10,HQ,2500,0.6258249718703301,Dry,34.21345996856688,N,tourism,tourism,N,NA,N,N,8,0.26666666666666666
+RraMowa,2017-09,Leopard,NA,M,RraMowa,1,Mma_Dinare,250,0.6258249718703301,Dry,33.0344314575195,N,tourism,tourism,Y,tanks,N,Y,8,0.26666666666666666
+Pavarotti,2017-09,Leopard,NA,M,Pavarotti,3,Santawani_lodge,250,0.6258249718703301,Dry,34.76473236083983,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.26666666666666666
+Rolo,2017-09,Leopard,NA,M,Rolo,16,Santawani_lodge,250,0.6258249718703301,Dry,33.43593549728393,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.26666666666666666
+RraMowa,2017-09,Leopard,NA,M,RraMowa,2,Santawani_lodge,250,0.6258249718703301,Dry,33.3144454956055,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.26666666666666666
+SaF03_3,2017-09,Lion,STW,F,SaF03,13,Santawani_lodge,250,0.6258249718703301,Dry,34.774337328397316,N,tourism,tourism,Y,tanks_waterhole,Y,N,8,0.26666666666666666
+Pavarotti,2017-10,Leopard,NA,M,Pavarotti,3,Dog_Camp,250,0.7286794204964994,Dry,34.609087626139335,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.45161290322580644
+Rolo,2017-10,Leopard,NA,M,Rolo,3,Dog_Camp,250,0.7286794204964994,Dry,34.536211649576835,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.45161290322580644
+SaF03_3,2017-10,Lion,STW,F,SaF03,1,Gomoti_Camp,250,0.7286794204964994,Dry,35.1650772094727,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.45161290322580644
+Pavarotti,2017-10,Leopard,NA,M,Pavarotti,2,HQ,2500,0.7286794204964994,Dry,34.8917694091797,N,tourism,tourism,N,NA,N,N,14,0.45161290322580644
+Rolo,2017-10,Leopard,NA,M,Rolo,1,HQ,2500,0.7286794204964994,Dry,32.799186706543,N,tourism,tourism,N,NA,N,N,14,0.45161290322580644
+SaF03_3,2017-10,Lion,STW,F,SaF03,12,HQ,2500,0.7286794204964994,Dry,34.9482804934184,N,tourism,tourism,N,NA,N,N,14,0.45161290322580644
+RraMowa,2017-10,Leopard,NA,M,RraMowa,1,Rra_Dinare,250,0.7286794204964994,Dry,36.9531478881836,N,tourism,tourism,Y,tanks,N,Y,14,0.45161290322580644
+Pavarotti,2017-10,Leopard,NA,M,Pavarotti,9,Santawani_lodge,250,0.7286794204964994,Dry,36.53341420491539,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.45161290322580644
+Rolo,2017-10,Leopard,NA,M,Rolo,4,Santawani_lodge,250,0.7286794204964994,Dry,34.666393280029276,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.45161290322580644
+RraMowa,2017-10,Leopard,NA,M,RraMowa,1,Santawani_lodge,250,0.7286794204964994,Dry,36.2282333374023,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.45161290322580644
+SaF03_3,2017-10,Lion,STW,F,SaF03,11,Santawani_lodge,250,0.7286794204964994,Dry,35.517344734885484,N,tourism,tourism,Y,tanks_waterhole,Y,N,14,0.45161290322580644
+Pavarotti,2017-11,Leopard,NA,M,Pavarotti,2,Dog_Camp,250,0.2879144989850419,Dry,33.4072504043579,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09999999999999998
+SaF03_3,2017-11,Lion,STW,F,SaF03,2,Dog_Camp,250,0.2879144989850419,Dry,33.56838989257815,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09999999999999998
+SaF03_3,2017-11,Lion,STW,F,SaF03,5,Gomoti_Camp,250,0.2879144989850419,Dry,35.58592376708984,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09999999999999998
+Pavarotti,2017-11,Leopard,NA,M,Pavarotti,1,HQ,2500,0.2879144989850419,Dry,34.0209274291992,N,tourism,tourism,N,NA,N,N,3,0.09999999999999998
+SaF03_3,2017-11,Lion,STW,F,SaF03,1,HQ,2500,0.2879144989850419,Dry,28.1953372955322,N,tourism,tourism,N,NA,N,N,3,0.09999999999999998
+Pavarotti,2017-11,Leopard,NA,M,Pavarotti,5,Santawani_lodge,250,0.2879144989850419,Dry,34.2358325958252,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09999999999999998
+SaF03_3,2017-11,Lion,STW,F,SaF03,4,Santawani_lodge,250,0.2879144989850419,Dry,30.055009365081776,N,tourism,tourism,Y,tanks_waterhole,Y,N,3,0.09999999999999998

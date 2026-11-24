@@ -1,0 +1,19 @@
+Damage_list,ConflictSpecies,total_conflicts
+Crops,African Wild Dog,3
+Crops,Leopard,2
+Crops,Lion,11
+Livestock,African Wild Dog,1994
+Livestock,Cheetah,90
+Livestock,Hyena,152
+Livestock,Leopard,1793
+Livestock,Lion,8261
+Other,Leopard,1
+Other,Lion,1
+Property,African Wild Dog,9
+Property,Hyena,2
+Property,Leopard,8
+Property,Lion,37
+Safety,African Wild Dog,1
+Safety,Hyena,2
+Safety,Leopard,1
+Safety,Lion,8

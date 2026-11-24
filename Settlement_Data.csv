@@ -1,0 +1,115 @@
+﻿Name,X_COORDIN,Y_COORDIN,Diameter_m,Land_Use,Settlement_Type,Est_Population_Size,Livestock_Present,Type_Livestock,Livestock_protection_Measures,Type_Livestock_Protection,Artificial_Water_Sources,Type_Artificial_Water,Waterhole_Y_N,Natural_Water_Sources,Attitudes_Toward_Carnivores,Carnivore_Sighting_Frequency_ Frequently_Occasioncattle_goatsy_ Never,Is_HWC_Issue,Humans_antagonistic_to_Carnivores,Remove?,Notes
+Audi,23.509025,-19.934264,500,tourism_urban,lodge_urban,NA,Y,cattle_goats,Y,kraals,Y,tanks,N,Y,discrepancy,N,N,discrepancy,,Maun. 
+Baines_Camp,23.2187,-19.58013,320,tourism,lodge,NA,N,NA,N,NA,Y,tanks,N,Y,Positive,F,N,N,,NG32
+Banoka,23.661574,-19.128617,162,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,"NG18. In location of 'Sable cattle_goatsey lodge'. Google maps say coords are 19°09'23.8""S 23°48'38.5""E but GPS I have puts it near sable cattle_goatsey / lechwe island camp. 14k from Khwai airstrip"
+Boro,23.4265,-19.8639,5000,agricultural_pastoral,large_village,1500,Y,cattle_goats,Y,kraals,Y,tanks,N,Y,Negative,discrepancy,discrepancy,Y,,14k from Maun
+Camp_Moremi,23.40857,-19.18839,287,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,discrepancy,N,N,,Moremi
+Camp_Okavango,23.10020701,-19.13422266,505,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG21
+Camp_Okuti,23.41048,-19.18142,283,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,Moremi. Same as Okuti Camp
+Chanoga,23.6574,-20.1528,966,agricultural_pastoral,small_village,NA,Y,cattle_goats,Y,fencing_kraals,Y,tanks_wells,N,Y,Negative,O,Y,Y,,
+Chiefs_Camp,22.91,-19.29521,296,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,Moremi
+Chitabe_Camp,23.3789195,-19.5273129,227,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG32. Chitabe camp + Chitabe Lediba
+Chobe_Gogha_Gate,24.244646,-18.387566,146,tourism,DWNP_camp,15,N,NA,NA,NA,Y,tanks,N,N,Positive,O,N,N,,
+Chuchubega,23.2627,-19.8819,5000,agricultural_pastoral,small_village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,Also ccattle_goatsed Tsutsubega
+Crocodile_Camp,23.5116,-19.9306,500,tourism_urban ,lodge_urban,NA,Y,cattle_goats,Y,kraals,Y,tanks,N,Y,Negative,N,N,Y,,Maun
+Dauga,23.7647,-20.1734,966,agricultural_pastoral,small_village,NA,Y,cattle_goats,Y,fencing_kraals,Y,wells,N,Y,Negative,O,Y,Y,,
+Daunara,23.47932235,-19.76186162,966,agricultural_pastoral,small_village,800,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,
+Delta_Camp,23.104804,-19.532595,116,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG27B
+Dikgatlhong,23.4975,-20.1328,5000,agricultural_pastoral,small_village,NA,Y,cattle_goats,Y,fencing_kraals,Y,wells,N,Y,Negative,O,Y,Y,,
+Ditshipi,23.4316,-19.6685,5000,tourism,small_village,800,N,NA,NA,NA,Y,wells,N,Y,Negative,discrepancy,Y,Y,,NG32.
+Dog_Camp,23.63713,-19.52262,131,tourism,research_camp,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,N,Positive,F,N,N,,NG33
+Dumatau,23.58113,-18.52515,394,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG15
+Eagle_Island,23.0536673,-19.5491727,1690,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,"NG27B. Xaxaba. Including airstrip, radius is 1500. Diameter is Eagle Island and Xaxaba combined"
+Gabamotsha,23.6281,-19.7343,5000,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,
+Ghoha_Hills_Savuti_lodge,24.21833,-18.43647,233,tourism,lodge,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,Y,Positive,F,N,N,,There is a lodge on top of Gogha Hill. That lodge has an srtificial waterhole.
+Gomoti_Camp,23.67219,-19.49511,76,tourism,lodge,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,N,Positive,F,N,N,,
+Gomoti_Plains,23.54476,-19.58294,179,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG32
+Goroku,23.3487,-19.9216,966,agricultural_pastoral,small_village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,
+Gunns_Camp,23.14113,-19.52717,212,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG27B
+HQ,23.61849949,-19.55655166,5000,tourism,research_camp,NA,N,NA,NA,NA,N,NA,N,N,Positive,F,N,N,Maybe - no people / closed midway through RVC,"Wilderness, no people, no livestock. Used to be operational - 2017 is a guess of when it closed, so I kept it in RVC data"
+Island_Safari_lodge,23.5106,-19.9263,500,tourism_urban ,lodge_urban,NA,Y,cattle_goats,Y,kraals,Y,tanks,N,Y,discrepancy,N,N,discrepancy,,"Maun. GPS from raster was -19.9263, 23.5106"
+Ivory_Camp,23.1895,-19.6511,500,tourism,lodge,NA,N,NA,NA,NA,NA,NA,N,Y,Positive,F,N,N,Maybe - no structures at GPS point,
+Jacana,22.60877,-19.28051,234,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG25
+Jao,22.60235,-19.30519,262,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,discrepancy,F,discrepancy,discrepancy,,NG25
+Kazikini,23.8023551,-19.589389,504,tourism,lodge,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,N,Positive,F,N,N,,NG34. Same as Shandereke
+Khwai,23.750282,-19.166093,805,tourism,large_village,2000,N,NA,NA,NA,Y,tanks_waterhole,Y,Y,discrepancy,F,discrepancy,Y,,NG19
+Khwai_Bush_Camp,23.7362091,-19.1672261,728,tourism,lodge_village,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG19. Same as Tsaro (Elephant) lodge
+Khwai_Lediba ,23.77075,-19.152125,76,tourism,lodge_village,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG19
+Khwai_River_lodge,23.79993,-19.1476,151,tourism,lodge_village,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG19
+Kings_Pool,23.70778,-18.43786,381,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG15
+Kiri,23.22189,-19.78445,460,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,"NG30. This is Google maps GPS . Dog camp GPS is -19.61175383, 23.03837453"
+Kwara ,23.26519146,-19.10861659,172,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG20
+Kwetsani,22.53596,-19.2439,179,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG15
+Lagoon_Camp,23.41411,-18.2156,186,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG14
+Lebala_Camp,23.54280857,-18.41415295,282,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG14
+Lechwe_Island_Camp,23.6598,-19.129,500,tourism,lodge,NA,N,NA,NA,NA,NA,NA,N,Y,Positive,F,N,N,Maybe - Don't see on google earth and can't find online,
+Linyanti_Tented_Camp,23.83864,-18.35482,153,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG15
+Little_Sable_Camp,23.69457,-19.15087,238,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG19
+Mababe,24.00109619,-19.18380608,1017,agricultural_tourism,large_village,1500,N,NA,NA,NA,Y,tanks,N,Y,discrepancy,F,Y,Y,,NG41
+Machaba_Camp,23.812265,-19.1242684,814,tourism,lodge_village,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,"NG19. Old GPS was -19.1252, 23.817. GPS is middle of Machaba + Little Machaba"
+Mankwe_Bush_lodge,23.8969856,-19.36272065,138,tourism,lodge,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,N,Positive,F,N,N,,NG43. Confirmed no natural water sources on Google maps
+Matlapana,23.4963,-19.9408,500,agricultural_pastoral_tourism_urban,lodge_village,NA,Y,cattle_goats,Y,kraals,Y,tanks_wells,N,Y,Neutral,O,Y,Y,,
+Matlapaneng,23.566325,-19.946914,5000,pastoral_urban,village,NA,Y,cattle_goats,Y,kraals,Y,tanks_wells,N,N,NA,NA,NA,NA,,See Maun
+Matsaudi,23.5959,-19.8424,966,agricultural_pastoral,large_village,2000,Y,cattle_goats,Y,fencing_kraals,Y,tanks_wells,N,Y,Negative,O,discrepancy,Y,,
+Maun,23.4195,-19.999,500,agricultural_pastoral_tourism_urban,large_village,NA,Y,cattle_goats,Y,fencing_kraals,Y,tanks,N,Y,Neutral,discrepancy,discrepancy,Y,,
+Maun_Rest_Camp,23.4892,-19.9402,500,tourism_urban,lodge,NA,Y,cattle_goats,Y,kraals,Y,tanks,N,Y,Positive,N,N,Y,,"Camp located in town, no wildlife"
+Mawana_Vet_Gate,23.5886,-19.6284,5000,tourism,DWNP_camp,10,Y,NA,NA,NA,Y,tanks,N,N,Neutral,O,N,Y,,
+Mma_Dinare,23.57402,-19.58533,230,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,"NG34. Original GPS -19.58773945, 23.58002509	"
+Mokolwane ,22.4775,-20.345,5000,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG29
+Mombo,22.77726,-19.22578,948,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,"Moremi. GPS is center of Mombo, Wildnerness Mombo, Little Mombo. Merge with Little Mombo - diameter together is 1000"
+Moremi_Crossing,23.14873,-19.52682,644,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG27B. Same as Semetsi and Bush Camp
+Moremi_South_Gate,23.6463747,-19.4241316,893,tourism,campsite_village,NA,N,NA,NA,NA,Y,tanks,N,N,Positive,F,N,N,,Moremi. Merge with South Gate Campsite - diameter together is 550. GPS is middle of South Gate & Campsite
+Morutse,23.50910908,-19.71989235,500,agricultural_pastoral,small_village,1000,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,F,Y,Y,,
+Mowana_Gate,23.79115,-19.63004,74,agricultural,DWNP_camp,10,N,NA,NA,NA,Y,tanks,N,N,Neutral,O,N,Y,,
+North_Gate,23.75259,-19.1721,262,tourism,village,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,Moremi
+Nxabega_Okavango_Tented_Camp,22.78306,-19.58306,500,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG27A
+Nxanxana,23.6044,-19.7103,966,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,F,Y,Y,,
+Nxaranga_Lediba,23.2087,-19.5632,5000,tourism,lodge,NA,N,NA,NA,NA,NA,NA,N,Y,Positive,O,N,N,Maybe - Nothing on google maps,
+Oddball_Camp,23.09017,-19.53133,500,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG27B
+Okavango_River_lodge,23.5121,-19.9291,500,tourism_urban,lodge,NA,Y,cattle_goats,Y,kraals,Y,tanks,N,Y,Positive,N,N,Y,,"Camp located in town, no wildlife; Closed since 2020"
+Pelotshweu,23.8079,-19.7475,966,pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,Malebogo used to work on lion conflict here
+Phefodiafoka,23.8168,-19.9809,5000,pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,Malebogo used to work on lion conflict here
+Pom_Pom_Camp,22.84374,-19.58392,189,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG27A
+Qorokwe_Camp,23.38189,-19.57627,183,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,"NG32. Old GPS: -19.5888, 23.3861"
+Rra_Dinare,23.57036,-19.55586,231,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG34
+Samedupi,23.5242,-20.1119,966,agricultural_pastoral,small_village,NA,Y,cattle_goats,Y,fencing_kraals,Y,tanks_wells,N,Y,Negative,O,Y,Y,,
+Sandibe,23.30178,-19.45276,869,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG32. Same as Sandibe camp
+Sango,23.76287075,-19.16354165,180,tourism,lodge_village,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,
+Sankuyo,23.8763503,-19.42642886,1127,agricultural,large_village,1800,N,NA,NA,NA,Y,tanks_wells,N,N,discrepancy,F,discrepancy,Y,,
+Santawani_lodge,23.6334767,-19.5203571,450,tourism,lodge,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,N,Positive,F,N,N,,"NG33. GPS of old camp location is -19.4501, 23.6327?"
+Savuti,24.0673,-18.56824,111,tourism,loge_village,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,discrepancy,Positive,F,N,N,,"Savuti channel did flow for a few years, but now has been dry again since many years. Peter: SAVUTI: If you include that then I think you need to look at which years the savuti channel has been flowing. Around 2010/11 that river did flow again the first time since over 40 years. But only for a few years. I have to do some more research about that if you think it should be included.
+There are also three waterholes in Savuti which are maintained by DWNP. S18.56113 E024.06978 and 
+S18.68032 E024.07362 and S18.63501 E024.09520"
+Savuti_Camp,23.67439,-18.5966,192,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG15. Confirmed natural water source on google maps
+Savuti_Elephant_lodge,24.054753,-18.570027,177,tourism,lodge,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,discrepancy,Positive,F,N,N,,"Chobe. There is the 'Savuti Channel' in front of lodge that seasoncattle_goatsy floods. So for part of yeat, there is natural water source."
+Savuti_Safari_lodge,24.05816,-18.56483,273,tourism,lodge,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,discrepancy,Positive,F,N,N,,"Chobe. There is the 'Savuti Channel' in front of lodge that seasoncattle_goatsy floods. So for part of yeat, there is natural water source."
+Sexaxa,23.551,-19.8874,966,agricultural_pastoral,small_village,250,Y,cattle_goats_sheep,Y,kraals,Y,tanks,N,Y,NA,NA,N,NA,,Carnivores rarely seen in the village
+Shinde_Footsteps,23.14414,-19.05868,120,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG21
+Shindi_Camp,23.15466,-19.11984,328,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG21
+Shindi_Lagoon,23.1576,-19.4935,5000,tourism,lodge,NA,N,NA,NA,NA,Y,waterhole,Y,Y,Positive,F,N,N,Maybe - Nothing at GPS location ; pin doesn't seem to be located at Shindi Lagoon I found when googled,
+Shokomoka,23.7215159,-19.7029276,736,agricultural_pastoral,village,500,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,F,Y,Y,,Same as Shukumukwa
+Shorobe,23.6778291,-19.7736953,707,agricultural_pastoral,large_village,2000,Y,cattle_goats,Y,kraals,Y,tanks_wells,N,Y,discrepancy,O,Y,Y,,"Old GPS: -19.7581, 23.7341"
+SKL_Savuti_Campsite,24.0632,-18.56534,179,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,N,Positive,F,N,N,,"Chobe. There is the 'Savuti Channel' in front of lodge that seasoncattle_goatsy floods. So for part of yeat, there is natural water source."
+Stanleys_Camp,23.24973,-19.59561,119,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG32
+Tatamoge,23.7543,-20.1912,966,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,Artificial water source from google maps
+Thamo_Telele,23.369945,-20.0568972,966,tourism_urban,lodge,NA,Y,NA,NA,NA,Y,tanks_waterhole,Y,Y,Positive,F,N,N,,
+Tianoga,23.5213,-20.1052,966,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,tanks_wells,N,Y,Negative,O,Y,Y,,
+Tsanakona,23.351,-20.0753,966,agricultural_pastoral_tourism,village,NA,Y,cattle_goats,Y,kraals,Y,tanks_wells,N,Y,Negative,O,Y,Y,,
+Tsatsabaga,23.7627,-19.8351,5000,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,N,NA,N,Y,Negative,O,Y,Y,,Artificial water source from google maps
+Tsibogolamatebele,23.663,-20.1481,966,agricultural_pastoral,small_village,NA,Y,cattle_goats,Y,fencing_kraals,N,NA,N,Y,Negative,O,Y,Y,,Artificial water source from google maps
+Tubu_Tree,22.46519,-19.28798,314,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG25
+Tuludi_Camp,23.56701,-19.13906,271,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG18
+Tuskers_Camp,23.920167,-19.594833,500,tourism,lodge,NA,N,NA,NA,NA,Y,tanks_waterhole,Y,Y,Positive,F,N,N,,NG43
+Vundumxiki,23.9976,-18.998,5000,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,N,NA,N,Y,Negative,O,Y,Y,Maybe - Nothing at GPS location,
+Xabarachaa,23.2634,-19.9758,5000,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,N,NA,N,Y,Negative,O,Y,Y,Maybe - Nothing at GPS location,
+Xabie,23.58549,-19.78461,5000,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,N,NA,N,Y,Negative,O,Y,Y,Maybe - Nothing at GPS location,
+Xadora_Nanogaonne,23.8539,-19.7915,5000,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,N,NA,N,Y,Negative,O,Y,Y,,Artificial water source from google maps
+Xakanaka_Camp,23.40885,-19.18364,457,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,Moremi. CAMP XAKANAXA. Radius is the 2 duplicate xakanaxa camps combined
+Xakanaka_Gate,23.43226,-19.19701,166,tourism,DWNP_camp,NA,N,NA,NA,NA,Y,tanks,N,N,Positive,F,N,N,,Moremi
+Xaranna_lodge,22.898549,-19.631982,980,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG30. Same as Xudum
+Xaraxau,23.398233,-19.9072848,2452,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,waterhole,Y,Y,Negative,O,Y,Y,,Merge Xaraxau and Xaraxau Flats - together diameter is 8000
+Xhana,23.7856,-20.1769,966,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,
+Xhomxwa,23.8741,-19.7098,5000,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,Maybe - no people?,
+Xigera_Safari_lodge,22.7579,-19.3941,261,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,Moremi
+Xoo,23.2757,-19.9518,966,agricultural_pastoral,village,NA,Y,cattle_goats,Y,kraals,Y,wells,N,Y,Negative,O,Y,Y,,
+Xugana_Island_lodge,23.1008068,-19.0658838,644,tourism,lodge,NA,N,NA,NA,NA,Y,tanks,N,Y,Positive,F,N,N,,NG21. Same as Xugana Camp.

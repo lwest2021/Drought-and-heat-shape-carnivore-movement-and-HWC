@@ -1,0 +1,3615 @@
+---
+title: "GPS and PAC Analysis"
+author: "Leigh West"
+date: "2026-01-26"
+output: html_document
+---
+    
+## Table of Contents
+
+Line 12-94: Packages
+Line 95-996: GPS analysis
+Line 997-1360: PAC conflict analysis
+Line 1361-3657: Figure creation
+
+## Load necessary packages 
+
+```{r load packages, include=FALSE}
+
+### -----------------------------------------------------------
+### CORE DATA MANIPULATION & PLOTTING
+### -----------------------------------------------------------
+library(tidyverse)    
+library(patchwork)  
+library(cowplot)      
+library(scales)       
+library(ggrepel)    
+library(ggplot2)
+library(ggnewscale)
+
+### -----------------------------------------------------------
+### STATISTICS, MODELING, INFERENCE
+### -----------------------------------------------------------
+library(bbmle)        
+library(glmmTMB)     
+library(DHARMa)      
+library(ggeffects)    
+library(MASS)         
+library(e1071)     
+library(car)      
+library(boot)   
+library(influence.ME) 
+library(performance) 
+library(binom)       
+library(emmeans)      
+library(splines)   
+library(lubridate)
+library(parameters)
+
+### -----------------------------------------------------------
+### SPATIAL / GEOSPATIAL
+### -----------------------------------------------------------
+library(sf)          
+library(raster)     
+library(terra)       
+library(tidyterra)   
+library(osmdata)      
+library(rnaturalearth)       
+library(rnaturalearthdata)
+library(ggspatial)    
+library(mapdata)     
+library(maps)        
+library(mapproj)    
+library(maptiles)     
+library(adehabitatHR)
+library(sp)
+library(ggforce)
+
+### -----------------------------------------------------------
+### BATHYMETRY & OCEAN DATA
+### -----------------------------------------------------------
+library(marmap)       
+library(ocedata)      
+
+### -----------------------------------------------------------
+### RASTER, GEODATA UTILITIES
+### -----------------------------------------------------------
+library(geodata)      
+library(rasterVis)    
+
+### -----------------------------------------------------------
+### OPTIONAL MAP TILE / GOOGLE APIS
+### -----------------------------------------------------------
+library(ggmap)        
+library(RgoogleMaps)  
+
+### -----------------------------------------------------------
+### DATA IMPORT
+### -----------------------------------------------------------
+library(readxl)       
+
+
+```
+
+
+## GPS Analysis
+
+## Read in data
+
+```{r csv files for analysis}
+
+####Visitations dataframe monthly no zeros####
+
+human_area_visits_monthly <- read_csv("settlement_visits_final_dataset_monthly_nozeros.csv")
+
+#Convert data to factor
+human_area_visits_monthly$id <- as.factor(human_area_visits_monthly$id)
+human_area_visits_monthly$id_simple <- as.factor(human_area_visits_monthly$id_simple)
+human_area_visits_monthly$YearMon <- as.factor(human_area_visits_monthly$YearMon)
+human_area_visits_monthly$settlement_name <- as.factor(human_area_visits_monthly$settlement_name)
+human_area_visits_monthly$Land_Use_Simple <- as.factor(human_area_visits_monthly$Land_Use_Simple)
+human_area_visits_monthly$Waterhole_Y_N <- as.factor(human_area_visits_monthly$Waterhole_Y_N)
+human_area_visits_monthly$season <- as.factor(human_area_visits_monthly$season)
+human_area_visits_monthly$sex <- as.factor(human_area_visits_monthly$sex)
+human_area_visits_monthly$pack <- as.factor(human_area_visits_monthly$pack)
+human_area_visits_monthly$species <- as.factor(human_area_visits_monthly$species)
+
+#GPS locations
+all_locations <- readRDS("all_locations")
+
+#Temperature
+temperature_raw <- read_csv("Temperature_Hourly_Era5.csv") #era 5 hourly
+
+```
+
+
+## Summary statistics for paper
+
+```{r}
+
+# Calculate daily maximum temperatures ☑️
+temperature_daily <- temperature_raw %>%
+  mutate(date = as.Date(Date)) %>%
+  group_by(date) %>%
+  summarise(temperature_max = max(Temperature),
+            temperature_mean = mean(Temperature)) %>%
+  mutate(
+    month = month(date),
+    year = year(date),
+    day = yday(date)
+  ) %>%
+  ungroup()
+
+#Calculate hot day threshold
+temperature_daily_baseline <- filter(temperature_daily, year > 1990 & year <2021)
+hot_threshold_c <- quantile(temperature_daily_baseline$temperature_max, 0.9, na.rm = TRUE)
+
+min(temperature_daily$temperature_max)
+max(temperature_daily$temperature_max)
+
+min(temperature_daily$temperature_mean)
+max(temperature_daily$temperature_mean)
+
+max(temperature_daily$temperature_max) - min(temperature_daily$temperature_max)
+
+
+
+#Deployment durations for SI
+
+# Convert YearMon to Date (assumes format "YYYY-MM")
+human_area_visits_monthly <- human_area_visits_monthly %>%
+  mutate(
+    date = ym(YearMon)   # first day of each month
+  )
+
+# Create summary table
+sampling_summary <- human_area_visits_monthly %>%
+  group_by(species, id) %>%
+  summarise(
+    start_date = min(date, na.rm = TRUE),
+    end_date   = max(date, na.rm = TRUE),
+    days_of_data = as.numeric(end_date - start_date) + 1,
+    .groups = "drop"
+  ) %>%
+  arrange(species, id)
+
+sampling_summary
+
+visit_summary <- human_area_visits_monthly %>%
+  mutate(YearMon_date = as.Date(paste0(YearMon, "-01"))) %>%
+  group_by(species, pack, id) %>%
+  summarise(
+    Start_Date = min(YearMon_date, na.rm = TRUE),
+    End_Date = max(YearMon_date, na.rm = TRUE),
+    Number_of_visits = sum(visit_count, na.rm = TRUE),
+    Days_of_Data = n_distinct(YearMon_date),
+    .groups = "drop"
+  ) %>%
+  arrange(species, id)
+
+visit_summary <- all_locations %>%
+  filter(id %in% human_area_visits_monthly$id) %>%
+  group_by(species, pack, id) %>%
+  summarise(
+    Start_Date = min(as.Date(date), na.rm = TRUE),
+    End_Date   = max(as.Date(date), na.rm = TRUE),
+    Days_of_Data = as.integer(difftime(End_Date, Start_Date, units = "days")) + 1,
+    Number_of_fixes = n(),
+    .groups = "drop"
+  ) %>%
+  left_join(
+    human_area_visits_monthly %>%
+      group_by(id) %>%
+      summarise(Number_of_visits = sum(visit_count, na.rm = TRUE), .groups = "drop"),
+    by = "id"
+  ) %>%
+  arrange(species, id)
+
+visit_summary
+
+
+
+## Total visits
+
+total_visits <- sum(human_area_visits_monthly$visit_count, na.rm = TRUE)
+
+human_area_visits_monthly %>% 
+  group_by(species) %>% 
+  summarise(total_visits = sum(visit_count, na.rm = TRUE),
+            n_individuals = n_distinct(id_simple),
+            n_months = n_distinct(YearMon),
+            .groups = "drop")
+
+
+
+# Stats in first paragraph of results
+# Total visits
+sum(human_area_visits_monthly$visit_count)
+
+# Animal-months per species (each row is an animal-month-settlement, so count unique id-YearMon)
+animal_months <- human_area_visits_monthly %>%
+  distinct(id, YearMon, species) %>%
+  count(species, name = "animal_months")
+
+# Mean visits per animal-month
+visits_per_am <- human_area_visits_monthly %>%
+  group_by(species, id, YearMon) %>%
+  summarise(total_visits = sum(visit_count), .groups = "drop") %>%
+  group_by(species) %>%
+  summarise(
+    animal_months = n(),
+    mean_visits = mean(total_visits),
+    total_visits = sum(total_visits)
+  )
+
+visits_per_am
+
+# Visits by livestock presence per species
+human_area_visits_monthly %>%
+  group_by(species, Livestock_Present) %>%
+  summarise(
+    total_visits = sum(visit_count),
+    n_settlements = n_distinct(settlement_name),
+    .groups = "drop"
+  ) %>%
+  arrange(species, Livestock_Present)
+
+# Total unique settlements visited
+n_distinct(human_area_visits_monthly$settlement_name)
+
+# Settlements with livestock visited per species
+human_area_visits_monthly %>%
+  filter(Livestock_Present == "Y") %>%
+  group_by(species) %>%
+  summarise(
+    n_livestock_settlements = n_distinct(settlement_name),
+    total_visits = sum(visit_count)
+  )
+
+
+# Land Use sample sizes
+
+sample_size_land_use <- human_area_visits_monthly %>%
+  group_by(species, Livestock_Present, Land_Use) %>%
+  summarise(
+    total_visits = sum(visit_count, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(species, Livestock_Present, Land_Use)
+
+sample_size_land_use
+
+sample_size_livestock <- human_area_visits_monthly %>%
+  group_by(species, Livestock_Present) %>%
+  summarise(
+    total_visits = sum(visit_count, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(species, Livestock_Present)
+
+sample_size_livestock
+
+
+# Settlements visited by leopards and lions that had livestock
+
+lion_leopard_livestock <- human_area_visits_monthly %>%
+    filter(species %in% c("Lion", "Leopard") & Livestock_Present == "Y")
+
+#Mawana_Vet_Gate
+
+
+```
+
+
+## Add autocorrelation structure count monthly
+
+```{r}
+
+##African wild dog
+
+human_area_visits_monthly_dog <- human_area_visits_monthly %>%
+  filter(species == 'African Wild Dog') %>%
+  mutate(
+    YearMon_ = ym(YearMon),        # convert "YYYY-MM" to a proper date
+    year    = year(YearMon_),
+    month   = month(YearMon_)
+  ) %>%
+  as.data.frame()
+
+# Set your reference (earliest month)
+loop_min_month <- min(human_area_visits_monthly_dog$year * 12 + human_area_visits_monthly_dog$month)  
+
+# Number all time periods relative to that reference month
+data_dog_count <- human_area_visits_monthly_dog %>%
+  mutate(ref_month = loop_min_month) %>%  
+  mutate(period_x = (((year * 12 + month) - ref_month) +1))
+
+# Encode time variables as numFactors
+data_dog_count$period_x_fc <- numFactor(data_dog_count$period_x)
+
+
+##Lion
+
+human_area_visits_monthly_lion <- human_area_visits_monthly %>%
+  filter(species == 'Lion') %>%
+  mutate(
+    YearMon_ = ym(YearMon),        # convert "YYYY-MM" to a proper date
+    year    = year(YearMon_),
+    month   = month(YearMon_)
+  ) %>%
+  as.data.frame()
+
+# Set your reference (earliest month)
+loop_min_month <- min(human_area_visits_monthly_lion$year * 12 + human_area_visits_monthly_lion$month)  
+
+# Number all time periods relative to that reference month
+data_lion_count <- human_area_visits_monthly_lion %>%
+  mutate(ref_month = loop_min_month) %>%  
+  mutate(period_x = (((year * 12 + month) - ref_month) +1))
+
+# Encode time variables as numFactors
+data_lion_count$period_x_fc <- numFactor(data_lion_count$period_x)
+
+
+##Leopard
+
+human_area_visits_monthly_leopard <- human_area_visits_monthly %>%
+  filter(species == 'Leopard') %>%
+  mutate(
+    YearMon_ = ym(YearMon),        # convert "YYYY-MM" to a proper date
+    year    = year(YearMon_),
+    month   = month(YearMon_)
+  ) %>%
+  as.data.frame()
+
+# Set your reference (earliest month)
+loop_min_month <- min(human_area_visits_monthly_leopard$year * 12 + human_area_visits_monthly_leopard$month)  
+
+# Number all time periods relative to that reference month
+data_leopard_count <- human_area_visits_monthly_leopard %>%
+  mutate(ref_month = loop_min_month) %>%  
+  mutate(period_x = (((year * 12 + month) - ref_month) +1))
+
+# Encode time variables as numFactors
+data_leopard_count$period_x_fc <- numFactor(data_leopard_count$period_x)
+
+##Cheetah
+
+human_area_visits_monthly_cheetah <- human_area_visits_monthly %>%
+  filter(species == 'Cheetah') %>%
+  mutate(
+    YearMon_ = ym(YearMon),        # convert "YYYY-MM" to a proper date
+    year    = year(YearMon_),
+    month   = month(YearMon_)
+  ) %>%
+  as.data.frame()
+
+# Set your reference (earliest month)
+loop_min_month <- min(human_area_visits_monthly_cheetah$year * 12 + human_area_visits_monthly_cheetah$month)  
+
+# Number all time periods relative to that reference month
+data_cheetah_count <- human_area_visits_monthly_cheetah %>%
+  mutate(ref_month = loop_min_month) %>%  
+  mutate(period_x = (((year * 12 + month) - ref_month) +1))
+
+# Encode time variables as numFactors
+data_cheetah_count$period_x_fc <- numFactor(data_cheetah_count$period_x)
+
+```
+
+
+## GPS Models
+
+```{r Checking poisson for over or underdispersion}
+
+overdisp_fun <- function(model) {
+  rdf <- df.residual(model)
+  rp <- residuals(model, type = "pearson")
+  chisq <- sum(rp^2)
+  ratio <- chisq/rdf
+  # Two-sided: test whichever tail the ratio falls in
+  if (ratio < 1) {
+    p <- pchisq(chisq, df = rdf, lower.tail = TRUE)
+    direction <- "underdispersion"
+  } else {
+    p <- pchisq(chisq, df = rdf, lower.tail = FALSE)
+    direction <- "overdispersion"
+  }
+  c(chisq = chisq, ratio = ratio, rdf = rdf, p = p, direction = direction)
+}
+
+dog_6month_human_areas_poisson <- glmmTMB(visit_count ~ sixmonth_spi * (Livestock_Present + Waterhole_Y_N + hot_day_prop) + season + (1|settlement_name) + (1|pack) + ou(period_x_fc+0|id_simple), data = data_dog_count, family = truncated_poisson)
+
+overdisp_fun(dog_6month_human_areas_poisson)
+#Poisson appropriate
+
+lion_6month_human_areas_poisson <- glmmTMB(visit_count ~ sixmonth_spi * (Waterhole_Y_N + hot_day_prop) + season + sex + (1|settlement_name) + (1|pack/id_simple) + ou(period_x_fc+0|id_simple), data=data_lion_count, family = truncated_poisson)
+
+overdisp_fun(lion_6month_human_areas_poisson)
+#Poisson appropriate
+
+leopard_6month_human_areas_poisson <- glmmTMB(visit_count ~ sixmonth_spi * (Waterhole_Y_N + hot_day_prop) + season + (1|settlement_name) + (1|id_simple) + ou(period_x_fc+0|id_simple), data=data_leopard_count, family = truncated_poisson)
+
+overdisp_fun(leopard_6month_human_areas_poisson)
+#Overdispersed
+
+cheetah_6month_human_areas_poisson <- glmmTMB(visit_count ~ sixmonth_spi * (Waterhole_Y_N + hot_day_prop) + season + sex + (1|settlement_name) + (1|id_simple) + ou(period_x_fc+0|id_simple), data=data_cheetah_count, family = truncated_poisson)
+summary(cheetah_6month_human_areas_poisson)
+#No convergence
+
+```
+
+
+
+```{r GPS poisson and negative binomial models}
+
+dog_visits <- glmmTMB(visit_count ~ sixmonth_spi * (Livestock_Present + Waterhole_Y_N + hot_day_prop) + season + (1|settlement_name) + (1|pack) + ou(period_x_fc+0|id_simple), data = data_dog_count, family = truncated_poisson)
+summary(dog_visits)
+
+lion_visits <- glmmTMB(visit_count ~ sixmonth_spi * (Waterhole_Y_N + hot_day_prop) + season + sex + (1|settlement_name) + (1|pack/id_simple) + ou(period_x_fc+0|id_simple), data=data_lion_count, family = truncated_poisson)
+summary(lion_visits)
+
+leopard_visits <- glmmTMB(visit_count ~ sixmonth_spi * (Waterhole_Y_N + hot_day_prop) + season + (1|settlement_name) + (1|id_simple) + ou(period_x_fc+0|id_simple), data=data_leopard_count, family = truncated_nbinom2("log"))
+summary(leopard_visits)
+
+```
+
+
+## Examining sample size driving heat * spi interaction
+
+```{r}
+
+filtered_data_gps <- data_dog_count %>%
+     filter(sixmonth_spi > 0, hot_day_prop > 0) %>%
+     select(YearMon, pack, visit_count, avg_temperature_max, sixmonth_spi, hot_day_prop, settlement_name)
+
+filtered_data_gps_lowSPI <- data_dog_count %>%
+    filter(sixmonth_spi < 0, hot_day_prop > 0) %>%
+    select(YearMon, pack, visit_count, avg_temperature_max, sixmonth_spi, hot_day_prop, settlement_name)
+
+filtered_data_gps_highvisits <- data_dog_count %>%
+     filter(visit_count > 10) %>%
+     select(YearMon, pack, visit_count, avg_temperature_max, sixmonth_spi, hot_day_prop, settlement_name)
+
+nrow(filtered_data_gps)/nrow(data_dog_count)
+# ~10%
+
+
+```
+
+
+## Bootstrap CIs on GPS model cofficients 
+
+```{r}
+
+bootstrap_CI_gps <- function(model, nb = 1000, seed = 1) {
+  
+  set.seed(seed)
+  
+  mf     <- model.frame(model)
+  n      <- nrow(mf)
+  ncoef  <- length(fixef(model)$cond)
+  coefmat <- matrix(NA_real_, nrow = ncoef, ncol = nb)
+  
+  start_time <- Sys.time()
+  failures <- 0
+  i <- 1
+  
+  while (i <= nb) {
+    tryCatch({
+      
+      ynew <- simulate(model)[[1]]
+      
+      newdat <- mf
+      resp_name <- all.vars(formula(model))[1]
+      newdat[[resp_name]] <- ynew
+      
+      bmod <- update(model, data = newdat)
+      
+      coefmat[, i] <- fixef(bmod)$cond[names(fixef(model)$cond)]
+      
+      if (i %% 100 == 0) {
+        elapsed <- difftime(Sys.time(), start_time, units = "mins")
+        rate <- as.numeric(elapsed) / i
+        remaining <- rate * (nb - i)
+        cat(sprintf("Iteration %d/%d | Elapsed: %.1f min | Est. remaining: %.1f min | Failures skipped: %d\n",
+                    i, nb, as.numeric(elapsed), remaining, failures))
+      }
+      
+      i <- i + 1
+      
+    },
+    warning = function(w) {},
+    error   = function(e) { failures <<- failures + 1 })
+  }
+  
+  cat(sprintf("\nDone! Total time: %.1f min | Total failures skipped: %d\n",
+              as.numeric(difftime(Sys.time(), start_time, units = "mins")), failures))
+  
+  rownames(coefmat) <- names(fixef(model)$cond)
+  
+  CIs <- t(apply(coefmat, 1, function(x) quantile(x, c(0.025, 0.975), na.rm = TRUE)))
+  colnames(CIs) <- c("2.5%", "97.5%")
+  
+  CIs
+}
+
+
+# Bootstrap CIs for truncated NB models
+CIs_dog_6month_poisson     <- bootstrap_CI_gps(dog_visits)
+CIs_lion_6month_poisson    <- bootstrap_CI_gps(lion_visits)
+CIs_leopard_6month_negbinom <- bootstrap_CI_gps(leopard_visits)
+
+tidy_CI <- function(CI_matrix, species, model_name) {
+  as.data.frame(CI_matrix) %>%
+    mutate(coefficient = rownames(CI_matrix)) %>%
+    dplyr::select(coefficient, `2.5%`, `97.5%`) %>%
+    mutate(
+      species = species,
+      model   = model_name
+    )
+}
+
+all_CIs_gps_coefs <- bind_rows(
+  tidy_CI(CIs_dog_6month_poisson,     "African Wild Dog", "6-month"),
+  tidy_CI(CIs_lion_6month_poisson,    "Lion",             "6-month"),
+  tidy_CI(CIs_leopard_6month_negbinom, "Leopard",          "6-month")
+) %>%
+  dplyr::select(species, model, coefficient, `2.5%`, `97.5%`)
+
+
+saveRDS(all_CIs_gps_coefs, "all_CIs_gps_coefs")
+#all_CIs_gps_coefs <- readRDS("all_CIs_gps_coefs")
+
+
+```
+
+
+## Models for supplementary
+
+## Adding step length into model dataframe
+
+```{r}
+
+add_step_length <- function(all_locations, count_data, species_name) {
+
+  steps <- all_locations %>%
+    filter(species == species_name)
+
+  step_monthly <- steps %>%
+    group_by(id_simple, YearMon) %>%
+    summarise(
+      median_step = median(dist, na.rm = TRUE),
+      mean_step   = mean(dist,   na.rm = TRUE),
+      n_steps     = sum(!is.na(dist)),
+      .groups     = "drop"
+    )
+
+  count_data %>%
+    left_join(step_monthly, by = c("id_simple", "YearMon")) %>%
+    mutate(
+      median_step_s = as.numeric(scale(median_step)),
+      mean_step_s   = as.numeric(scale(mean_step))
+    )
+}
+
+data_dog_count_step <- add_step_length(
+  all_locations,
+  data_dog_count,
+  "African Wild Dog"
+)
+
+data_lion_count_step <- add_step_length(
+  all_locations,
+  data_lion_count,
+  "Lion"
+)
+
+data_leopard_count_step <- add_step_length(
+  all_locations,
+  data_leopard_count,
+  "Leopard"
+)
+
+data_cheetah_count_step <- add_step_length(
+  all_locations,
+  data_cheetah_count,
+  "Cheetah"
+)
+
+
+```
+
+
+## GPS models with step length
+
+```{r step length models}
+
+dog_visits_step <- glmmTMB(visit_count ~ sixmonth_spi * (Livestock_Present + Waterhole_Y_N + hot_day_prop) + season + mean_step_s + (1|settlement_name) + (1|pack) + ou(period_x_fc+0|id_simple), data = data_dog_count_step, family = truncated_poisson)
+summary(dog_visits_step)
+
+lion_visits_step <- glmmTMB(visit_count ~ sixmonth_spi * (Waterhole_Y_N + hot_day_prop) + season + sex + mean_step_s + (1|settlement_name) + (1|pack/id_simple) + ou(period_x_fc+0|id_simple), data=data_lion_count_step, family = truncated_poisson)
+summary(lion_visits_step)
+
+leopard_visits_step <- glmmTMB(visit_count ~ sixmonth_spi * (Waterhole_Y_N + hot_day_prop) + season + mean_step_s + (1|settlement_name) + (1|id_simple) + ou(period_x_fc+0|id_simple), data=data_leopard_count_step, family = truncated_nbinom2("log"))
+summary(leopard_visits_step)
+
+```
+
+
+## Bootstrap CIs on step length model coefficients
+
+```{r}
+
+CIs_dog_6month_step <- bootstrap_CI_gps(
+  dog_visits_step
+)
+
+CIs_lion_6month_step <- bootstrap_CI_gps(
+  lion_visits_step
+)
+
+CIs_leopard_6month_step <- bootstrap_CI_gps(
+  leopard_visits_step
+)
+
+all_CIs_step <- bind_rows(
+  tidy_CI(CIs_dog_6month_step,  "African Wild Dog", "6-month_step"),
+  tidy_CI(CIs_lion_6month_step, "Lion",             "6-month_step"),
+  tidy_CI(CIs_leopard_6month_step, "Leopard",             "6-month_step")
+) %>%
+  dplyr::select(species, model, coefficient, `2.5%`, `97.5%`)
+
+saveRDS(all_CIs_step, "all_CIs_step")
+#all_CIs_step <- readRDS("all_CIs_step")
+
+```
+
+
+## Supplementary diel analyses (Figure S2; Tables S5–S6)
+
+```{r supplementary_diel_analysis, message=FALSE, warning=FALSE}
+
+####Visitations dataframe monthly no zeros####
+
+human_area_visits_monthly_diel <- read_csv("settlement_visits_final_dataset_monthly_nozeros_diel.csv")
+
+#Convert data to factor
+human_area_visits_monthly_diel$id <- as.factor(human_area_visits_monthly_diel$id)
+human_area_visits_monthly_diel$id_simple <- as.factor(human_area_visits_monthly_diel$id_simple)
+human_area_visits_monthly_diel$YearMon <- as.factor(human_area_visits_monthly_diel$YearMon)
+human_area_visits_monthly_diel$settlement_name <- as.factor(human_area_visits_monthly_diel$settlement_name)
+human_area_visits_monthly_diel$Land_Use_Simple <- as.factor(human_area_visits_monthly_diel$Land_Use_Simple)
+human_area_visits_monthly_diel$Waterhole_Y_N <- as.factor(human_area_visits_monthly_diel$Waterhole_Y_N)
+human_area_visits_monthly_diel$season <- as.factor(human_area_visits_monthly_diel$season)
+human_area_visits_monthly_diel$sex <- as.factor(human_area_visits_monthly_diel$sex)
+human_area_visits_monthly_diel$pack <- as.factor(human_area_visits_monthly_diel$pack)
+human_area_visits_monthly_diel$species <- as.factor(human_area_visits_monthly_diel$species)
+
+##African wild dog
+
+human_area_visits_monthly_diel_dog <- human_area_visits_monthly_diel %>%
+  filter(species == 'African Wild Dog') %>%
+  mutate(
+    YearMon_ = ym(YearMon),        # convert "YYYY-MM" to a proper date
+    year    = year(YearMon_),
+    month   = month(YearMon_)
+  ) %>%
+  as.data.frame()
+
+# Set your reference (earliest month)
+loop_min_month <- min(human_area_visits_monthly_diel_dog$year * 12 + human_area_visits_monthly_diel_dog$month)  
+
+# Number all time periods relative to that reference month
+data_dog_count_diel <- human_area_visits_monthly_diel_dog %>%
+  mutate(ref_month = loop_min_month) %>%  
+  mutate(period_x = (((year * 12 + month) - ref_month) +1))
+
+# Encode time variables as numFactors
+data_dog_count_diel$period_x_fc <- numFactor(data_dog_count_diel$period_x)
+
+
+##Lion
+
+human_area_visits_monthly_diel_lion <- human_area_visits_monthly_diel %>%
+  filter(species == 'Lion') %>%
+  mutate(
+    YearMon_ = ym(YearMon),        # convert "YYYY-MM" to a proper date
+    year    = year(YearMon_),
+    month   = month(YearMon_)
+  ) %>%
+  as.data.frame()
+
+# Set your reference (earliest month)
+loop_min_month <- min(human_area_visits_monthly_diel_lion$year * 12 + human_area_visits_monthly_diel_lion$month)  
+
+# Number all time periods relative to that reference month
+data_lion_count_diel <- human_area_visits_monthly_diel_lion %>%
+  mutate(ref_month = loop_min_month) %>%  
+  mutate(period_x = (((year * 12 + month) - ref_month) +1))
+
+# Encode time variables as numFactors
+data_lion_count_diel$period_x_fc <- numFactor(data_lion_count_diel$period_x)
+
+
+##Leopard
+
+human_area_visits_monthly_diel_leopard <- human_area_visits_monthly_diel %>%
+  filter(species == 'Leopard') %>%
+  mutate(
+    YearMon_ = ym(YearMon),        # convert "YYYY-MM" to a proper date
+    year    = year(YearMon_),
+    month   = month(YearMon_)
+  ) %>%
+  as.data.frame()
+
+# Set your reference (earliest month)
+loop_min_month <- min(human_area_visits_monthly_diel_leopard$year * 12 + human_area_visits_monthly_diel_leopard$month)  
+
+# Number all time periods relative to that reference month
+data_leopard_count_diel <- human_area_visits_monthly_diel_leopard %>%
+  mutate(ref_month = loop_min_month) %>%  
+  mutate(period_x = (((year * 12 + month) - ref_month) +1))
+
+# Encode time variables as numFactors
+data_leopard_count_diel$period_x_fc <- numFactor(data_leopard_count_diel$period_x)
+
+
+##Cheetah
+
+human_area_visits_monthly_diel_cheetah <- human_area_visits_monthly_diel %>%
+  filter(species == 'Cheetah') %>%
+  mutate(
+    YearMon_ = ym(YearMon),        # convert "YYYY-MM" to a proper date
+    year    = year(YearMon_),
+    month   = month(YearMon_)
+  ) %>%
+  as.data.frame()
+
+# Set your reference (earliest month)
+loop_min_month <- min(human_area_visits_monthly_diel_cheetah$year * 12 + human_area_visits_monthly_diel_cheetah$month)  
+
+# Number all time periods relative to that reference month
+data_cheetah_count_diel <- human_area_visits_monthly_diel_cheetah %>%
+  mutate(ref_month = loop_min_month) %>%  
+  mutate(period_x = (((year * 12 + month) - ref_month) +1))
+
+# Encode time variables as numFactors
+data_cheetah_count_diel$period_x_fc <- numFactor(data_cheetah_count_diel$period_x)
+
+
+# Pivot the DFs long
+
+# -------------------------
+# African wild dogs
+# -------------------------
+
+data_dog_count_diel_long <- data_dog_count_diel %>%
+  mutate(obs_id = row_number()) %>%
+  select(
+    everything(),
+    -visit_count
+  ) %>%
+  pivot_longer(
+    cols = c(light_visits, dark_visits),
+    names_to = "diel_period",
+    values_to = "visit_count"
+  ) %>%
+  mutate(
+    diel_period = case_when(
+      diel_period == "light_visits" ~ "Light",
+      diel_period == "dark_visits" ~ "Dark"
+    ),
+    diel_period = factor(
+      diel_period,
+      levels = c("Light", "Dark")
+    )
+  )
+
+
+# -------------------------
+# Lions
+# -------------------------
+
+data_lion_count_diel_long <- data_lion_count_diel %>%
+  mutate(obs_id = row_number()) %>%
+  select(
+    everything(),
+    -visit_count
+  ) %>%
+  pivot_longer(
+    cols = c(light_visits, dark_visits),
+    names_to = "diel_period",
+    values_to = "visit_count"
+  ) %>%
+  mutate(
+    diel_period = case_when(
+      diel_period == "light_visits" ~ "Light",
+      diel_period == "dark_visits" ~ "Dark"
+    ),
+    diel_period = factor(
+      diel_period,
+      levels = c("Light", "Dark")
+    )
+  )
+
+
+# -------------------------
+# Leopards
+# -------------------------
+
+data_leopard_count_diel_long <- data_leopard_count_diel %>%
+  mutate(obs_id = row_number()) %>%
+  select(
+    everything(),
+    -visit_count
+  ) %>%
+  pivot_longer(
+    cols = c(light_visits, dark_visits),
+    names_to = "diel_period",
+    values_to = "visit_count"
+  ) %>%
+  mutate(
+    diel_period = case_when(
+      diel_period == "light_visits" ~ "Light",
+      diel_period == "dark_visits" ~ "Dark"
+    ),
+    diel_period = factor(
+      diel_period,
+      levels = c("Light", "Dark")
+    )
+  )
+
+
+## Models
+
+# African wild dogs
+
+dog_diel_predictors <- glmmTMB(
+  visit_count ~
+    diel_period *
+    (sixmonth_spi +
+       Livestock_Present +
+       Waterhole_Y_N +
+       hot_day_prop) +
+    season +
+    (1 | settlement_name) +
+    (1 | pack) +
+    (1 | obs_id) +
+    ou(period_x_fc + 0 | id_simple),
+  data = data_dog_count_diel_long,
+  family = poisson
+)
+
+summary(dog_diel_predictors)
+
+model_parameters(
+  dog_diel_predictors,
+  ci = 0.95,
+  ci_method = "wald"
+)
+
+confint(dog_diel_predictors, method = "wald")
+
+
+# Lions
+
+lion_diel_predictors <- glmmTMB(
+  visit_count ~
+    diel_period *
+    (sixmonth_spi +
+       Waterhole_Y_N +
+       hot_day_prop) +
+    season +
+    sex +
+    (1 | settlement_name) +
+    (1 | pack/id_simple) +
+    (1 | obs_id) +
+    ou(period_x_fc + 0 | id_simple),
+  data = data_lion_count_diel_long,
+  family = poisson
+)
+
+summary(lion_diel_predictors)
+
+model_parameters(
+  lion_diel_predictors,
+  ci = 0.95,
+  ci_method = "wald"
+)
+
+
+# Leopards
+
+leopard_diel_predictors <- glmmTMB(
+  visit_count ~
+    diel_period *
+    (sixmonth_spi +
+       Waterhole_Y_N +
+       hot_day_prop) +
+    season +
+    (1 | settlement_name) +
+    (1 | id_simple) +
+    (1 | obs_id) +
+    ou(period_x_fc + 0 | id_simple),
+  data = data_leopard_count_diel_long,
+  family = poisson
+)
+
+summary(leopard_diel_predictors)
+
+model_parameters(
+  leopard_diel_predictors,
+  ci = 0.95,
+  ci_method = "wald"
+)
+
+```
+
+
+## Test for temporal autocorrelation in GPS models
+
+```{r test autocorrelation GPS models}
+
+acf(resid(dog_visits))
+acf(resid(lion_visits))
+acf(resid(leopard_visits))
+
+```
+
+
+## Do predictors co-vary?
+
+```{r check collinearity GPS models}
+
+
+check_collinearity(dog_visits)
+check_collinearity(lion_visits)
+check_collinearity(leopard_visits)
+
+```
+
+
+## DHARMa GPS Models
+
+```{r model diagnostics GPS models}
+
+#Wild dog 6-month SPI
+dog_visits_simres <- simulateResiduals(dog_visits, n = 1000)
+plot(dog_visits_simres)
+
+#Lion 6-month SPI
+lion_visits_simres <- simulateResiduals(lion_visits, n = 1000)
+plot(lion_visits_simres)
+
+#Leopard 6-month SPI
+leopard_visits_simres <- simulateResiduals(leopard_visits, n = 1000)
+plot(leopard_visits_simres)
+
+```
+
+
+## PAC Analysis
+
+
+## Read in data
+
+```{r}
+
+pac_data_ngami <- read_csv("pac_monthly_processed_ngamiland.csv")
+pac_data_all <- read_csv("pac_monthly_processed_alldata.csv")
+
+```
+
+
+## Adding autocorrelation structure for Ngamiland dataset
+
+```{r}
+
+pac_data_ngami <- pac_data_ngami %>%
+  mutate(
+    year = as.numeric(as.character(year)),
+    month = as.numeric(as.character(month))
+  )
+
+# Set your reference (earliest month)
+loop_min_month <- min(pac_data_ngami$year * 12 + pac_data_ngami$month)  
+
+# Number all time periods relative to that reference month
+pac_data_ngami <- pac_data_ngami %>%
+  mutate(ref_month = loop_min_month) %>%  
+  # group_by(station) %>%
+  mutate(period_x = as.factor(((year * 12 + month) - ref_month) +1))
+
+pac_data_ngami$period_x_fc <- numFactor(pac_data_ngami$period_x)
+pac_data_ngami$station_species <- paste(pac_data_ngami$station, pac_data_ngami$ConflictSpecies)
+
+
+```
+
+
+## Summary Statistics
+
+```{r}
+
+#Min and max SPI
+
+spi_dogcamp <- read_csv("spi_rainfall_dog_camp.csv")
+
+
+# Convert YearMon to Date 
+human_area_visits_monthly <- human_area_visits_monthly %>%
+  mutate(YearMon_date = as.Date(paste0(YearMon, "-01")))
+
+pac_data_ngami <- pac_data_ngami %>%
+  mutate(YearMon_date = as.Date(paste0(YearMon, "-01")))
+
+start_date <- min(human_area_visits_monthly$YearMon_date, na.rm = TRUE)
+end_date   <- max(pac_data_ngami$YearMon_date, na.rm = TRUE)
+
+spi_subset <- spi_dogcamp %>%
+  filter(date >= start_date & date <= end_date)
+
+spi_summary <- spi_subset %>%
+  summarise(
+    spi_min = min(spi.6, na.rm = TRUE),
+    spi_max = max(spi.6, na.rm = TRUE),
+    spi_25  = quantile(spi.6, 0.25, na.rm = TRUE),
+    spi_75  = quantile(spi.6, 0.75, na.rm = TRUE)
+  )
+
+spi_summary
+
+
+# Total conflicts by species
+pac_conflicts_summary <- pac_data_ngami %>%
+  group_by(ConflictSpecies) %>%
+  summarise(
+    total_conflicts = sum(conflict_count, na.rm = TRUE),
+    n_months = n(),
+    mean_monthly = round(mean(conflict_count), 1),
+    median_monthly = round(median(conflict_count), 1),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(total_conflicts))
+
+print(pac_conflicts_summary)
+
+# Grand total
+grand_total <- sum(pac_data_ngami$conflict_count, na.rm = TRUE)
+print(paste("Grand total conflicts:", grand_total))
+
+
+#Min, max, mean hot_day_prop
+
+all_hot_day <- c(human_area_visits_monthly$hot_day_prop, pac_data_ngami$hot_day_prop)
+
+min(all_hot_day, na.rm = TRUE)
+max(all_hot_day, na.rm = TRUE)
+mean(all_hot_day, na.rm = TRUE)
+
+
+# Summary stats for first paragraph in results
+
+# Total conflicts
+sum(pac_data_ngami$conflict_count)
+
+# Per species: total, %, station-months, mean conflicts/month
+pac_data_ngami %>%
+  group_by(ConflictSpecies) %>%
+  summarise(
+    total_conflicts = sum(conflict_count),
+    station_months = n(),
+    mean_per_month = mean(conflict_count),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    pct = total_conflicts / sum(total_conflicts) * 100
+  ) %>%
+  arrange(desc(total_conflicts))
+
+# % involving livestock
+pac_data_ngami %>%
+  filter(conflict_count > 0) %>%
+  summarise(
+    total_rows = n(),
+    livestock_rows = sum(grepl("Livestock", Damage_list)),
+    pct_livestock = livestock_rows / total_rows * 100
+  )
+
+
+```
+
+
+## PAC Models
+
+```{r test for under and overdispersion}
+
+overdisp_fun <- function(model) {
+  rdf <- df.residual(model)
+  rp <- residuals(model, type = "pearson")
+  chisq <- sum(rp^2)
+  ratio <- chisq/rdf
+  # Two-sided: test whichever tail the ratio falls in
+  if (ratio < 1) {
+    p <- pchisq(chisq, df = rdf, lower.tail = TRUE)
+    direction <- "underdispersion"
+  } else {
+    p <- pchisq(chisq, df = rdf, lower.tail = FALSE)
+    direction <- "overdispersion"
+  }
+  c(chisq = chisq, ratio = ratio, rdf = rdf, p = p, direction = direction)
+}
+
+conflict_model_poisson <- glmmTMB(conflict_count ~ spi_sixmonth * ConflictSpecies + hot_day_prop * ConflictSpecies + spi_sixmonth * hot_day_prop + season + (1 | station) + (1|YearMon) + ou(period_x_fc + 0|station_species), family = poisson(link = "log"), data = pac_data_ngami)
+summary(conflict_model_poisson)
+
+overdisp_fun(conflict_model_poisson)
+#Model is underdispersed, use genpois distribution
+
+
+```
+
+
+```{r deciding on zero inflation term}
+
+m_monthly_genpois <- glmmTMB(conflict_count ~ spi_sixmonth * ConflictSpecies + hot_day_prop * ConflictSpecies + spi_sixmonth * hot_day_prop + season + (1 | station) + (1|YearMon) + ou(period_x_fc + 0|station_species), ziformula = ~ 1, family = genpois(link = "log"), data = pac_data_ngami)
+summary(m_monthly_genpois)
+
+m_monthly_genpois_noZ <- glmmTMB(conflict_count ~ spi_sixmonth * ConflictSpecies + hot_day_prop * ConflictSpecies + spi_sixmonth * hot_day_prop + season + (1 | station) + (1|YearMon) + ou(period_x_fc + 0|station_species), family = genpois(link = "log"), data = pac_data_ngami)
+summary(m_monthly_genpois_noZ)
+
+
+# --- Zero-inflation model selection ---
+
+# AIC comparison
+AIC(m_monthly_genpois, m_monthly_genpois_noZ)
+# m_monthly_genpois     23 8496.502  (with ZI)
+# m_monthly_genpois_noZ 22 8568.128  (without ZI)
+# ZI model is 72 AIC units better
+
+# ZI probability: what proportion of zeros are structural?
+plogis(fixef(m_monthly_genpois)$zi)  # 7.3% structural zeros
+
+# Coefficient stability: estimates are nearly identical across models, indicating ZI term does not distort inference on fixed effects
+
+# DHARMa diagnostics
+sim_zi <- simulateResiduals(m_monthly_genpois, n = 1000)
+sim_nozi <- simulateResiduals(m_monthly_genpois_noZ, n = 1000)
+plot(sim_zi)    # passes dispersion and outlier, fails KS test (p=0.005) 
+plot(sim_nozi)  # residuals look good
+
+testZeroInflation(m_monthly_genpois)
+#ratioObsSim = 1.0402, p-value = 0.736 
+
+testZeroInflation(m_monthly_genpois_noZ)
+#ratioObsSim = 1.0462, p-value = 0.768
+
+# Retain ZI term?
+# - AIC favours ZI (ΔAIC = 72) (but AIC can prefer more complex models that don't necessarily improve diagnostics)
+# - The no-ZI model (image 2) passes all three DHARMa tests, has clean residuals, and both models handle zeros equally well (testZeroInflation both n.s.). 
+# - The ZI probability is small (7.3%)
+# - Coefficients are nearly identical between models
+# - Verdict: Clean diagnostics and stable inference for no-ZI model outweigh the AIC difference, so do not include a zero inflation term in the model.
+
+```
+
+
+```{r testing conflict model distributions}
+
+conflict_model_poisson_test <- glmmTMB(conflict_count ~ spi_sixmonth * ConflictSpecies + hot_day_prop * ConflictSpecies + spi_sixmonth * hot_day_prop + season + (1 | station) + (1|YearMon) + ou(period_x_fc + 0|station_species), family = compois(link = "log"), data = pac_data_ngami)
+summary(conflict_model_poisson_test)
+
+conflict_model_nbinom_test <- glmmTMB(conflict_count ~ spi_sixmonth * ConflictSpecies + hot_day_prop * ConflictSpecies + spi_sixmonth * hot_day_prop + season + (1 | station) + (1|YearMon) + ou(period_x_fc + 0|station_species), family = nbinom2, data = pac_data_ngami)
+summary(conflict_model_nbinom_test)
+
+conflict_model_compois_test <- glmmTMB(conflict_count ~ spi_sixmonth * ConflictSpecies + hot_day_prop * ConflictSpecies + spi_sixmonth * hot_day_prop + season + (1 | station) + (1|YearMon) + ou(period_x_fc + 0|station_species), family = compois(link = "log"), data = pac_data_ngami)
+summary(conflict_model_compois_test)
+
+conflict_model_genpois_test <- glmmTMB(conflict_count ~ spi_sixmonth * ConflictSpecies + hot_day_prop * ConflictSpecies + spi_sixmonth * hot_day_prop + season + (1 | station) + (1|YearMon) + ou(period_x_fc + 0|station_species), family = compois(link = "log"), data = pac_data_ngami)
+summary(conflict_model_genpois_test)
+
+AIC(conflict_model_poisson_test, conflict_model_nbinom_test, conflict_model_compois_test, conflict_model_genpois_test)
+
+# Poisson
+sim_conflict_model_pois <- simulateResiduals(conflict_model_poisson_test, n = 1000)
+plot(sim_conflict_model_pois)
+
+# Nbinom
+sim_conflict_model_nbinom <- simulateResiduals(conflict_model_nbinom_test, n = 1000)
+plot(sim_conflict_model_nbinom)
+
+# Compois
+sim_conflict_model_compois <- simulateResiduals(conflict_model_compois_test, n = 1000)
+plot(sim_conflict_model_compois)
+
+# Genpois
+sim_conflict_model_compois <- simulateResiduals(conflict_model_compois_test, n = 1000)
+plot(sim_conflict_model_compois)
+
+
+```
+
+
+```{r genpois conflict model}
+
+conflict_model <- glmmTMB(conflict_count ~ spi_sixmonth * ConflictSpecies + hot_day_prop * ConflictSpecies + spi_sixmonth * hot_day_prop + season + (1 | station) + (1|YearMon) + ou(period_x_fc + 0|station_species), family = genpois(link = "log"), data = pac_data_ngami)
+summary(conflict_model)
+
+```
+
+
+## Bootstrap CIs
+
+
+```{r}
+
+# ---------------------------
+# Bootstrap CI function
+# ---------------------------
+bootstrap_CI_pac <- function(model, nb = 1000, seed = 42) {
+  set.seed(seed)
+  
+  # Original model frame, to keep rows aligned
+  mf     <- model.frame(model)          # includes response + predictors
+  n      <- nrow(mf)
+  ncoef  <- length(fixef(model)$cond)   # number of conditional fixed effects
+  coefmat <- matrix(NA_real_, nrow = ncoef, ncol = nb)
+  
+  i <- 1
+  while (i <= nb) {
+    tryCatch({
+      # 1) Simulate new response (same length/order as original)
+      ynew <- simulate(model)[[1]]      # returns a vector of length n
+      
+      # 2) Build new data with simulated response in same column as original
+      newdat <- mf
+      resp_name <- all.vars(formula(model))[1]  # "conflict_count"
+      newdat[[resp_name]] <- ynew
+      
+      # 3) Refit model with same formula/family but new data
+      bmod <- update(model, data = newdat)
+      
+      # 4) Store conditional fixed-effect estimates
+      coefmat[, i] <- fixef(bmod)$cond
+      i <- i + 1
+    },
+    warning = function(w) {},   # silently skip failed fits
+    error   = function(e) {})
+  }
+  
+  rownames(coefmat) <- names(fixef(model)$cond)
+  
+  # 5) 95% percentile CIs
+  CIs <- t(apply(coefmat, 1, function(x)
+    quantile(x, c(0.025, 0.975), na.rm = TRUE)))
+  colnames(CIs) <- c("2.5%", "97.5%")
+  CIs
+}
+
+# Run bootstrap (start with smaller nb to check speed)
+CIs_conflict_coefs <- bootstrap_CI_pac(conflict_model, nb = 1000, seed = 42)
+
+tidy_CI <- function(CI_matrix, model_name) {
+  as.data.frame(CI_matrix) %>%
+    mutate(coefficient = rownames(CI_matrix),
+           model       = model_name) %>%
+    dplyr::select(model, coefficient, `2.5%`, `97.5%`)
+}
+
+CIs_conflict_coefs <- tidy_CI(CIs_conflict_coefs,
+                               model_name = "Monthly NB (6‑month SPI)")
+
+CIs_conflict_coefs
+
+saveRDS(CIs_conflict_coefs, "CIs_conflict_coefs")
+#CIs_conflict_coefs <- readRDS("CIs_conflict_coefs")
+
+```
+
+
+
+## Test for temporal autocorrelation in PAC models
+
+```{r test autocorrelation PAC models}
+
+acf(resid(conflict_model))
+
+```
+
+
+## Do predictors co-vary?
+
+```{r check collinearity PAC models}
+
+check_collinearity(conflict_model)
+
+```
+
+
+## DHARMa Conflict Model 
+
+```{r diagnostic plots}
+
+# 1. monthly: 6-month drought spi
+sim_conflict_model <- simulateResiduals(conflict_model, n = 1000)
+plot(sim_conflict_model)
+
+
+```
+
+
+
+## Figures
+
+```{r plot theme}
+
+# Minimal Tufte-inspired theme
+tufte_theme <- function() {
+  theme_minimal(base_family = "Gill Sans", base_size = 13) +
+    theme(
+      # Remove all non-essential elements
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      
+      # Subtle axis lines only where needed
+      axis.line.x = element_line(color = "gray40", linewidth = 0.3),
+      axis.line.y = element_blank(),
+      axis.ticks.x = element_line(color = "gray40", linewidth = 0.3),
+      axis.ticks.y = element_blank(),
+      
+      # Larger, clearer text
+      axis.title.x = element_text(color = "gray20", size = 15),
+      axis.title.y = element_text(color = "gray20", size = 15),
+      axis.text.x  = element_text(color = "gray20", size = 12),
+      axis.text.y  = element_text(color = "gray20", size = 12),
+      
+      # Minimal legend with larger text
+      legend.background = element_blank(),
+      legend.key = element_blank(),
+      legend.title = element_text(size = 12, face = "plain"),
+      legend.text  = element_text(size = 12),
+      
+      # Clean strips for facets
+      strip.background = element_blank(),
+      strip.text = element_text(face = "italic", size = 13, hjust = 0),
+      
+      # Generous margins
+      plot.margin = margin(12, 18, 12, 12),
+      plot.title = element_text(size = 16, face = "plain", hjust = 0),
+      plot.subtitle = element_text(size = 12, color = "gray40", hjust = 0)
+    )
+}
+
+
+```
+
+## GPS Figures with bootstrap CIs on predictions
+
+```{r descriptive figures}
+
+#Species palette
+species_colors <- c(
+  "Lion"             = "#4A6741",  # Forest green
+  "African Wild Dog" = "#748FFC",  # Periwinkle blue
+  "Leopard"          = "#8FBC94",  # Sage green
+  "Hyena"            = "#006D77",  # Deep teal
+  "Cheetah"          = "#273469"   # Dark navy
+)
+
+
+# Visit count distribution 
+
+visits_monthly_collapsed <- human_area_visits_monthly %>%
+  group_by(id, YearMon, species) %>%
+  summarise(
+    visit_count = sum(visit_count),
+    .groups = "drop"
+  )
+
+species_summary <- visits_monthly_collapsed %>%
+  group_by(species) %>%
+  summarise(
+    n_visiting_months = n(),                  # months with >0 visits
+    n_individuals = n_distinct(id),
+    total_visits = sum(visit_count),
+    mean_visits_when_visiting = mean(visit_count),
+    median_visits_when_visiting = median(visit_count),
+    .groups = "drop"
+  )
+
+# Get sample sizes
+species_n <- species_summary %>%
+  select(species, n_individuals) %>%
+  mutate(species_label = paste0(species, " (n=", n_individuals, ")"))
+
+
+#Different than when use above code
+visits_labeled <- human_area_visits_monthly %>%
+  left_join(species_n, by = "species") %>%
+  mutate(species_label = factor(species_label, 
+                                levels = species_n$species_label[order(species_n$species)]))
+
+visit_counts_species <- ggplot(visits_labeled, aes(x = visit_count, fill = species)) +
+  geom_histogram(binwidth = 1, position = "stack", color = NA) +
+  scale_fill_manual(values = species_colors,
+                    name = NULL,
+                    labels = species_n$species_label,
+                    breaks = species_n$species) +
+  labs(x = "Number of settlement visits per collar-month", y = "Number of collar-month observations (frequency)") +
+  tufte_theme() +
+  theme(
+    legend.position = c(0.5, 0.65),   # tweak these two numbers
+    legend.justification = c(0, 0.5),  # left‑center of legend box
+    legend.background = element_rect(fill = alpha("white", 0.7), color = NA),
+  )
+
+visit_counts_species
+
+# Visits by water and livestock 
+
+# Total sample size (months) per context × species
+visit_by_context <- human_area_visits_monthly %>%
+  group_by(species, Waterhole_Y_N, Livestock_Present) %>%
+  summarise(n_months = n(), .groups = "drop") %>%
+  mutate(
+    context = case_when(
+      Livestock_Present == "Y" & Waterhole_Y_N == "Y" ~ "Livestock\nWaterhole present",
+      Livestock_Present == "Y" & Waterhole_Y_N == "N" ~ "Livestock\nWaterhole absent",
+      Livestock_Present == "N" & Waterhole_Y_N == "Y" ~ "No livestock\nWaterhole present",
+      Livestock_Present == "N" & Waterhole_Y_N == "N" ~ "No livestock\nWaterhole absent"
+    ),
+    context = factor(
+      context,
+      levels = c(
+        "No livestock\nWaterhole absent",
+        "No livestock\nWaterhole present",
+        "Livestock\nWaterhole absent",
+        "Livestock\nWaterhole present"
+      )
+    )
+  )
+
+visits_water_livestock <- ggplot(visit_by_context,
+                 aes(x = context, y = n_months, fill = species)) +
+  geom_col(position = position_dodge(width = 0.6),
+           width = 0.45, color = NA) +
+  scale_fill_manual(values = species_colors, name = NULL) +
+  labs(x = NULL, y = "Number of collar-months with visits") +
+  tufte_theme() +
+  theme(
+    legend.position = "top",
+    legend.justification = "left",
+    legend.key.height = unit(0.25, "lines"),
+    legend.text = element_text(size = 11),
+    panel.grid = element_blank(),
+  ) 
+
+visits_water_livestock
+
+
+# Distribution of monthly settlement visit counts plot for Supporting Information
+
+visit_histogram <- ggplot(human_area_visits_monthly_diel,
+       aes(x = visit_count)) +
+  geom_histogram(binwidth = 2) +
+  facet_wrap(~ species, scales = "free_y") +
+  labs(
+    title = "Distribution of monthly visit counts by species",
+    x = "Monthly visit count",
+    y = "Frequency"
+  ) +
+  tufte_theme() +
+  theme(text = element_text(family = "Helvetica"))
+
+ggsave(
+  "monthly_visit_counts_by_species.pdf",
+  plot = visit_histogram,
+  width = 10,
+  height = 7,
+  units = "in"
+)
+
+```
+
+
+```{r diel period plot for SI}
+
+# Figure S2: Proportion of settlement visits by hour
+
+# Load individual settlement visit records
+results_settlement_visits <- readRDS("results_settlement_visits")
+
+# Match animal IDs to species using existing GPS data
+all_locations_summary <- all_locations %>%
+  as.data.frame() %>%
+  distinct(id, species)
+
+# Calculate the proportion of visits beginning in each hour
+hourly_proportion <- results_settlement_visits$detailed %>%
+  mutate(
+    entry_time = lubridate::force_tz(
+      entry_time, tzone = "Africa/Gaborone"
+    ),
+    entry_hour = lubridate::hour(entry_time)
+  ) %>%
+  left_join(all_locations_summary, by = "id") %>%
+  group_by(entry_hour, species) %>%
+  summarise(visit_count = n(), .groups = "drop") %>%
+  group_by(species) %>%
+  mutate(proportion = visit_count / sum(visit_count)) %>%
+  ungroup()
+
+# Create Figure S2
+visits_across_day <- ggplot(
+  hourly_proportion,
+  aes(x = entry_hour, fill = species, y = proportion)
+) +
+  geom_bar(
+    stat = "identity",
+    position = "dodge",
+    color = "white"
+  ) +
+  scale_fill_manual(values = species_colors) +
+  scale_x_continuous(breaks = 0:23) +
+  labs(
+    x = "Hour of Settlement Entry",
+    y = "Proportion of Visits"
+  ) +
+  tufte_theme() +
+  theme(legend.title = element_blank())
+
+visits_across_day
+
+# Export figure
+ggsave(
+  "visitation_diel_cycle.pdf",
+  visits_across_day,
+  width = 400,
+  height = 250,
+  units = "mm",
+  device = cairo_pdf
+)
+
+```
+
+
+```{r wild dog spi x waterhole}
+
+#Waterhole Y Livestock N, Livestock Y Waterhole N
+data_dog_count %>%
+  count(Waterhole_Y_N, Livestock_Present) %>%
+  mutate(percent = n / sum(n) * 100) %>%
+  arrange(desc(n))
+
+
+# ============================================================================
+# WATERHOLE × SPI (Bootstrap CIs)
+# ============================================================================
+
+# Create prediction grid matching your original
+spi_vals_boot <- seq(-2, max(data_dog_count$sixmonth_spi, na.rm = TRUE), length.out = 100)
+
+pred_waterhole_boot_grid <- expand.grid(
+  sixmonth_spi = spi_vals_boot,
+  Waterhole_Y_N = c("N", "Y"),
+  Livestock_Present = "N",
+  hot_day_prop = mean(data_dog_count$hot_day_prop, na.rm = TRUE),
+  season = "Dry",
+  settlement_name = unique(data_dog_count$settlement_name)[1],
+  pack = unique(data_dog_count$pack)[1],
+  id_simple = unique(data_dog_count$id_simple)[1],
+  period_x_fc = unique(data_dog_count$period_x_fc)[1]
+)
+
+# Bootstrap predictions
+set.seed(42)
+B <- 1000
+n_pred_waterhole <- nrow(pred_waterhole_boot_grid)
+pred_mat_waterhole <- matrix(NA, nrow = n_pred_waterhole, ncol = B)
+
+for (b in 1:B) {
+  if (b %% 100 == 0) cat("Waterhole iteration", b, "\n")
+  
+  y_sim <- simulate(dog_visits, nsim = 1)[[1]]
+  boot_fit <- update(
+    dog_visits,
+    visit_count ~ .,
+    data = transform(data_dog_count, visit_count = y_sim)
+  )
+  pred_mat_waterhole[, b] <- predict(
+    boot_fit,
+    newdata = pred_waterhole_boot_grid,
+    type = "response",
+    re.form = NA
+  )
+}
+
+# Summarize
+waterhole_mean <- apply(pred_mat_waterhole, 1, mean)
+waterhole_ci <- t(apply(pred_mat_waterhole, 1, quantile, probs = c(0.025, 0.975)))
+
+pred_waterhole_boot <- pred_waterhole_boot_grid %>%
+  mutate(
+    predicted = waterhole_mean,
+    lower = pmax(0, waterhole_ci[, 1]),
+    upper = waterhole_ci[, 2]
+  )
+
+saveRDS(pred_waterhole_boot, "pred_spi_waterhole_boot_newtemp")
+#pred_waterhole_boot <- readRDS("pred_spi_waterhole_boot_newtemp_final")
+
+# Rug data
+raw_waterhole <- data_dog_count %>%
+  filter(Livestock_Present == "N")
+
+# Plot
+fig_SPI_Waterhole_boot_2 <- ggplot(
+  pred_waterhole_boot,
+  aes(
+    x = sixmonth_spi,
+    y = predicted,
+    color = Waterhole_Y_N,
+    fill = Waterhole_Y_N,
+    group = Waterhole_Y_N
+  )
+) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.15, color = NA) +
+  geom_line(linewidth = 1.6) +
+  geom_rug(
+    data = raw_waterhole,
+    aes(x = sixmonth_spi, color = Waterhole_Y_N),
+    inherit.aes = FALSE,
+    sides = "b",
+    alpha = 0.4
+  ) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50", linewidth = 0.6) +
+  scale_color_manual(
+    values = c("N" = "#48202a", "Y" = "#0072b2"),
+    labels = c("N" = "No waterhole", "Y" = "Waterhole present"),
+    name = NULL
+  ) +
+  scale_fill_manual(
+    values = c("N" = "#48202a", "Y" = "#0072b2"),
+    guide = "none"
+  ) +
+  coord_cartesian(ylim = c(0, NA)) +
+  labs(
+    x = "Standard Precipitation Index\n(← Drought | Wet →)",
+    y = "Predicted visits",
+    #subtitle = "Bootstrap 95% CI (1000 iterations)"
+  ) +
+  tufte_theme() +
+  theme(
+    legend.position = c(0.25, 0.85)
+  )
+
+fig_SPI_Waterhole_boot_2
+
+
+fig_SPI_Waterhole_boot_1.5 <- ggplot(
+  pred_waterhole_boot,
+  aes(
+    x = sixmonth_spi,
+    y = predicted,
+    color = Waterhole_Y_N,
+    fill = Waterhole_Y_N,
+    group = Waterhole_Y_N
+  )
+) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.15, color = NA) +
+  geom_line(linewidth = 1.6) +
+  geom_rug(
+    data = raw_waterhole,
+    aes(x = sixmonth_spi, color = Waterhole_Y_N),
+    inherit.aes = FALSE,
+    sides = "b",
+    alpha = 0.4
+  ) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50", linewidth = 0.6) +
+  scale_color_manual(
+    values = c("N" = "#48202a", "Y" = "#0072b2"),
+    labels = c("N" = "No waterhole", "Y" = "Waterhole present"),
+    name = NULL
+  ) +
+  scale_fill_manual(
+    values = c("N" = "#48202a", "Y" = "#0072b2"),
+    guide = "none"
+  ) +
+  coord_cartesian(xlim = c(-1.5, NA), ylim = c(0, NA)) +
+  labs(
+    x = "Standard Precipitation Index\n(← Drought | Wet →)",
+    y = "Predicted visits",
+    #subtitle = "Bootstrap 95% CI (1000 iterations)"
+  ) +
+  tufte_theme() +
+  theme(
+    legend.position = c(0.25, 0.85)
+  )
+
+fig_SPI_Waterhole_boot_1.5
+
+```
+
+
+```{r wild dog spi x livestock}
+
+# ============================================================================
+# LIVESTOCK × SPI (Bootstrap CIs)
+# ============================================================================
+
+pred_livestock_boot_grid <- expand.grid(
+  sixmonth_spi = spi_vals_boot,
+  Livestock_Present = c("N", "Y"),
+  Waterhole_Y_N = "N",
+  hot_day_prop = mean(data_dog_count$hot_day_prop, na.rm = TRUE),
+  season = "Dry",
+  settlement_name = unique(data_dog_count$settlement_name)[1],
+  pack = unique(data_dog_count$pack)[1],
+  id_simple = unique(data_dog_count$id_simple)[1],
+  period_x_fc = unique(data_dog_count$period_x_fc)[1]
+)
+
+# Bootstrap predictions
+n_pred_livestock <- nrow(pred_livestock_boot_grid)
+pred_mat_livestock <- matrix(NA, nrow = n_pred_livestock, ncol = B)
+
+for (b in 1:B) {
+  if (b %% 100 == 0) cat("Livestock iteration", b, "\n")
+  
+  y_sim <- simulate(dog_visits, nsim = 1)[[1]]
+  boot_fit <- update(
+    dog_visits,
+    visit_count ~ .,
+    data = transform(data_dog_count, visit_count = y_sim)
+  )
+  pred_mat_livestock[, b] <- predict(
+    boot_fit,
+    newdata = pred_livestock_boot_grid,
+    type = "response",
+    re.form = NA
+  )
+}
+
+# Summarize
+livestock_mean <- apply(pred_mat_livestock, 1, mean)
+livestock_ci <- t(apply(pred_mat_livestock, 1, quantile, probs = c(0.025, 0.975)))
+
+pred_livestock_boot <- pred_livestock_boot_grid %>%
+  mutate(
+    predicted = livestock_mean,
+    lower = pmax(0, livestock_ci[, 1]),
+    upper = livestock_ci[, 2]
+  )
+
+saveRDS(pred_livestock_boot, "pred_spi_livestock_boot_newtemp")
+#pred_livestock_boot <- readRDS("pred_spi_livestock_boot_newtemp_final")
+
+# Rug data
+raw_livestock <- data_dog_count %>%
+  filter(Waterhole_Y_N == "N")
+
+# Plot
+fig_SPI_Livestock_boot_2 <- ggplot(
+  pred_livestock_boot,
+  aes(
+    x = sixmonth_spi,
+    y = predicted,
+    color = Livestock_Present,
+    fill = Livestock_Present,
+    group = Livestock_Present
+  )
+) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.15, color = NA) +
+  geom_line(linewidth = 1.6) +
+  geom_rug(
+    data = raw_livestock,
+    aes(x = sixmonth_spi, color = Livestock_Present),
+    inherit.aes = FALSE,
+    sides = "b",
+    alpha = 0.4
+  ) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50", linewidth = 0.6) +
+  scale_color_manual(
+    values = c("N" = "#48202a", "Y" = "#fbae17"),
+    labels = c("N" = "No livestock", "Y" = "Livestock present"),
+    name = NULL
+  ) +
+  scale_fill_manual(
+    values = c("N" = "#48202a", "Y" = "#fbae17"),
+    guide = "none"
+  ) +
+  coord_cartesian(ylim = c(0, NA)) +
+  labs(
+    x = "Standard Precipitation Index\n(← Drought | Wet →)",
+    y = "Predicted visits",
+    #subtitle = "Bootstrap 95% CI (1000 iterations)"
+  ) +
+  tufte_theme() +
+  theme(
+    legend.position = c(0.25, 0.85)
+  )
+
+fig_SPI_Livestock_boot_2
+
+fig_SPI_Livestock_boot_1.5 <- ggplot(
+  pred_livestock_boot,
+  aes(
+    x = sixmonth_spi,
+    y = predicted,
+    color = Livestock_Present,
+    fill = Livestock_Present,
+    group = Livestock_Present
+  )
+) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.15, color = NA) +
+  geom_line(linewidth = 1.6) +
+  geom_rug(
+    data = raw_livestock,
+    aes(x = sixmonth_spi, color = Livestock_Present),
+    inherit.aes = FALSE,
+    sides = "b",
+    alpha = 0.4
+  ) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50", linewidth = 0.6) +
+  scale_color_manual(
+    values = c("N" = "#48202a", "Y" = "#fbae17"),
+    labels = c("N" = "No livestock", "Y" = "Livestock present"),
+    name = NULL
+  ) +
+  scale_fill_manual(
+    values = c("N" = "#48202a", "Y" = "#fbae17"),
+    guide = "none"
+  ) +
+  coord_cartesian(xlim = c(-1.5, NA), ylim = c(0, NA)) +
+  labs(
+    x = "Standard Precipitation Index\n(← Drought | Wet →)",
+    y = "Predicted visits",
+    #subtitle = "Bootstrap 95% CI (1000 iterations)"
+  ) +
+  tufte_theme() +
+  theme(
+    legend.position = c(0.25, 0.85)
+  )
+
+fig_SPI_Livestock_boot_1.5
+
+```
+
+
+```{r wild dog spi x heat 40 vs 80}
+
+## -------------------------
+## Compute percentiles on non-zero hot days (40th vs 80th)
+## -------------------------
+non_zero <- data_dog_count %>% filter(hot_day_prop > 0)
+
+hot40_extended <- quantile(non_zero$hot_day_prop, 0.40, na.rm = TRUE)
+hot80_extended <- quantile(non_zero$hot_day_prop, 0.80, na.rm = TRUE)
+
+hot_day_values_4080 <- c(0, hot40_extended, hot80_extended)
+
+## -------------------------
+## Prediction grid
+## -------------------------
+pred_data_hotdays_4080 <- expand.grid(
+  sixmonth_spi = seq(
+    -2,
+    max(data_dog_count$sixmonth_spi, na.rm = TRUE),
+    length.out = 50
+  ),
+  hot_day_prop = hot_day_values_4080,
+  Livestock_Present = "N",
+  Waterhole_Y_N = "N",
+  season = "Dry",
+  settlement_name = unique(data_dog_count$settlement_name)[1],
+  pack = unique(data_dog_count$pack)[1],
+  id_simple = unique(data_dog_count$id_simple)[1],
+  period_x_fc = unique(data_dog_count$period_x_fc)[1]
+)
+
+## -------------------------
+## Bootstrap predictions
+## -------------------------
+set.seed(42)
+B <- 1000
+n_pred_4080 <- nrow(pred_data_hotdays_4080)
+pred_mat_gps_4080 <- matrix(NA, nrow = n_pred_4080, ncol = B)
+
+start_time <- Sys.time()
+
+for (b in 1:B) {
+  if (b %% 100 == 0) {
+    elapsed <- difftime(Sys.time(), start_time, units = "mins")
+    rate <- as.numeric(elapsed) / b
+    remaining <- rate * (B - b)
+    cat(sprintf("Hot days 40/80 iteration %d/%d | Elapsed: %.1f min | Est. remaining: %.1f min\n",
+                b, B, as.numeric(elapsed), remaining))
+  }
+  
+  y_sim <- simulate(dog_visits, nsim = 1)[[1]]
+  boot_fit <- update(
+    dog_visits,
+    visit_count ~ .,
+    data = transform(data_dog_count, visit_count = y_sim)
+  )
+  pred_mat_gps_4080[, b] <- predict(
+    boot_fit,
+    newdata = pred_data_hotdays_4080,
+    type = "response",
+    re.form = NA
+  )
+}
+
+cat(sprintf("\nDone! Total time: %.1f min\n", as.numeric(difftime(Sys.time(), start_time, units = "mins"))))
+
+## -------------------------
+## Summarize bootstrap predictions
+## -------------------------
+gps_mean_4080 <- apply(pred_mat_gps_4080, 1, mean)
+gps_ci_4080   <- t(apply(pred_mat_gps_4080, 1, quantile, probs = c(0.025, 0.975)))
+
+pred_data_hotdays_4080 <- pred_data_hotdays_4080 %>%
+  mutate(
+    predicted = gps_mean_4080,
+    lower     = pmax(0, gps_ci_4080[, 1]),
+    upper     = gps_ci_4080[, 2],
+    hot_day_prop_f = factor(
+      hot_day_prop,
+      levels = hot_day_values_4080,
+      labels = c("No hot days", "40th percentile", "80th percentile")
+    )
+  )
+
+saveRDS(pred_data_hotdays_4080, "pred_data_spi_hotdays_4080")
+
+## -------------------------
+## Raw data rug (consistent with percentiles)
+## -------------------------
+data_dog_count_rug_4080 <- data_dog_count %>%
+  mutate(
+    hot_day_prop_f = case_when(
+      hot_day_prop == 0 ~ "No hot days",
+      hot_day_prop > 0 & hot_day_prop <= hot40_extended ~ "40th percentile",
+      hot_day_prop > hot40_extended & hot_day_prop <= hot80_extended ~ "80th percentile",
+      TRUE ~ NA_character_
+    ),
+    hot_day_prop_f = factor(
+      hot_day_prop_f,
+      levels = c("No hot days", "40th percentile", "80th percentile")
+    )
+  ) %>%
+  filter(!is.na(hot_day_prop_f))
+
+## -------------------------
+## Color palette
+## -------------------------
+spi_heat_palette_4080 <- viridisLite::plasma(n = 3, begin = 0.15, end = 0.75)
+names(spi_heat_palette_4080) <- c("No hot days", "40th percentile", "80th percentile")
+
+## -------------------------
+## Plot function
+## -------------------------
+make_dog_spi_heat_plot_bootstrap <- function(
+  pred_data,
+  raw_data_rug,
+  title_suffix,
+  livestock = "N",
+  palette
+) {
+  ggplot(
+    pred_data,
+    aes(
+      x = sixmonth_spi,
+      y = predicted,
+      color = hot_day_prop_f,
+      fill = hot_day_prop_f
+    )
+  ) +
+    geom_ribbon(
+      aes(ymin = lower, ymax = upper),
+      alpha = 0.2,
+      color = NA
+    ) +
+    geom_line(linewidth = 1.6) +
+    geom_rug(
+      data = raw_data_rug,
+      aes(x = sixmonth_spi, color = hot_day_prop_f),
+      inherit.aes = FALSE,
+      sides = "b",
+      alpha = 0.6
+    ) +
+    geom_vline(
+      xintercept = 0,
+      linetype = "dashed",
+      color = "gray50",
+      linewidth = 0.6
+    ) +
+    scale_color_manual(values = palette, name = "Hot days") +
+    scale_fill_manual(values = palette, guide = "none") +
+    labs(
+      # title = paste(
+      #   "Drought × Heat interaction (Wild dogs)",
+      #   "| Livestock:", ifelse(livestock == "Y", "Present", "Absent"),
+      #   "|", title_suffix
+      # ),
+      x = "Standard Precipitation Index\n(← Drought | Wet →)",
+      y = "Predicted visits"
+    ) +
+    tufte_theme()
+}
+
+## -------------------------
+## Generate plot
+## -------------------------
+fig_dog_04080_boot <- make_dog_spi_heat_plot_bootstrap(
+  pred_data = pred_data_hotdays_4080,
+  raw_data_rug = data_dog_count_rug_4080,
+  livestock = "N",
+  palette = spi_heat_palette_4080
+) +
+  scale_color_manual(
+    values = spi_heat_palette_4080,
+    name = "Extreme Heat Days",
+    labels = c("No hot days" = "No extreme heat days",
+               "40th percentile" = "40th percentile",
+               "80th percentile" = "80th percentile")
+  ) +
+  scale_fill_manual(values = spi_heat_palette_4080, guide = "none")
+
+fig_dog_04080_boot
+
+```
+
+
+```{r lion spi x waterhole}
+
+# ============================================================================
+# LION: WATERHOLE × SPI (Bootstrap CIs)
+# ============================================================================
+
+spi_vals_boot <- seq(-2, max(data_lion_count$sixmonth_spi, na.rm = TRUE), length.out = 100)
+
+pred_waterhole_lion_grid <- expand.grid(
+  sixmonth_spi = spi_vals_boot,
+  Waterhole_Y_N = c("N", "Y"),
+  hot_day_prop = mean(data_lion_count$hot_day_prop, na.rm = TRUE),
+  season = "Dry",
+  sex = "F",
+  settlement_name = unique(data_lion_count$settlement_name)[1],
+  pack = unique(data_lion_count$pack)[1],
+  id_simple = unique(data_lion_count$id_simple)[1],
+  period_x_fc = unique(data_lion_count$period_x_fc)[1]
+)
+
+set.seed(42)
+B <- 1000
+n_pred <- nrow(pred_waterhole_lion_grid)
+pred_mat <- matrix(NA, nrow = n_pred, ncol = B)
+
+for (b in 1:B) {
+  if (b %% 100 == 0) cat("Lion waterhole iteration", b, "\n")
+  
+  y_sim <- simulate(lion_visits, nsim = 1)[[1]]
+  boot_fit <- update(
+    lion_visits,
+    visit_count ~ .,
+    data = transform(data_lion_count, visit_count = y_sim)
+  )
+  pred_mat[, b] <- predict(
+    boot_fit,
+    newdata = pred_waterhole_lion_grid,
+    type = "response",
+    re.form = NA
+  )
+}
+
+waterhole_mean <- apply(pred_mat, 1, mean)
+waterhole_ci <- t(apply(pred_mat, 1, quantile, probs = c(0.025, 0.975)))
+
+pred_waterhole_lion_boot <- pred_waterhole_lion_grid %>%
+  mutate(
+    predicted = waterhole_mean,
+    lower = pmax(0, waterhole_ci[, 1]),
+    upper = waterhole_ci[, 2]
+  )
+
+saveRDS(pred_waterhole_lion_boot, "pred_spi_waterhole_lion_boot")
+#pred_waterhole_lion_boot <- readRDS("pred_spi_waterhole_lion_boot_final")
+
+# Plot
+fig_lion_SPI_Waterhole_boot <- ggplot(
+  pred_waterhole_lion_boot,
+  aes(
+    x = sixmonth_spi,
+    y = predicted,
+    color = Waterhole_Y_N,
+    fill = Waterhole_Y_N,
+    group = Waterhole_Y_N
+  )
+) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.15, color = NA) +
+  geom_line(linewidth = 1.6) +
+  geom_rug(
+    data = data_lion_count,
+    aes(x = sixmonth_spi, color = Waterhole_Y_N),
+    inherit.aes = FALSE,
+    sides = "b",
+    alpha = 0.4
+  ) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50", linewidth = 0.6) +
+  scale_color_manual(
+    values = c("N" = "#48202a", "Y" = "#0072b2"),
+    labels = c("N" = "No waterhole", "Y" = "Waterhole present"),
+    name = NULL
+  ) +
+  scale_fill_manual(
+    values = c("N" = "#48202a", "Y" = "#0072b2"),
+    guide = "none"
+  ) +
+  coord_cartesian(ylim = c(0, NA)) +
+  labs(
+    x = "Standard Precipitation Index\n(← Drought | Wet →)",
+    y = "Predicted visits"
+  ) +
+  tufte_theme() +
+  theme(
+    legend.position = c(0.25, 0.85)
+  )
+
+fig_lion_SPI_Waterhole_boot
+
+```
+
+
+## Bootstrap prediction and CI code: PAC
+
+```{r descriptive figures}
+
+# Station × Species heatmap (Ngamiland) - Log transformed
+
+#Mean conflict rate per month for each station × species pair
+station_species_ngami <- pac_data_ngami %>%
+  group_by(station, ConflictSpecies) %>%
+  summarise(rate = sum(conflict_count) / n_distinct(YearMon), .groups = "drop") %>%
+  mutate(rate_log = log1p(rate))
+
+
+station_species_heatmap <- ggplot(station_species_ngami,
+                 aes(x = ConflictSpecies, y = station, fill = rate_log)) +
+  geom_tile(color = "white", linewidth = 0.5) +
+  geom_text(aes(label = sprintf("%.1f", rate),
+                color = rate_log > median(rate_log)), size = 5) +  # Increased from 3 to 5
+  scale_fill_gradient(low = "#fef9e7", high = "#264653", guide = "none") +
+  scale_color_manual(values = c("TRUE" = "white", "FALSE" = "gray30"),
+                     guide = "none") +
+  labs(x = "Conflict species", y = "Station") +
+  tufte_theme() +
+  theme(
+    panel.grid  = element_blank(),
+    axis.title.x = element_text(size = 13),
+    axis.title.y = element_text(size = 13),
+    axis.text.x  = element_text(size = 11),
+    axis.text.y  = element_text(size = 11)
+  )
+
+station_species_heatmap
+
+
+# Damage types
+
+# ============================================================
+# Data prep
+# ============================================================
+
+damage_summary <- read_csv("damage_summary.csv")
+
+# Totals for left panel
+total_all <- sum(damage_summary$total_conflicts)
+
+damage_totals <- damage_summary %>%
+  group_by(Damage_list) %>%
+  summarise(total = sum(total_conflicts)) %>%
+  mutate(
+    prop_of_total = total / total_all,
+    label = scales::percent(prop_of_total, accuracy = 0.1),
+    Damage_list = reorder(Damage_list, -total)
+  )
+
+damage_order <- levels(damage_totals$Damage_list)
+
+# Props for right panel
+damage_props <- damage_summary %>%
+  mutate(Damage_list = factor(Damage_list, levels = damage_order)) %>%
+  mutate(ConflictSpecies = factor(ConflictSpecies,
+                                  levels = names(sort(
+                                    tapply(total_conflicts, ConflictSpecies, sum)
+                                  ))))
+
+# ============================================================
+# Left panel: total counts + % label on top of each bar
+# ============================================================
+fig_opt4_left <- ggplot(damage_totals,
+                        aes(x = Damage_list, y = total)) +
+  geom_col(fill = "#48202a") +
+  geom_text(
+    aes(label = paste0("n = ", scales::comma(total), "\n", label), y = total),
+    vjust = -0.5,
+    size = 5,
+    family = "Arial",
+    colour = "grey30"
+  ) +
+  scale_x_discrete(labels = function(x) ifelse(x == "Other", 'Other\n("Beast")', x)) +
+  scale_y_continuous(
+    labels = scales::comma,
+    expand = expansion(mult = c(0, 0.15))
+  ) +
+  labs(
+    x = "Damage type",
+    y = "Total conflict reports"
+  ) +
+  tufte_theme() +
+  theme(
+    axis.title   = element_text(size = 11, family = "Gill Sans"),
+    axis.text    = element_text(size = 10, family = "Gill Sans"),
+    legend.title = element_text(size = 10, family = "Gill Sans"),
+    legend.text  = element_text(size = 9,  family = "Gill Sans"),
+    plot.tag     = element_text(size = 11, family = "Gill Sans")
+  )
+
+
+# ============================================================
+# Right panel: proportional fill, no labels
+# ============================================================
+fig_opt4_right <- ggplot(damage_props,
+                         aes(x = Damage_list,
+                             y = total_conflicts,
+                             fill = ConflictSpecies)) +
+  geom_col(position = "fill") +
+  scale_x_discrete(labels = function(x) ifelse(x == "Other", 'Other\n("Beast")', x)) +
+  scale_y_continuous(
+    labels = scales::percent_format(),
+    expand = expansion(mult = c(0, 0.02))
+  ) +
+  scale_fill_manual(values = species_colors) +
+  labs(
+    x = "Damage type",
+    y = "Species composition",
+    fill = "Species"
+  ) +
+  tufte_theme() +
+  theme(
+    axis.title   = element_text(size = 11, family = "Gill Sans"),
+    axis.text    = element_text(size = 10, family = "Gill Sans"),
+    legend.title = element_text(size = 10, family = "Gill Sans"),
+    legend.text  = element_text(size = 9,  family = "Gill Sans"),
+    plot.tag     = element_text(size = 11, family = "Gill Sans")
+  )
+
+# ============================================================
+# Combine
+# ============================================================
+fig_damage <- fig_opt4_left + fig_opt4_right +
+  plot_layout(widths = c(1, 1.5), guides = "collect") +
+  plot_annotation(tag_levels = 'a',
+                  tag_prefix = '(',
+                  tag_suffix = ')')
+
+fig_damage
+
+# ggsave("fig_damage.png", fig_damage, width = 400, height = 250, units = "mm", dpi = 300)
+
+
+```
+
+
+```{r PAC main drought effect}
+
+## -------------------------
+## 1. Define species + prediction grid
+## -------------------------
+
+all_species <- c("African Wild Dog", "Cheetah", "Hyena", "Leopard", "Lion")
+
+pred_spi_all_boot <- expand.grid(
+  spi_sixmonth = seq(
+    min(pac_data_ngami$spi_sixmonth, na.rm = TRUE),
+    max(pac_data_ngami$spi_sixmonth, na.rm = TRUE),
+    length.out = 100
+  ),
+  hot_day_prop = 0,  # main drought effect
+  ConflictSpecies = all_species,
+  season = "Dry",
+  station = unique(pac_data_ngami$station)[1],
+  YearMon = unique(pac_data_ngami$YearMon)[1],
+  period_x_fc = unique(pac_data_ngami$period_x_fc)[1],
+  station_species = unique(pac_data_ngami$station_species)[1]
+)
+
+## -------------------------
+## 2. Bootstrap predictions
+## -------------------------
+
+set.seed(42)
+B <- 1000
+n_pred <- nrow(pred_spi_all_boot)
+pred_mat <- matrix(NA, nrow = n_pred, ncol = B)
+
+for (b in 1:B) {
+
+  if (b %% 100 == 0) cat("Bootstrap iteration:", b, "\n")
+
+  tryCatch({
+
+    # Simulate new response
+    y_sim <- simulate(conflict_model, nsim = 1)[[1]]
+
+    # Refit model
+    boot_fit <- update(
+      conflict_model,
+      conflict_count ~ .,
+      data = transform(pac_data_ngami, conflict_count = y_sim)
+    )
+
+    # Population-level prediction
+    pred_mat[, b] <- predict(
+      boot_fit,
+      newdata = pred_spi_all_boot,
+      type = "response",
+      re.form = NA
+    )
+
+  }, error = function(e){})
+}
+
+## -------------------------
+## 3. Summarise bootstrap distribution
+## -------------------------
+
+pred_spi_all_boot <- pred_spi_all_boot %>%
+  mutate(
+    predicted = apply(pred_mat, 1, mean, na.rm = TRUE),
+    lower     = apply(pred_mat, 1, quantile, probs = 0.025, na.rm = TRUE),
+    upper     = apply(pred_mat, 1, quantile, probs = 0.975, na.rm = TRUE),
+    lower     = pmax(0, lower)
+  ) %>%
+  mutate(
+    ConflictSpecies = factor(
+      ConflictSpecies,
+      levels = c("Lion", "African Wild Dog", "Leopard", "Hyena", "Cheetah")
+    )
+  )
+
+saveRDS(pred_spi_all_boot, "pred_spi_all_boot_newtemp")
+#pred_spi_all_boot <- readRDS("pred_spi_all_boot_newtemp_final")
+
+## -------------------------
+## 4. Raw data for rug
+## -------------------------
+
+raw_rug_boot <- pac_data_ngami %>%
+  mutate(
+    ConflictSpecies = factor(
+      ConflictSpecies,
+      levels = c("Lion", "African Wild Dog", "Leopard", "Hyena", "Cheetah")
+    )
+  )
+
+
+fig_spi_facets_boot <- ggplot(
+  pred_spi_all_boot,
+  aes(x = spi_sixmonth, y = predicted)
+) +
+  geom_ribbon(
+    aes(ymin = lower, ymax = upper, fill = ConflictSpecies),
+    alpha = 0.2,
+    color = NA
+  ) +
+  geom_line(
+    aes(color = ConflictSpecies),
+    linewidth = 1.2
+  ) +
+  geom_rug(
+    data = raw_rug_boot,
+    aes(x = spi_sixmonth, color = ConflictSpecies),
+    inherit.aes = FALSE,
+    sides = "b",
+    alpha = 0.4
+  ) +
+  geom_vline(
+    xintercept = 0,
+    linetype = "dashed",
+    color = "gray50",
+    linewidth = 0.4
+  ) +
+  scale_color_manual(values = species_colors) +
+  scale_fill_manual(values = species_colors) +
+  facet_wrap(~ ConflictSpecies, scales = "free_y", ncol = 2) +
+  labs(
+    x = "Standard Precipitation Index\n(← Drought | Wet →)",
+    y = "Predicted conflict count"
+  ) +
+  tufte_theme() +
+  theme(
+    axis.text = element_text(size = 10),
+    axis.title = element_text(size = 12),
+    legend.position = "none",
+    strip.text = element_text(size = 11, face = "bold")
+  )
+
+fig_spi_facets_boot
+
+
+```
+
+
+```{r predicted visits in low vs high SPI}
+
+# Convert YearMon to Date if needed
+human_area_visits_monthly <- human_area_visits_monthly %>%
+  mutate(YearMon_date = as.Date(paste0(YearMon, "-01")))
+
+pac_data_ngami <- pac_data_ngami %>%
+  mutate(YearMon_date = as.Date(paste0(YearMon, "-01")))
+
+start_date <- min(human_area_visits_monthly$YearMon_date, na.rm = TRUE)
+end_date   <- max(pac_data_ngami$YearMon_date, na.rm = TRUE)
+
+#SPI data
+spi_dogcamp <- read_csv("spi_rainfall_dog_camp.csv")
+
+spi_subset <- spi_dogcamp %>%
+  filter(date >= start_date & date <= end_date)
+
+spi_summary <- spi_subset %>%
+  summarise(
+    spi_min = min(spi.6, na.rm = TRUE),
+    spi_max = max(spi.6, na.rm = TRUE),
+    spi_25  = quantile(spi.6, 0.25, na.rm = TRUE),
+    spi_75  = quantile(spi.6, 0.75, na.rm = TRUE),
+    spi_20  = quantile(spi.6, 0.20, na.rm = TRUE),
+    spi_80  = quantile(spi.6, 0.80, na.rm = TRUE)
+  )
+
+# --- Exact percentiles from observed data ------------------------------------
+
+# Extract numeric values from spi_summary
+spi_min <- spi_summary$spi_min
+spi_max <- spi_summary$spi_max
+spi_20  <- spi_summary$spi_20
+spi_25  <- spi_summary$spi_25
+spi_75  <- spi_summary$spi_75
+spi_80  <- spi_summary$spi_80
+
+# Helper function (unchanged)
+find_closest <- function(target, grid) {
+  grid[which.min(abs(grid - target))]
+}
+
+# Find closest values on prediction grid
+spi_min_closest <- find_closest(spi_min, pred_spi_all_boot$spi_sixmonth)
+spi_max_closest <- find_closest(spi_max, pred_spi_all_boot$spi_sixmonth)
+spi_20_closest  <- find_closest(spi_20,  pred_spi_all_boot$spi_sixmonth)
+spi_25_closest  <- find_closest(spi_25,  pred_spi_all_boot$spi_sixmonth)
+spi_75_closest  <- find_closest(spi_75,  pred_spi_all_boot$spi_sixmonth)
+spi_80_closest  <- find_closest(spi_80,  pred_spi_all_boot$spi_sixmonth)
+
+
+
+# --- 25th / 75th percentile comparison --------------------------------------
+
+pct_change_25_75 <- pred_spi_all_boot %>%
+  mutate(dist_25 = abs(spi_sixmonth - spi_25),
+         dist_75 = abs(spi_sixmonth - spi_75)) %>%
+  group_by(ConflictSpecies) %>%
+  summarise(
+    pred_drought = predicted[which.min(dist_25)],
+    pred_wet     = predicted[which.min(dist_75)],
+    .groups = "drop"
+  ) %>%
+  mutate(
+    pct_change = ((pred_drought - pred_wet) / pred_wet) * 100,
+    comparison = "25th vs 75th"
+  )
+
+# --- 20th / 80th percentile comparison --------------------------------------
+
+pct_change_20_80 <- pred_spi_all_boot %>%
+  mutate(dist_20 = abs(spi_sixmonth - spi_20),
+         dist_80 = abs(spi_sixmonth - spi_80)) %>%
+  group_by(ConflictSpecies) %>%
+  summarise(
+    pred_drought = predicted[which.min(dist_20)],
+    pred_wet     = predicted[which.min(dist_80)],
+    .groups = "drop"
+  ) %>%
+  mutate(
+    pct_change = ((pred_drought - pred_wet) / pred_wet) * 100,
+    comparison = "20th vs 80th"
+  )
+
+# --- Combined view ----------------------------------------------------------
+
+bind_rows(pct_change_25_75, pct_change_20_80) %>%
+  select(comparison, ConflictSpecies, pred_drought, pred_wet, pct_change) %>%
+  arrange(comparison, ConflictSpecies) %>%
+  print(n = Inf)
+
+# --- Overall mean across species (for the sentence) -------------------------
+
+bind_rows(pct_change_25_75, pct_change_20_80) %>%
+  group_by(comparison) %>%
+  summarise(
+    mean_pct  = mean(pct_change),
+    min_pct   = min(pct_change),
+    max_pct   = max(pct_change),
+    .groups   = "drop"
+  )
+
+```
+
+
+
+```{r PAC spi x heat}
+
+## -------------------------
+## 1. Compute percentiles on non-zero hot days
+## -------------------------
+non_zero <- pac_data_ngami %>%
+  filter(ConflictSpecies == "Lion" & hot_day_prop > 0)
+
+p40_hot_pac <- quantile(non_zero$hot_day_prop, 0.4, na.rm = TRUE)
+p80_hot_pac <- quantile(non_zero$hot_day_prop, 0.8, na.rm = TRUE)
+
+hot_day_values <- c(0, p40_hot_pac, p80_hot_pac)
+
+## -------------------------
+## 2. Prediction grid
+## -------------------------
+pred_interaction_pac <- expand.grid(
+  spi_sixmonth    = seq(
+    min(pac_data_ngami$spi_sixmonth, na.rm = TRUE),
+    max(pac_data_ngami$spi_sixmonth, na.rm = TRUE),
+    length.out = 50
+  ),
+  hot_day_prop    = hot_day_values,
+  ConflictSpecies = "Lion",
+  season          = "Dry",
+  station         = unique(pac_data_ngami$station)[1],
+  YearMon         = unique(pac_data_ngami$YearMon)[1],
+  period_x_fc     = unique(pac_data_ngami$period_x_fc)[1],
+  station_species = unique(pac_data_ngami$station_species)[1]
+)
+
+## -------------------------
+## 3. Bootstrap predictions
+## -------------------------
+set.seed(42)
+B <- 1000
+n_pred <- nrow(pred_interaction_pac)
+pred_mat <- matrix(NA, nrow = n_pred, ncol = B)
+
+for (b in 1:B) {
+  tryCatch({
+    y_sim <- simulate(conflict_model, nsim = 1)[[1]]
+
+    boot_fit <- update(
+      conflict_model,
+      conflict_count ~ .,
+      data = transform(pac_data_ngami, conflict_count = y_sim)
+    )
+
+    pred_mat[, b] <- predict(
+      boot_fit,
+      newdata = pred_interaction_pac,
+      type = "response",
+      re.form = NA
+    )
+  }, error = function(e){})
+}
+
+## -------------------------
+## 4. Summarize bootstrap predictions
+## -------------------------
+pred_interaction_pac <- pred_interaction_pac %>%
+  mutate(
+    predicted = apply(pred_mat, 1, mean),
+    lower     = apply(pred_mat, 1, quantile, probs = 0.025),
+    upper     = apply(pred_mat, 1, quantile, probs = 0.975),
+    hot_day_prop_f = factor(
+      hot_day_prop,
+      levels = hot_day_values,
+      labels = c("0", "40th percentile", "80th percentile")
+    )
+  )
+
+saveRDS(pred_interaction_pac, "pred_spi_interaction_pac_newtemp")
+#pred_interaction_pac <- readRDS("pred_spi_interaction_pac_newtemp_final")
+
+## -------------------------
+## 5. Raw data rug bins (consistent with percentiles)
+## -------------------------
+raw_lion_pac <- pac_data_ngami %>%
+  filter(ConflictSpecies == "Lion") %>%
+  mutate(
+    hot_day_prop_f = case_when(
+      hot_day_prop == 0 ~ "0",
+      hot_day_prop > 0 & hot_day_prop <= p40_hot_pac ~ "40th percentile",
+      hot_day_prop > p40_hot_pac & hot_day_prop <= p80_hot_pac ~ "80th percentile",
+      TRUE ~ NA_character_
+    ),
+    hot_day_prop_f = factor(
+      hot_day_prop_f,
+      levels = c("0", "40th percentile", "80th percentile")
+    )
+  ) %>%
+  filter(!is.na(hot_day_prop_f))
+
+## -------------------------
+## 6. Color palette
+## -------------------------
+spi_heat_palette <- viridisLite::plasma(n = 3, begin = 0.15, end = 0.75)
+names(spi_heat_palette) <- c("0", "40th percentile", "80th percentile")
+
+## -------------------------
+## 7. Plot function
+## -------------------------
+make_pac_spi_heat_plot_bootstrap <- function(
+  pred_data,
+  raw_data_rug,
+  title_suffix,
+  palette
+) {
+
+  ggplot(
+    pred_data,
+    aes(
+      x = spi_sixmonth,
+      y = predicted,
+      color = hot_day_prop_f,
+      fill = hot_day_prop_f
+    )
+  ) +
+    geom_ribbon(
+      aes(ymin = pmax(0, lower), ymax = upper),
+      alpha = 0.2,
+      color = NA
+    ) +
+    geom_line(linewidth = 1.6) +
+    geom_rug(
+      data = raw_data_rug,
+      aes(x = spi_sixmonth, color = hot_day_prop_f),
+      inherit.aes = FALSE,
+      sides = "b",
+      alpha = 0.6
+    ) +
+    geom_vline(
+      xintercept = 0,
+      linetype = "dashed",
+      color = "gray50",
+      linewidth = 0.6
+    ) +
+    scale_color_manual(values = palette, name = "Hot days") +
+    scale_fill_manual(values = palette, guide = "none") +
+    labs(
+      #title = paste("Drought × Heat interaction (Reference Species: Lion)", title_suffix),
+      x = "Standard Precipitation Index\n(← Drought | Wet →)",
+      y = "Predicted conflict count"
+    ) +
+    tufte_theme() +
+    theme(
+      legend.position = "right",
+      axis.title = element_text(size = 13),
+      axis.text = element_text(size = 11),
+      legend.title = element_text(size = 11),
+      legend.text = element_text(size = 10),
+      plot.title = element_text(size = 14)
+    )
+}
+
+## -------------------------
+## 8. Generate plot
+## -------------------------
+
+fig_lion_04080_boot <- make_pac_spi_heat_plot_bootstrap(
+  pred_data    = pred_interaction_pac,
+  raw_data_rug = raw_lion_pac,
+  #title_suffix = "0 / 40 / 80 percentiles (Bootstrap 95% CI)",
+  palette      = spi_heat_palette
+) +
+  scale_color_manual(
+    values = spi_heat_palette,
+    name = "Extreme Heat Days",
+    labels = c("0" = "No extreme heat days",
+               "40th percentile" = "40th percentile",
+               "80th percentile" = "80th percentile")
+  ) +
+  scale_fill_manual(values = spi_heat_palette, guide = "none")
+
+fig_lion_04080_boot
+
+
+
+```
+
+
+
+## Methods figure
+
+
+```{r}
+
+# =============================================================================
+# FIGURE 1: Study System Overview (GPS Collaring Study)
+# =============================================================================
+
+# Study site coordinates
+study_lat <- -19.523  # 19°31'22.8"S
+study_lon <- 23.637   # 23°38'13.0"E
+radius_miles <- 50
+radius_km <- radius_miles * 1.60934
+
+# Create study site point
+study_site <- st_sfc(st_point(c(study_lon, study_lat)), crs = 4326)
+
+# Create circle around study site (30 mile radius)
+study_site_proj <- st_transform(study_site, crs = 32734)  # UTM Zone 34S
+buffer <- st_buffer(study_site_proj, dist = radius_km * 1000)
+buffer_lonlat <- st_transform(buffer, crs = 4326)
+
+# Define bounding box for main map
+bbox <- st_bbox(buffer_lonlat)
+bbox_expanded <- bbox + c(-0.8, -0.8, 0.8, 0.8)
+
+# Get country boundaries - try high res first, fall back to medium
+world <- tryCatch({
+  library(rnaturalearthhires)
+  cat("Using high-resolution boundaries\n")
+  ne_countries(scale = 10, returnclass = "sf")
+}, error = function(e) {
+  cat("Using medium-resolution boundaries (install rnaturalearthhires for better detail)\n")
+  ne_countries(scale = "medium", returnclass = "sf")
+})
+
+botswana <- world[world$name == "Botswana", ]
+africa <- world[world$continent == "Africa", ]
+
+cities <- ne_download(scale = 10, type = "populated_places", 
+                      category = "cultural", returnclass = "sf")
+
+# Filter cities near study area
+if (!is.na(st_crs(cities))) {
+  cities_near <- tryCatch({
+    st_filter(cities, bbox_polygon)
+  }, error = function(e) {
+    st_sf(geometry = st_sfc(crs = 4326))
+  })
+} else {
+  cities_near <- st_sf(geometry = st_sfc(crs = 4326))
+}
+
+# ============================================
+# DOWNLOAD SATELLITE IMAGERY
+# ============================================
+cat("Downloading satellite imagery (this may take a moment)...\n")
+
+# Crop features to map extent
+bbox_polygon <- st_as_sfc(st_bbox(bbox_expanded), crs = 4326)
+
+# Get satellite imagery for the study area
+# Using Esri World Imagery (satellite/aerial imagery)
+satellite_tiles <- tryCatch({
+  get_tiles(bbox_polygon, provider = "Esri.WorldImagery", zoom = 10, crop = TRUE)
+}, error = function(e) {
+  cat("Could not download satellite imagery. Using base map instead.\n")
+  cat("Error:", e$message, "\n")
+  NULL
+})
+
+# Panel A: Simplified map - ONLY MAUN labeled
+# Calculate 100% MCP for each species using adehabitatHR
+species_list <- unique(all_locations$species)
+mcp_list <- list()
+
+for (sp in species_list) {
+  sp_data <- all_locations %>% 
+    filter(species == sp) %>%
+    select(x, y, species)
+  
+  # Convert to SpatialPointsDataFrame
+  coordinates(sp_data) <- ~x + y
+  proj4string(sp_data) <- CRS("+init=epsg:32734")
+  
+  # Calculate 100% MCP
+  mcp <- mcp(sp_data[, "species"], percent = 100, unout = "km2")
+  
+  # Convert to sf
+  mcp_sf <- st_as_sf(mcp)
+  mcp_sf$species <- sp
+  mcp_list[[sp]] <- mcp_sf
+}
+
+# Combine all MCPs and transform to WGS84
+all_mcps <- do.call(rbind, mcp_list) %>%
+  st_transform(crs = 4326)
+
+settlements <- read_csv("Settlement_Data.csv")
+
+# Convert settlements to sf and categorize land use
+settlements_sf <- st_as_sf(settlements, 
+                           coords = c("X_COORDIN", "Y_COORDIN"),
+                           crs = 4326) %>%
+  mutate(
+    Livestock_Present = factor(Livestock_Present, 
+                               levels = c("N", "Y"),
+                               labels = c("No livestock", "Livestock present")),
+    Waterhole = factor(Waterhole_Y_N, levels = c("N", "Y"), 
+                       labels = c("No waterhole", "Waterhole"))
+  )
+
+# Identify Dog Camp
+dog_camp <- settlements_sf %>% filter(Name == "Dog_Camp")
+
+# Define tighter bounding box (zoomed in)
+bbox_zoom_out <- st_bbox(c(xmin = 22.3, ymin = -20.3, xmax = 24.2, ymax = -18.8), crs = 4326)
+
+# Tighter zoom — cuts empty lower-left, keeps Maun just inside bottom edge
+bbox_zoom <- st_bbox(c(xmin = 22.7, ymin = -20.1, xmax = 24.2, ymax = -18.95), crs = 4326)
+
+# Try to reload satellite tiles fresh with zoomed extent
+bbox_zoom_polygon <- st_as_sfc(bbox_zoom)
+satellite_tiles_fresh <- tryCatch({
+  get_tiles(bbox_zoom_polygon, provider = "Esri.WorldImagery", zoom = 11, crop = TRUE)
+}, error = function(e) {
+  NULL
+})
+
+cities_near <- cities %>%
+  dplyr::filter(NAME == "Maun")
+
+# Elegant Tufte-inspired colors for settlements
+waterhole_colors <- c("No waterhole" = "#48202a", "Waterhole" = "#0072b2")
+
+# Create map with zoomed extent
+fig1_A <- ggplot() +
+  # Satellite imagery - try direct approach
+  {if (!is.null(satellite_tiles_fresh)) {
+    tidyterra::geom_spatraster_rgb(data = satellite_tiles_fresh, maxcell = 5e5, alpha = 0.6)
+  } else if (exists("satellite_tiles") && !is.null(satellite_tiles)) {
+    # Try to plot existing tiles directly without checking
+    tryCatch(
+      tidyterra::geom_spatraster_rgb(data = satellite_tiles, maxcell = 5e5),
+      error = function(e) geom_sf(data = botswana, fill = "#e8e4df", color = NA)
+    )
+  } else {
+    geom_sf(data = botswana, fill = "#e8e4df", color = NA)
+  }} +
+  # Botswana border
+  geom_sf(data = botswana, fill = NA, color = "gray30", linewidth = 0.8) +
+  # Add MCP polygons with species colors
+  geom_sf(data = all_mcps, 
+          aes(fill = species, color = species),
+          alpha = 0.15, linewidth = 0.8) +
+  scale_fill_manual(values = species_colors, name = NULL) +
+  scale_color_manual(values = species_colors, guide = "none") +
+  # Add new fill scale for settlements
+  ggnewscale::new_scale_fill() +
+  # Add settlement points - subtle colors, slightly larger
+  geom_sf(data = settlements_sf, 
+        aes(fill = Waterhole, shape = Livestock_Present),
+        size = 2.5, color = "white", stroke = 0.5, alpha = 0.85) +
+  scale_fill_manual(values = waterhole_colors,
+                    name = "Water",
+                    guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
+  scale_shape_manual(values = c("No livestock" = 21, "Livestock present" = 22),
+                   name = "Livestock",
+                   guide = guide_legend(override.aes = list(size = 3, fill = "gray60"))) +
+  # Label Dog Camp as Research Camp
+  geom_sf_text(data = dog_camp,
+               label = "Research Camp",
+               size = 2.5, nudge_y = 0.03, nudge_x = -0.15,
+               color = "white", fontface = "bold") +
+  # Only Maun labeled
+  geom_sf_text(data = cities_near %>% filter(NAME == "Maun"), 
+               aes(label = NAME),
+               size = 3, nudge_y = 0.05, fontface = "bold",
+               color = "white") +
+  # Study site point
+  #geom_sf(data = study_site, color = "darkred", size = 4, shape = 21, 
+  #fill = "red", stroke = 1.2, alpha = 0.9) +
+  coord_sf(xlim = c(bbox_zoom["xmin"], bbox_zoom["xmax"]),
+           ylim = c(bbox_zoom["ymin"], bbox_zoom["ymax"]),
+           expand = FALSE) +
+  annotation_scale(location = "bl", width_hint = 0.2,
+                   text_cex = 0.7, pad_x = unit(0.3, "cm"),
+                   pad_y = unit(0.3, "cm"),
+                   text_col = "white", line_col = "white") +
+  annotation_north_arrow(location = "tr", which_north = "true",
+                         height = unit(0.9, "cm"), width = unit(0.9, "cm"),
+                         pad_x = unit(0.3, "cm"), pad_y = unit(0.3, "cm"),
+                         style = north_arrow_fancy_orienteering) +
+  labs(x = NULL, y = NULL) +
+  theme_void() +
+  theme(
+  legend.position = "bottom",
+  legend.direction = "horizontal",
+  legend.box = "vertical",        # species row, then water/land row
+  legend.box.just = "center",     # center under map
+  legend.text  = element_text(size = 6),
+  legend.title = element_text(size = 7, face = "bold"),
+  legend.key.width  = unit(0.5, "cm"),
+  legend.key.height = unit(0.35, "cm"),
+  legend.spacing.x  = unit(0.3, "cm"),
+  legend.margin     = margin(t = -3, r = 3, b = 2, l = 3)
+)
+
+
+
+# =============================================================================
+# FIGURE 1B: Climate context — temperature + SPI + data range bars
+# Three-panel figure sharing a common x-axis, assembled with patchwork
+# =============================================================================
+
+# Define government-designated drought periods (water years: Oct-Sep)
+drought_periods <- data.frame(
+  start = as.Date(c("2012-10-01", "2014-10-01", "2015-10-01", 
+                    "2018-10-01", "2022-10-01")),
+  end = as.Date(c("2013-09-30", "2015-09-30", "2016-09-30", 
+                  "2019-09-30", "2023-09-30")),
+  label = c("2012-13", "2014-15", "2015-16", "2018-19", "2022-23")
+)
+
+# Panel B: SPI time series - minimal (using 6-month data)
+drought_periods$start <- as.Date(drought_periods$start)
+drought_periods$end   <- as.Date(drought_periods$end)
+
+# --- 1. Shared x limits ------------------------------------------------------
+
+x_min <- floor_date(min(as.Date(paste0(
+  substr(human_area_visits_monthly$YearMon, 1, 7), "-01")),
+  na.rm = TRUE), "year")
+
+x_max <- ceiling_date(max(as.Date(paste0(
+  substr(pac_data_ngami$YearMon, 1, 7), "-01")),
+  na.rm = TRUE), "year") - days(1)
+
+shared_x <- scale_x_date(
+  limits      = c(x_min, x_max),
+  date_breaks = "3 years",
+  date_labels = "%Y",
+  expand      = c(0, 0)
+)
+
+# --- 2. Data range bars (Panel A) --------------------------------------------
+
+gps_min  <- min(as.Date(paste0(substr(human_area_visits_monthly$YearMon, 1, 7), "-01")), na.rm = TRUE)
+gps_max  <- max(as.Date(paste0(substr(human_area_visits_monthly$YearMon, 1, 7), "-01")), na.rm = TRUE)
+conf_min <- min(as.Date(paste0(substr(pac_data_ngami$YearMon, 1, 7), "-01")),           na.rm = TRUE)
+conf_max <- max(as.Date(paste0(substr(pac_data_ngami$YearMon, 1, 7), "-01")),           na.rm = TRUE)
+
+data_ranges <- data.frame(
+  label = c("GPS data", "Conflict data"),
+  xmin  = c(gps_min,  conf_min),
+  xmax  = c(gps_max,  conf_max),
+  y     = c(2, 1)
+)
+
+# Neutral elegant palette: dark brown for GPS, navy for conflict
+bar_colors <- c("GPS data"      = "#4a2c2a",   # dark brown
+                "Conflict data" = "#1b2a4a")    # navy
+
+label_color <- "beige"
+
+fig1_B_bars <- ggplot(data_ranges) +
+  geom_segment(aes(x = xmin, xend = xmax, y = y, yend = y, color = label),
+               linewidth = 4.5, lineend = "round") +
+  # Labels sit above the line, in dark grey (not matching bar colour)
+  geom_text(aes(x = xmin, y = y, label = label),
+            color    = label_color,
+            hjust    = 0,
+            nudge_y  = 0,
+            size     = 3.5,
+            fontface = "bold") +
+  scale_color_manual(values = bar_colors, guide = "none") +
+  scale_y_continuous(limits = c(0.3, 2.9), expand = c(0, 0)) +
+  shared_x +
+  labs(x = NULL, y = NULL) +
+  tufte_theme() +
+  theme(
+    axis.text.x  = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.y  = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid   = element_blank()
+  )
+
+# --- 3. Temperature panel (Panel B) ------------------------------------------
+# Aggregate hourly → monthly mean, min, max
+
+## Raw temperature data ☑️
+temperature_raw <- read_csv("Temperature_Hourly_Era5.csv")
+
+# Calculate daily maximum temperatures ☑️
+temperature_daily <- temperature_raw %>%
+  mutate(date = as.Date(Date)) %>%
+  group_by(date) %>%
+  summarise(temperature_max = max(Temperature)) %>%
+  mutate(
+    month = month(date),
+    year = year(date),
+    day = yday(date)
+  ) %>%
+  ungroup()
+
+temperature_monthly <- temperature_raw %>%
+  mutate(date = floor_date(as.Date(Date), "month")) %>%
+  group_by(date) %>%
+  summarise(
+    temp_mean = mean(Temperature, na.rm = TRUE),
+    temp_max  = max(Temperature,  na.rm = TRUE),
+    temp_min  = min(Temperature,  na.rm = TRUE),
+    .groups   = "drop"
+  )
+
+
+#Calculate hot day threshold ERA5 data
+temperature_daily_baseline <- filter(temperature_daily, year > 1990 & year <2021)
+hot_threshold_c <- quantile(temperature_daily_baseline$temperature_max, 0.9, na.rm = TRUE)
+#35.69702 
+
+# Create hot_day flag for all dates
+hot_daily <- temperature_daily %>%
+  mutate(hot_day = ifelse(temperature_max > hot_threshold_c, 1, 0)) %>%
+  dplyr::select(date, hot_day)
+
+hot_monthly <- hot_daily %>%
+  mutate(YearMon = format(date, "%Y-%m")) %>%
+  group_by(YearMon) %>%
+  summarise(
+    hot_day_count = sum(hot_day, na.rm = TRUE),
+    hot_day_prop  = mean(hot_day, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+
+# Months with at least one extreme heat day, joined to mean temp for y position
+hot_months <- hot_monthly %>%
+  filter(hot_day_count > 0) %>%
+  mutate(date = as.Date(paste0(YearMon, "-01"))) %>%
+  left_join(temperature_monthly %>% select(date, temp_mean), by = "date")
+
+fig1_B_temp <- ggplot(temperature_monthly, aes(x = date)) +
+  geom_ribbon(aes(ymin = temp_min, ymax = temp_max),
+              fill = "#e9c46a", alpha = 0.25) +
+  geom_line(aes(y = temp_mean), color = "#e9c46a", linewidth = 0.5) +
+  geom_point(data  = hot_months,
+             aes(x = date, y = temp_mean),
+             color = "#e76f51", #"#e63946"
+             fill  = "#e76f51",
+             shape = 21,
+             size  = 1.5,
+             alpha = 0.85) +
+  shared_x +
+  labs(x = NULL, y = "Temperature (°C)") +
+  tufte_theme() +
+  theme(
+    axis.text.x  = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+
+# --- 4. SPI panel (Panel C) --------------------------------------------------
+
+fig1_B_spi <- ggplot(spi_dogcamp, aes(x = date, y = spi.6)) +
+  geom_rect(data = drought_periods,
+            aes(xmin = start, xmax = end, ymin = -Inf, ymax = Inf),
+            inherit.aes = FALSE, fill = "#e76f51", alpha = 0.18) +
+  geom_hline(yintercept = 0, color = "gray60", linewidth = 0.3) +
+  # dotted -1 line removed
+  geom_line(color = "#264653", linewidth = 0.5) +
+  scale_y_continuous(limits = c(-2, 2)) +
+  shared_x +
+  labs(x = NULL,
+       y = "Standard Precipitation Index\n(← Drought | Wet →)") +
+  tufte_theme()
+
+# --- 5. Assemble with patchwork ----------------------------------------------
+
+fig1_B <- fig1_B_bars / fig1_B_temp / fig1_B_spi +
+  plot_layout(heights = c(0.15, 1, 1)) &
+  theme(
+    plot.margin = margin(t = 2, r = 6, b = 2, l = 6)
+  )
+
+fig1_B
+
+
+
+# Panel E: Monthly precipitation
+precip_monthly <- spi_dogcamp %>%
+  group_by(month) %>%
+  summarise(
+    mean_precip = mean(rainfall.mm, na.rm = TRUE),
+    se_precip = sd(rainfall.mm, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    month_name = factor(month, levels = 1:12,
+                        labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+  )
+
+fig1_E <- ggplot(precip_monthly, aes(x = month, y = mean_precip)) +
+  geom_ribbon(aes(ymin = mean_precip - se_precip, ymax = mean_precip + se_precip),
+              fill = "#2a9d8f", alpha = 0.2) +
+  geom_line(color = "#264653", linewidth = 0.6) +
+  geom_point(color = "#264653", size = 1.5) +
+  scale_x_continuous(breaks = seq(1, 12, 2),
+                     labels = month.abb[seq(1, 12, 2)]) +
+  labs(x = NULL, y = "Precipitation (mm)") +
+  tufte_theme()
+
+
+# district coordinates (approximate centroids - adjust as needed)
+district_coords <- data.frame(
+  district = c("Ngamiland", "Chobe", "Central", "Gantsi", "Kweneng", 
+               "Kgalagadi", "Southern", "Kgatleng"),
+  lon = c(22.5, 25.0, 26.5, 22.0, 24.5, 22.5, 25.5, 26.0),
+  lat = c(-19.5, -18.0, -21.5, -22.5, -24.0, -25.5, -25.0, -24.5)
+)
+
+# Panel A: Map (legend moved below, horizontal)
+district_rates <- pac_data_all %>%
+  group_by(district) %>%
+  summarise(
+    total = n(),
+    n_months = n_distinct(YearMon),
+    rate = n() / n_distinct(YearMon),
+    .groups = "drop"
+  ) %>%
+  left_join(district_coords, by = "district") %>%
+  arrange(desc(rate))  # Order by rate, not total
+
+# ==============================================================================
+# PART 1: CREATE PAC STATIONS DATA
+# ==============================================================================
+
+# PAC reporting stations in Ngamiland
+pac_stations <- tribble(
+  ~station,    ~lat,        ~lon,
+  "Gumare",    -19.355682,  22.155008,
+  "Maun",      -19.995434,  23.417970,
+  "Sehithwa",  -20.473419,  22.700249,
+  "Seronga",   -18.819927,  22.419876,
+  "Shakawe",   -18.367861,  21.839178
+) %>%
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+
+
+# ==============================================================================
+# PART 2: GET BOTSWANA BOUNDARY
+# ==============================================================================
+
+# Country boundary
+botswana_country <- ne_countries(
+  country = "Botswana",
+  returnclass = "sf",
+  scale = "medium"
+)
+
+
+# Level 1 admin units (districts)
+botswana_districts <- gadm(
+  country = "BWA",
+  level = 1,
+  path = tempdir()
+) |> st_as_sf()
+
+ngamiland <- botswana_districts %>%
+  filter(NAME_1 == "North-West")
+
+# ==============================================================================
+# PART 3: GET SATELLITE IMAGERY FOR BOTSWANA
+# ==============================================================================
+
+# Create bounding box for Botswana
+botswana_bbox <- st_bbox(botswana_country)
+
+# Expand bbox slightly to ensure full coverage
+botswana_bbox_expanded <- st_bbox(c(
+  xmin = as.numeric(botswana_bbox["xmin"]) - 0.5,
+  xmax = as.numeric(botswana_bbox["xmax"]) + 0.5,
+  ymin = as.numeric(botswana_bbox["ymin"]) - 0.5,
+  ymax = as.numeric(botswana_bbox["ymax"]) + 0.5
+), crs = st_crs(botswana_country))
+
+# Convert to polygon for get_tiles
+botswana_bbox_polygon <- st_as_sfc(botswana_bbox_expanded)
+
+# Get satellite tiles
+# Note: Lower zoom (6-8) for country-level view, higher zoom makes file huge
+satellite_tiles <- tryCatch({
+  get_tiles(botswana_bbox_polygon, 
+            provider = "Esri.WorldImagery",  # High-quality satellite
+            zoom = 7,  # Adjust 6-8 depending on detail needed
+            crop = TRUE,
+            cachedir = tempdir())
+}, error = function(e) {
+  message("Could not download satellite tiles: ", e$message)
+  NULL
+})
+
+if (!is.null(satellite_tiles)) {
+  satellite_tiles <- mask(
+    satellite_tiles,
+    vect(botswana_country)
+  )
+}
+
+
+botswana_map_sat <- ggplot() +
+  
+  # Satellite imagery
+  { if (!is.null(satellite_tiles)) {
+    geom_spatraster_rgb(
+      data = satellite_tiles,
+      maxcell = 1e6,
+      alpha = 0.75
+    )
+  }
+  } +
+  
+  # Botswana outline
+  geom_sf(
+    data = botswana_country,
+    fill = NA,
+    color = "gray40",
+    linewidth = 0.6
+  ) +
+  
+  # Ngamiland outline (more visible)
+  geom_sf(
+    data = ngamiland,
+    fill = NA,
+    color = "#2f4f4f",
+    linewidth = 0.9,
+    linetype = "longdash"
+  ) +
+  
+  # PAC stations (colored individually)
+  geom_sf(
+    data = pac_stations,
+    aes(fill = station),
+    shape = 21,
+    fill = "gray50",
+    color = "white",
+    size = 3.8,
+    stroke = 1.2
+  ) +
+  #scale_fill_manual(values = station_colors, guide = "none") +
+  
+  # Label halo
+  geom_sf_text(
+    data = pac_stations,
+    aes(label = station),
+    size = 3.4,
+    fontface = "bold",
+    hjust = -0.35,
+    color = "black",
+    alpha = 0.6
+  ) +
+  
+  # Label foreground
+  geom_sf_text(
+    data = pac_stations,
+    aes(label = station),
+    size = 3.4,
+    fontface = "bold",
+    hjust = -0.35,
+    color = "white"
+  ) +
+  
+  # Scale bar with labels
+  annotation_scale(
+    location = "bl",
+    width_hint = 0.25,
+    text_cex = 0.8,
+    text_col = "white",
+    line_col = "white",
+    unit_category = "metric",
+    style = "ticks"
+  ) +
+  
+  # North arrow
+  annotation_north_arrow(
+    location = "tr",
+    which_north = "true",
+    height = unit(0.9, "cm"),
+    width  = unit(0.9, "cm"),
+    style  = north_arrow_fancy_orienteering
+  ) +
+  
+  theme_void() +
+  theme(
+    plot.background  = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.margin      = margin(10, 10, 10, 10)
+  )
+
+
+botswana_map_sat_nostations <- ggplot() +
+  
+  # Satellite imagery
+  { if (!is.null(satellite_tiles)) {
+    geom_spatraster_rgb(
+      data = satellite_tiles,
+      maxcell = 1e6,
+      alpha = 0.75
+    )
+  }
+  } +
+  
+  # Botswana outline
+  geom_sf(
+    data = botswana_country,
+    fill = NA,
+    color = "gray40",
+    linewidth = 0.6
+  ) +
+  
+  # Ngamiland outline (more visible)
+  geom_sf(
+    data = ngamiland,
+    fill = NA,
+    color = "#2f4f4f",
+    linewidth = 0.9,
+    linetype = "longdash"
+  ) +
+  
+  # PAC stations (colored individually)
+  # geom_sf(
+  #   data = pac_stations,
+  #   aes(fill = station),
+  #   shape = 21,
+  #   fill = "gray50",
+  #   color = "white",
+  #   size = 3.8,
+  #   stroke = 1.2
+  # ) +
+  # scale_fill_manual(values = station_colors, guide = "none") +
+  
+  # Label halo
+  # geom_sf_text(
+  #   data = pac_stations,
+  #   aes(label = station),
+  #   size = 3.4,
+  #   fontface = "bold",
+  #   hjust = -0.35,
+  #   color = "black",
+  #   alpha = 0.6
+  # ) +
+  # 
+  # # Label foreground
+  # geom_sf_text(
+  #   data = pac_stations,
+  #   aes(label = station),
+  #   size = 3.4,
+  #   fontface = "bold",
+  #   hjust = -0.35,
+  #   color = "white"
+  # ) +
+  
+  # Scale bar with labels
+  annotation_scale(
+    location = "bl",
+    width_hint = 0.25,
+    text_cex = 0.8,
+    text_col = "white",
+    line_col = "white",
+    unit_category = "metric",
+    style = "ticks"
+  ) +
+  
+  # North arrow
+  annotation_north_arrow(
+    location = "tr",
+    which_north = "true",
+    height = unit(0.9, "cm"),
+    width  = unit(0.9, "cm"),
+    style  = north_arrow_fancy_orienteering
+  ) +
+  
+  theme_void() +
+  theme(
+    plot.background  = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.margin      = margin(10, 10, 10, 10)
+  )
+
+
+# ==============================================================================
+# REFINED GLOBE INSET FOR BOTSWANA (adapted from your code)
+# ==============================================================================
+
+# Create bounding box for Botswana region
+botswana_bbox <- st_bbox(c(xmin = 19, xmax = 29, 
+                           ymin = -27, ymax = -17),
+                         crs = st_crs(4326))
+
+# Get world data
+world_sf <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Orthographic projection centered on Botswana
+ortho_proj <- "+proj=ortho +lat_0=-22 +lon_0=24"
+
+# Transform world data and Botswana box to orthographic projection
+world_ortho <- st_transform(world_sf, crs = ortho_proj)
+box <- st_as_sfc(botswana_bbox)
+box_ortho <- st_transform(box, crs = ortho_proj)
+
+
+# OPTION B: High-contrast, sophisticated globe
+globe_inset_contrast <- ggplot() +
+  # Ocean - deeper, more saturated
+  geom_circle(aes(x0 = 0, y0 = 0, r = 6.37e6), 
+              fill = "#d4e8ee",        # Richer blue
+              color = "gray40",
+              linewidth = 0.4) + 
+  
+  # Continents - charcoal
+  geom_sf(data = world_ortho, 
+          fill = "#4a4a4a",            # Charcoal gray
+          color = "#3a3a3a",
+          linewidth = 0.15) +
+  
+  # Highlight Botswana
+  geom_sf(data = box_ortho, 
+          fill = NA, 
+          color = "#c46a4f",           # Terracotta
+          linewidth = 1) +
+  
+  coord_sf(crs = ortho_proj, clip = "on") +
+  theme_void() +
+  theme(
+    plot.background = element_rect(fill = NA, color = NA),
+    panel.background = element_rect(fill = NA, color = NA)
+  )
+
+
+
+
+```
+
+
+
+## Putting plots together for figure
+
+```{r methods figure}
+
+
+# =============================================================================
+# FIGURE 1: Full layout assembly using patchwork design strings
+# =============================================================================
+
+# Globe inset embedded into botswana map first
+botswana_with_globe <- botswana_map_sat +
+  inset_element(
+    globe_inset_contrast,
+    left   = 0.0,
+    bottom = 0.72,
+    right  = 0.32,
+    top    = 1.0
+  )
+
+empty_panel <- ggplot() + theme_void()  # placeholder for photos (bottom right)
+
+layout1_design <- '
+AABBBBB
+AABBBBB
+AABBBBB
+AABBBBB
+CCBBBBB
+CCBBBBB
+CCDEEEE
+CCDEEEE
+'
+
+methodsfig <- botswana_with_globe +
+  fig1_A +
+  fig1_B +
+  fig1_E +
+  empty_panel +
+  plot_layout(design = layout1_design) +
+  plot_annotation(
+    tag_levels = 'A',
+    tag_prefix = '(',
+    tag_suffix = ')'
+  ) &
+  theme(plot.tag = element_text(size = 9, face = "bold"))
+
+methodsfig
+
+
+# ggsave("~/Desktop/methodsfig_final.pdf", methodsfig, 
+#        width = 550, height = 250, units = "mm",
+#        device = cairo_pdf)
+# 
+# ggsave("methodsfig_final.png", methodsfig, width = 550, height = 250, units = "mm", dpi = 300)
+# 
+# 
+# ggsave("~/Desktop/SpiTemp_final.pdf", fig1_B, 
+#        width = 114, height = 138, units = "mm",
+#        device = cairo_pdf)
+
+```
+
+
+```{r GPS Results figure}
+
+layout_fig2 <- "
+CCCCAAAAA
+CCCCAAAAA
+CCCCAAAAA
+CCCCAAAAA
+CCCCAAAAA
+BBBBDDDDD
+BBBBDDDDD
+BBBBDDDDD
+BBBBDDDDD
+BBBBDDDDD
+EEEEDDDDD
+EEEEDDDDD
+EEEEDDDDD
+EEEEDDDDD
+EEEEDDDDD
+"
+
+fig2_combined <-
+  visits_water_livestock +
+  fig_SPI_Livestock_boot_2 +
+  fig_SPI_Waterhole_boot_2 +
+  fig_dog_04080_boot +
+  fig_lion_SPI_Waterhole_boot +
+  plot_layout(design = layout_fig2)
+
+fig2_combined
+
+# ggsave("~/Desktop/fig2_combined.pdf", fig2_combined, 
+#        width = 300, height = 350, units = "mm",
+#        device = cairo_pdf)
+
+
+```
+
+
+```{r PAC Results figure}
+
+layout_fig3 <- '
+AACC
+AACC
+BBCC
+BBCC
+BBCC
+BBCC
+'
+
+fig3 <- station_species_heatmap +
+  fig_spi_facets_boot +
+  fig_lion_04080_boot +
+  plot_layout(design = layout_fig3) +
+  plot_annotation(tag_levels = 'a',
+                  tag_prefix = '(',
+                  tag_suffix = ')')
+
+fig3
+
+
+# ggsave("figure3_option2_final.pdf", fig3, width = 400, height = 250, units = "mm")
+# 
+# ggsave("figure3_option2_final.png", fig3, width = 400, height = 250, units = "mm", dpi = 300)
+# 
+# ggsave("~/Desktop/figure3_option2_final.pdf", fig3, 
+#        width = 400, height = 250, units = "mm",
+#        device = cairo_pdf)
+
+```
