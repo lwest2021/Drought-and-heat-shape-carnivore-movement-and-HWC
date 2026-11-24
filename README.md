@@ -30,6 +30,6 @@ Some spatial figures require downloading geographic boundaries or satellite imag
 
 ## Data availability and limitations
 
-The full carnivore GPS location dataset (all_locations_final) and individual settlement visitation records (results_settlement_visits) are not included in this public repository due to the sensitivity of wildlife location data. Both datasets are retained separately.
+The full carnivore GPS location dataset (all_locations) and individual settlement visitation records (results_settlement_visits) are not included in this public repository due to the sensitivity of wildlife location data. Both datasets are retained separately.
 
 Consequently, some analyses and figures requiring individual GPS coordinates or settlement entry records cannot be reproduced from the publicly available files alone. The remaining processed datasets and code are provided to support transparency and reproducibility of the analyses.
